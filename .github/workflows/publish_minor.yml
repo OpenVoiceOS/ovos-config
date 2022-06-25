@@ -82,4 +82,4 @@ jobs:
           token: ${{ secrets.MATRIX_TOKEN }}
           channel: '!WjxEKjjINpyBRPFgxl:krbel.duckdns.org'
           message: |
-            New ovos-core release! ${{ steps.version.outputs.version }}
+            New ovos-config release! ${{ steps.version.outputs.version }}
