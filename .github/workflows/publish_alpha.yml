@@ -42,7 +42,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           maxIssues: 50
-          sinceTag: "release/v20.8.1"
         id: changelog
       - name: Commit to dev
         uses: stefanzweifel/git-auto-commit-action@v4
