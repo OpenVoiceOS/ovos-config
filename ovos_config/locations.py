@@ -15,11 +15,19 @@ import os
 from os.path import join, dirname, expanduser, exists
 from time import sleep
 
-from ovos_utils.configuration import get_xdg_config_save_path, get_webcache_location, get_xdg_base, get_config_filename, \
-    find_default_config
+from ovos_utils.configuration import get_xdg_config_save_path, get_webcache_location, get_xdg_base, \
+    get_config_filename, find_default_config as _fdc
 
-DEFAULT_CONFIG = find_default_config() or \
-                 join(dirname(__file__), "mycroft.conf")
+
+def find_default_config():
+    try:
+        return _fdc()
+    except FileNotFoundError:
+        # mycroft-core not found
+        return join(dirname(__file__), "mycroft.conf")
+
+
+DEFAULT_CONFIG = find_default_config()
 SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
                                f'/etc/{get_xdg_base()}/{get_config_filename()}')
 # TODO: remove in 22.02
