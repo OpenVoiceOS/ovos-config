@@ -21,17 +21,17 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 def get_version():
     """ Find the version of ovos-core"""
     version = None
-    version_file = os.path.join(BASEDIR, 'mycroft', 'version.py')
+    version_file = os.path.join(BASEDIR, 'ovos_config', 'version.py')
     major, minor, build, alpha = (None, None, None, None)
     with open(version_file) as f:
         for line in f:
-            if 'OVOS_VERSION_MAJOR' in line:
+            if 'VERSION_MAJOR' in line:
                 major = line.split('=')[1].strip()
-            elif 'OVOS_VERSION_MINOR' in line:
+            elif 'VERSION_MINOR' in line:
                 minor = line.split('=')[1].strip()
-            elif 'OVOS_VERSION_BUILD' in line:
+            elif 'VERSION_BUILD' in line:
                 build = line.split('=')[1].strip()
-            elif 'OVOS_VERSION_ALPHA' in line:
+            elif 'VERSION_ALPHA' in line:
                 alpha = line.split('=')[1].strip()
 
             if ((major and minor and build and alpha) or
@@ -56,11 +56,11 @@ def required(requirements_file):
 
 setup(
     name='ovos-config',
-    #version=get_version(),
+    version=get_version(),
     license='Apache-2.0',
-    url='https://github.com/OpenVoiceOS/ovos-core',
-    description='mycroft-core packaged as a library',
-    install_requires=required('requirements.txt'),
+    url='https://github.com/OpenVoiceOS/ovos-config',
+    description='mycroft-core configuration module',
+    install_requires=required('requirements/requirements.txt'),
     packages=find_packages(include=['ovos*']),
     include_package_data=True
 )
