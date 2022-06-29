@@ -130,8 +130,10 @@ class LocalConf(dict):
                     with open(path) as f:
                         config = yaml.safe_load(f)
                     if isinstance(config, str):
-                        LOG.error(f"yaml config parsed as str. {path}:\n"
-                                  f"{config}")
+                        LOG.error(f"yaml config parsed as str. '{path}'")
+                        with open(path) as f:
+                            contents = f.read()
+                        LOG.debug(f"{path}:\n{contents}")
                         return
                 else:
                     config = load_commented_json(path)
