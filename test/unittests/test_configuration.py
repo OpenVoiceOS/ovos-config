@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 from unittest import TestCase, skip
 from ovos_config import LocalConf, Configuration, RemoteConf
-from os.path import dirname, isfile
+from os.path import dirname, isfile, join
 import json
 from typing import OrderedDict
 
@@ -88,6 +88,40 @@ class TestConfiguration(TestCase):
             self.assertIsInstance(d, dict)
             self.assertNotIsInstance(d, OrderedDict)
             self.assertEqual(json.loads(json.dumps(d)), d)
+
+    def test_load_config_stack(self):
+        from ovos_config.config import Configuration
+        test_dir = join(dirname(__file__), "config_stack")
+        default_config = LocalConf(join(test_dir, "default.yaml"))
+        system_config = LocalConf(join(test_dir, "system.yaml"))
+        remote_config = LocalConf(join(test_dir, "remote.yaml"))
+        user_config = LocalConf(join(test_dir, "user.yaml"))
+        Configuration.default = default_config
+        Configuration.system = system_config
+        Configuration.remote = remote_config
+        Configuration.xdg_configs = [user_config]
+        Configuration.load_config_stack()
+        config = Configuration()
+        # Test stack load order
+        self.assertEqual(config["config_name"], "user")
+        # Test system constraints
+        self.assertEqual(config["system_only"], {"from_sys": True,
+                                                 "from_rem": False,
+                                                 "from_usr": False})
+        # Test default constraints (overridden)
+        self.assertEqual(config["default_spec"], {"from_sys": True,
+                                                  "from_rem": True,
+                                                  "from_usr": True})
+        # Test nested constraints
+        self.assertEqual(config["test"], {"default": True,
+                                          "system": True,
+                                          "user": True,
+                                          "remote": True})
+        # Test non-overridden default config
+        self.assertEqual(config["default_only"], "default")
+        # Test protected key is undefined
+        self.assertFalse("user_only" in config)
+        self.assertEqual(config["remote_only"], "remote")
 
     def tearDown(self):
         Configuration.load_config_stack([{}], True)

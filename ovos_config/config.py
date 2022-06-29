@@ -383,7 +383,7 @@ class Configuration(dict):
         for index, item in enumerate(configs):
             if isinstance(item, str):
                 configs[index] = LocalConf(item)
-            elif isinstance(item, dict):
+            elif not isinstance(item, LocalConf):
                 configs[index] = LocalConf(None)
                 configs[index].merge(item)
 
@@ -399,7 +399,8 @@ class Configuration(dict):
         # Merge all configs into one
         base = {}
         for cfg in configs:
-            is_user = cfg.path is None or cfg.path not in [Configuration.default, Configuration.system]
+            is_user = cfg.path is None or cfg.path not in [Configuration.default.path,
+                                                           Configuration.system.path]
             is_remote = cfg.path == Configuration.remote.path
             if (is_remote and skip_remote) or (is_user and skip_user):
                 continue
