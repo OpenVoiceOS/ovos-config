@@ -90,7 +90,6 @@ class TestConfiguration(TestCase):
             self.assertEqual(json.loads(json.dumps(d)), d)
 
     def test_load_config_stack(self):
-        from ovos_config.config import Configuration
         test_dir = join(dirname(__file__), "config_stack")
         default_config = LocalConf(join(test_dir, "default.yaml"))
         system_config = LocalConf(join(test_dir, "system.yaml"))
@@ -100,7 +99,9 @@ class TestConfiguration(TestCase):
         Configuration.system = system_config
         Configuration.remote = remote_config
         Configuration.xdg_configs = [user_config]
-        Configuration.load_config_stack()
+        Configuration.__patch = LocalConf(None)
+        Configuration._old_user = LocalConf(None)
+        Configuration.load_all_configs()
         config = Configuration()
         # Test stack load order
         self.assertEqual(config["config_name"], "user")
