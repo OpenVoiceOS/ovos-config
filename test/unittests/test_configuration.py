@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 from unittest import TestCase, skip
 from ovos_config import LocalConf, Configuration, RemoteConf
-from os.path import dirname, isfile
+from os.path import dirname, isfile, join
 import json
 from typing import OrderedDict
 
@@ -60,6 +60,21 @@ class TestConfiguration(TestCase):
         mock_exists.return_value = False
         lc = LocalConf('test')
         self.assertEqual(lc, {})
+
+    def test_local_config_exceptions(self):
+        from ovos_config.config import LocalConf
+        missing_path = join(dirname(__file__), "file_not_found.json")
+        invalid_path = __file__
+        invalid_yaml = join(dirname(__file__), "invalid_yaml.yaml")
+
+        conf = LocalConf(missing_path)
+        self.assertEqual(conf, dict())
+
+        conf = LocalConf(invalid_path)
+        self.assertEqual(conf, dict())
+
+        conf = LocalConf(invalid_yaml)
+        self.assertEqual(conf, dict())
 
     def test_file_formats(self):
         yml_cnf = LocalConf(f"{dirname(__file__)}/mycroft.yml")

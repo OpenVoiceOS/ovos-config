@@ -129,11 +129,20 @@ class LocalConf(dict):
                 if self._get_file_format(path) == "yaml":
                     with open(path) as f:
                         config = yaml.safe_load(f)
+                    if isinstance(config, str):
+                        LOG.error(f"yaml config parsed as str. {path}:\n"
+                                  f"{config}")
+                        return
                 else:
                     config = load_commented_json(path)
                 for key in config:
                     self.__setitem__(key, config[key])
                 LOG.debug(f"Configuration {path} loaded")
+            except json.JSONDecodeError as e:
+                LOG.error(f"Error parsing json configuration '{path}': {e}")
+                with open(path) as f:
+                    contents = f.read()
+                LOG.debug(f"{path}:\n{contents}")
             except Exception as e:
                 LOG.exception(f"Error loading configuration '{path}'")
         else:
