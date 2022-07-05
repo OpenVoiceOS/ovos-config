@@ -13,7 +13,7 @@ class TestConfiguration(TestCase):
     def test_get_data_dirs(self):
         from ovos_config.locations import get_xdg_data_dirs
         directories = get_xdg_data_dirs("test")
-        self.assertIn(expanduser("~/.local/share/test"), directories)
+        self.assertTrue(all((d.endswith('/test') for d in directories)))
 
     def test_get_xdg_config_save_path(self):
         from ovos_config.locations import get_xdg_config_save_path
@@ -21,13 +21,13 @@ class TestConfiguration(TestCase):
                          expanduser("~/.config/test"))
 
     def test_get_xdg_data_save_path(self):
-        from ovos_config.locations import get_xdg_config_save_path
-        self.assertEqual(get_xdg_config_save_path("test"),
+        from ovos_config.locations import get_xdg_data_save_path
+        self.assertEqual(get_xdg_data_save_path("test"),
                          expanduser("~/.local/share/test"))
 
-    def test_get_xdg_cachesave_path(self):
-        from ovos_config.locations import get_xdg_config_save_path
-        self.assertEqual(get_xdg_config_save_path("test"),
+    def test_get_xdg_cache_save_path(self):
+        from ovos_config.locations import get_xdg_cache_save_path
+        self.assertEqual(get_xdg_cache_save_path("test"),
                          expanduser("~/.cache/test"))
 
     @mock.patch("ovos_config.meta_config.get_config_filename")
