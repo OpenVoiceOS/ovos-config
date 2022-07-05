@@ -1,5 +1,7 @@
 from unittest.mock import MagicMock, patch
 from unittest import TestCase, skip
+
+import yaml
 from ovos_config import LocalConf, Configuration, RemoteConf
 from os.path import dirname, isfile
 import json
@@ -79,6 +81,16 @@ class TestConfiguration(TestCase):
         test_conf = LocalConf("/tmp/not_mycroft.json")
         self.assertEqual(test_conf, yml_cnf)
         self.assertEqual(test_conf, json_config)
+
+        with open("/tmp/not_mycroft.yml") as f:
+            disk_yml = yaml.safe_load(f)
+        self.assertEqual(yml_cnf, disk_yml)
+
+        with open("/tmp/not_mycroft.json") as f:
+            disk_json = json.load(f)
+        self.assertEqual(test_conf, disk_json)
+
+        self.assertEqual(disk_yml, disk_json)
 
     def test_yaml_config_load(self):
         yml_cnf = LocalConf(f"{dirname(__file__)}/mycroft.yml")
