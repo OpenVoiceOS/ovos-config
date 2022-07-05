@@ -17,7 +17,6 @@ from time import sleep
 from ovos_utils.system import search_mycroft_core_location, is_running_from_module
 from ovos_config.ovos import get_xdg_base, is_using_xdg, get_config_filename, get_ovos_config
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
-from ovos_config.base import MycroftSystemConfig
 
 
 def get_xdg_config_dirs(folder=None):
@@ -63,13 +62,6 @@ def find_user_config():
         return path
     if isfile(old):
         return old
-    # mark1 runs as a different user
-    sysconfig = MycroftSystemConfig()
-    platform_str = sysconfig.get("enclosure", {}).get("platform", "")
-    if platform_str == "mycroft_mark_1":
-        mk1path = "/home/mycroft/.mycroft/mycroft.conf"
-        if isfile(mk1path):
-            return mk1path
     return path
 
 
