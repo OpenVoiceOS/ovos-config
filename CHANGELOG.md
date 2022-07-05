@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a1...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a2...HEAD)
+
+**Merged pull requests:**
+
+- Fix config stack loading with unit tests [\#6](https://github.com/OpenVoiceOS/ovos-config/pull/6) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.2a2) (2022-07-05)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a1...V0.0.2a2)
 
 **Merged pull requests:**
 
