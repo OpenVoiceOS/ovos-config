@@ -67,7 +67,7 @@ class TestConfiguration(TestCase):
         get_core.return_value = None
         no_core_default = find_default_config()
         self.assertTrue(no_core_default.endswith("/ovos_config/mycroft.conf"))
-        self.assertTrue(isfile(no_core_default))
+        self.assertTrue(isfile(no_core_default), no_core_default)
 
         # Invalid Core
         get_core.return_value = "/tmp"
