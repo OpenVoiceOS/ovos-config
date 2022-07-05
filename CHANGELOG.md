@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a2...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a3...HEAD)
+
+**Merged pull requests:**
+
+- migrate full ovos\_utils.configuration module [\#7](https://github.com/OpenVoiceOS/ovos-config/pull/7) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.2a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.2a3) (2022-07-05)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a2...V0.0.2a3)
 
 **Merged pull requests:**
 
