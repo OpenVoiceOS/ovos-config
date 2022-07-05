@@ -365,10 +365,13 @@ class Configuration(dict):
 
 
 def read_mycroft_config():
+    """ returns a stateless dict with the loaded configuration """
     return dict(Configuration())
 
 
 def update_mycroft_config(config, path=None):
+    """ updates user config file with the contents of provided dict
+    if a path is provided that location will be used instead of MycroftUserConfig"""
     if path is None:
         conf = MycroftUserConfig()
     else:
