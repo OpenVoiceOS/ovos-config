@@ -10,19 +10,27 @@ try:
 except ImportError:
     LF = None
 
-_lang = "en-us"
+_lang = None
 _default_tz = None
 
 
-def get_primary_lang_code():
+def get_primary_lang_code(config=None):
+    global _lang
     if LF:
         return LF.get_primary_lang_code()
+    if not _lang:
+        config = config or ovos_config.Configuration()
+        _lang = config.get("lang", "en-us")
     return _lang.split("-")[0]
 
 
-def get_default_lang():
+def get_default_lang(config=None):
+    global _lang
     if LF:
         return LF.get_default_lang()
+    if not _lang:
+        config = config or ovos_config.Configuration()
+        _lang = config.get("lang", "en-us")
     return _lang
 
 

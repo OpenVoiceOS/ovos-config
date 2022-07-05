@@ -3,8 +3,8 @@
 import time
 from os.path import dirname
 
-from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
 
 class FileWatcher:
