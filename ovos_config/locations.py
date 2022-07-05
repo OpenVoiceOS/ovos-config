@@ -14,45 +14,45 @@
 import os
 from os.path import join, dirname, expanduser, exists, isfile
 from time import sleep
-from ovos_utils.system import search_mycroft_core_location, is_running_from_module
-from ovos_config.ovos import get_xdg_base, is_using_xdg, get_config_filename, get_ovos_config
+from ovos_utils.system import search_mycroft_core_location
+import ovos_config.meta_config as _ovos_config
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
 
 
 def get_xdg_config_dirs(folder=None):
     """ return list of possible XDG config dirs taking into account ovos.conf """
-    folder = folder or get_xdg_base()
+    folder = folder or _ovos_config.get_xdg_base()
     xdg_dirs = xdg_config_dirs() + [xdg_config_home()]
     return [join(path, folder) for path in xdg_dirs]
 
 
 def get_xdg_data_dirs(folder=None):
     """ return list of possible XDG data dirs taking into account ovos.conf """
-    folder = folder or get_xdg_base()
+    folder = folder or _ovos_config.get_xdg_base()
     return [join(path, folder) for path in xdg_data_dirs()]
 
 
 def get_xdg_config_save_path(folder=None):
     """ return base XDG config save path taking into account ovos.conf """
-    folder = folder or get_xdg_base()
+    folder = folder or _ovos_config.get_xdg_base()
     return join(xdg_config_home(), folder)
 
 
 def get_xdg_data_save_path(folder=None):
     """ return base XDG data save path taking into account ovos.conf """
-    folder = folder or get_xdg_base()
+    folder = folder or _ovos_config.get_xdg_base()
     return join(xdg_data_home(), folder)
 
 
 def get_xdg_cache_save_path(folder=None):
     """ return base XDG cache save path taking into account ovos.conf """
-    folder = folder or get_xdg_base()
+    folder = folder or _ovos_config.get_xdg_base()
     return join(xdg_cache_home(), folder)
 
 
 def find_user_config():
     """ return user config full file path taking into account ovos.conf """
-    path = join(get_xdg_config_save_path(), get_config_filename())
+    path = join(get_xdg_config_save_path(), _ovos_config.get_config_filename())
     if isfile(path):
         return path
     old, path = get_config_locations(default=False, web_cache=False,
@@ -69,7 +69,7 @@ def get_config_locations(default=True, web_cache=True, system=True,
                          old_user=True, user=True):
     """return list of all possible config files paths sorted by priority taking into account ovos.conf"""
     locs = []
-    ovos_cfg = get_ovos_config()
+    ovos_cfg = _ovos_config.get_ovos_config()
     if default:
         locs.append(ovos_cfg["default_config_path"])
     if system:
@@ -93,7 +93,7 @@ def get_xdg_config_locations():
     # This includes both the user config and
     # /etc/xdg/mycroft/mycroft.conf
     xdg_paths = list(reversed(
-        [join(p, get_config_filename())
+        [join(p, _ovos_config.get_config_filename())
          for p in get_xdg_config_dirs()]
     ))
     return xdg_paths
@@ -114,14 +114,18 @@ def find_default_config():
 
 DEFAULT_CONFIG = find_default_config()
 SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
-                               f'/etc/{get_xdg_base()}/{get_config_filename()}')
+                               f'/etc/{_ovos_config.get_xdg_base()}/'
+                               f'{_ovos_config.get_config_filename()}')
 # TODO: remove in 22.02
 # Make sure we support the old location still
 # Deprecated and will be removed eventually
-OLD_USER_CONFIG = join(expanduser('~'), '.' + get_xdg_base(), get_config_filename())
-USER_CONFIG = join(get_xdg_config_save_path(), get_config_filename())
+OLD_USER_CONFIG = join(expanduser('~'), '.' + _ovos_config.get_xdg_base(),
+                       _ovos_config.get_config_filename())
+USER_CONFIG = join(get_xdg_config_save_path(),
+                   _ovos_config.get_config_filename())
 REMOTE_CONFIG = "mycroft.ai"
-WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE') or get_webcache_location()
+WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE') or \
+                   get_webcache_location()
 
 
 def __ensure_folder_exists(path):
