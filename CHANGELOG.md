@@ -2,7 +2,16 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.1...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a1...HEAD)
+
+**Merged pull requests:**
+
+- Catch invalid config files and log contents [\#4](https://github.com/OpenVoiceOS/ovos-config/pull/4) ([NeonDaniel](https://github.com/NeonDaniel))
+- Add yaml/json parsing unit tests [\#3](https://github.com/OpenVoiceOS/ovos-config/pull/3) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.2a1) (2022-06-29)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.1...V0.0.2a1)
 
 **Merged pull requests:**
 
