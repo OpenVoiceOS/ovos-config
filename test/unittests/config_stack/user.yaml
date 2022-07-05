@@ -1,0 +1,11 @@
+config_name: user
+system_only:
+  from_sys: False
+  from_rem: False
+  from_usr: True
+test:
+  user: True
+  remote: False
+default_spec:
+  from_usr: True
+user_only: True

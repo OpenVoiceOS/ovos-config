@@ -1,0 +1,21 @@
+config_name: default
+system_only:
+  from_sys: False
+  from_rem: False
+  from_usr: False
+default_spec:
+  from_sys: False
+  from_rem: False
+  from_usr: False
+test:
+  default: True
+  system: False
+  user: False
+  remote: False
+default_only: default
+system:
+  protected_keys:
+    remote:
+      - default_spec
+    user:
+      - default_spec
