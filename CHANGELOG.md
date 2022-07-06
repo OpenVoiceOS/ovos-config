@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2...HEAD)
+
+**Fixed bugs:**
+
+- Fix circular imports and refactor submodules [\#8](https://github.com/OpenVoiceOS/ovos-config/pull/8) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.2) (2022-07-05)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a4...V0.0.2)
+
 ## [V0.0.2a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.2a4) (2022-07-05)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2a3...V0.0.2a4)
