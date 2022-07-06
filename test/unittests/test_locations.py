@@ -4,7 +4,7 @@ from os.path import expanduser, dirname, join, isfile
 from unittest import TestCase, mock
 
 
-class TestConfiguration(TestCase):
+class TestLocations(TestCase):
     def test_get_config_dirs(self):
         from ovos_config.locations import get_xdg_config_dirs
         directories = get_xdg_config_dirs("test")
@@ -59,14 +59,15 @@ class TestConfiguration(TestCase):
                          ['/test/default.yml', '/etc/test/test.yaml',
                           'webcache', '~/.test/test.yaml', 'config/test.yaml'])
 
-    @mock.patch("ovos_utils.system.search_mycroft_core_location")
+    @mock.patch("ovos_config.locations.search_mycroft_core_location")
     def test_find_default_config(self, get_core):
         from ovos_config.locations import find_default_config
 
         # No Core
         get_core.return_value = None
         no_core_default = find_default_config()
-        self.assertTrue(no_core_default.endswith("/ovos_config/mycroft.conf"))
+        self.assertTrue(no_core_default.endswith("/ovos_config/mycroft.conf"),
+                        no_core_default)
         self.assertTrue(isfile(no_core_default), no_core_default)
 
         # # Invalid Core
