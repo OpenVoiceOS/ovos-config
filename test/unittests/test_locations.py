@@ -62,7 +62,8 @@ class TestConfiguration(TestCase):
     @mock.patch("ovos_utils.system.search_mycroft_core_location")
     def test_find_default_config(self, get_core):
         from ovos_config.locations import find_default_config
-
+        import ovos_utils.system
+        ovos_utils.system._USER_DEFINED_ROOT = None
         # No Core
         get_core.return_value = None
         no_core_default = find_default_config()
