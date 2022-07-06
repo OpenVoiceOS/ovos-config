@@ -15,7 +15,7 @@ import os
 from os.path import join, dirname, expanduser, exists, isfile
 from time import sleep
 from ovos_utils.system import search_mycroft_core_location
-import ovos_config.meta_config as _ovos_config
+import ovos_config.meta as _ovos_config
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
 
 

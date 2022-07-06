@@ -30,7 +30,7 @@ class TestLocations(TestCase):
         self.assertEqual(get_xdg_cache_save_path("test"),
                          expanduser("~/.cache/test"))
 
-    @mock.patch("ovos_config.meta_config.get_config_filename")
+    @mock.patch("ovos_config.meta.get_config_filename")
     @mock.patch("ovos_config.locations.get_xdg_config_save_path")
     def test_find_user_config(self, save_path, config_filename):
         config_filename.return_value = "mycroft.yml"
@@ -39,7 +39,7 @@ class TestLocations(TestCase):
         self.assertEqual(find_user_config(), join(dirname(__file__),
                                                   "mycroft.yml"))
 
-    @mock.patch("ovos_config.meta_config.get_ovos_config")
+    @mock.patch("ovos_config.meta.get_ovos_config")
     @mock.patch("ovos_config.locations.get_webcache_location")
     @mock.patch("ovos_config.locations.get_xdg_config_save_path")
     def test_get_config_locations(self, config_path, webcache_loc,
@@ -82,8 +82,8 @@ class TestLocations(TestCase):
                               "mycroft.conf"))
 
     @mock.patch("ovos_utils.system.search_mycroft_core_location")
-    @mock.patch("ovos_config.meta_config.get_config_filename")
-    @mock.patch("ovos_config.meta_config.get_xdg_base")
+    @mock.patch("ovos_config.meta.get_config_filename")
+    @mock.patch("ovos_config.meta.get_xdg_base")
     def test_globals(self, xdg_base, config_filename, core_location):
         core_location.return_value = "default/config/path"
         xdg_base.return_value = "test"
