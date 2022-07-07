@@ -180,11 +180,6 @@ class ReadOnlyConfig(LocalConf):
             raise PermissionError(f"{self.path} is read only! it can not be modified at runtime")
         super().__setitem__(key, value)
 
-    def __setattr__(self, key, value):
-        if not self.allow_overwrite:
-            raise PermissionError(f"{self.path} is read only! it can not be modified at runtime")
-        super().__setattr__(key, value)
-
     def merge(self, *args, **kwargs):
         if not self.allow_overwrite:
             raise PermissionError(f"{self.path} is read only! it can not be modified at runtime")
