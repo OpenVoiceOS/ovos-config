@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.3...HEAD)
+
+**Fixed bugs:**
+
+- fix/reload config [\#9](https://github.com/OpenVoiceOS/ovos-config/pull/9) ([NeonJarbas](https://github.com/NeonJarbas))
+
+## [V0.0.3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.3) (2022-07-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.3a1...V0.0.3)
+
 ## [V0.0.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.3a1) (2022-07-06)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.2...V0.0.3a1)
