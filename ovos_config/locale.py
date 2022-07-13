@@ -26,7 +26,7 @@ def get_primary_lang_code(config=None):
 
 def get_default_lang(config=None):
     global _lang
-    if LF:
+    if LF and LF.get_default_lang():
         return LF.get_default_lang()
     if not _lang:
         config = config or ovos_config.Configuration()
