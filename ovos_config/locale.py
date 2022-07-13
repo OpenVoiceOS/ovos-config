@@ -25,9 +25,14 @@ def get_primary_lang_code(config=None):
 
 
 def get_default_lang(config=None):
+    """
+    Get the default localized language code (i.e. `en-us`)
+    @param config: Configuration (default is Configuration())
+    @return: lowercase BCP-47 language code
+    """
     global _lang
-    if LF and LF.get_default_lang():
-        return LF.get_default_lang()
+    if LF and LF.get_default_loc():
+        return LF.get_default_loc()
     if not _lang:
         config = config or ovos_config.Configuration()
         _lang = config.get("lang", "en-us")
