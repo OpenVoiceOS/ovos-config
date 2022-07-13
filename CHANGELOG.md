@@ -2,7 +2,16 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.3...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a1...HEAD)
+
+**Fixed bugs:**
+
+- Handle error in getting lang before default is set [\#11](https://github.com/OpenVoiceOS/ovos-config/pull/11) ([NeonDaniel](https://github.com/NeonDaniel))
+- Fix version tags to include version bump commits [\#10](https://github.com/OpenVoiceOS/ovos-config/pull/10) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.4a1) (2022-07-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.3...V0.0.4a1)
 
 **Fixed bugs:**
 
