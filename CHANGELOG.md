@@ -2,12 +2,20 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a1...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a2...HEAD)
+
+**Fixed bugs:**
+
+- Fix LF reference to get full lang code as expected [\#12](https://github.com/OpenVoiceOS/ovos-config/pull/12) ([NeonDaniel](https://github.com/NeonDaniel))
+- Fix version tags to include version bump commits [\#10](https://github.com/OpenVoiceOS/ovos-config/pull/10) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.4a2) (2022-07-13)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a1...V0.0.4a2)
 
 **Fixed bugs:**
 
 - Handle error in getting lang before default is set [\#11](https://github.com/OpenVoiceOS/ovos-config/pull/11) ([NeonDaniel](https://github.com/NeonDaniel))
-- Fix version tags to include version bump commits [\#10](https://github.com/OpenVoiceOS/ovos-config/pull/10) ([NeonDaniel](https://github.com/NeonDaniel))
 
 ## [V0.0.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.4a1) (2022-07-07)
 
