@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a2...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a3...HEAD)
+
+**Merged pull requests:**
+
+- Update DEFAULT\_CONFIG param to respect ovos.conf overrides [\#13](https://github.com/OpenVoiceOS/ovos-config/pull/13) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.4a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.4a3) (2022-07-14)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a2...V0.0.4a3)
 
 **Fixed bugs:**
 
