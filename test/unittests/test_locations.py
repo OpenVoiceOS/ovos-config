@@ -102,7 +102,9 @@ class TestLocations(TestCase):
         # Ensure all globals are reloaded with our test config
         import importlib
         import ovos_config.models
+
         importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.meta)
 
         # Test all config paths respect environment overrides/configured values
         from ovos_config.locations import DEFAULT_CONFIG, SYSTEM_CONFIG, \
