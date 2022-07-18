@@ -112,7 +112,7 @@ def find_default_config():
         return join(dirname(__file__), "mycroft.conf")
 
 
-DEFAULT_CONFIG = find_default_config()
+DEFAULT_CONFIG = _ovos_config.get_ovos_config()['default_config_path']
 SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
                                f'/etc/{_ovos_config.get_xdg_base()}/'
                                f'{_ovos_config.get_config_filename()}')

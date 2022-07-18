@@ -1,4 +1,5 @@
 import os
+import shutil
 from os.path import expanduser, dirname, join, isfile
 
 from unittest import TestCase, mock
@@ -84,22 +85,50 @@ class TestLocations(TestCase):
     @mock.patch("ovos_utils.system.search_mycroft_core_location")
     @mock.patch("ovos_config.meta.get_config_filename")
     @mock.patch("ovos_config.meta.get_xdg_base")
-    def test_globals(self, xdg_base, config_filename, core_location):
+    @mock.patch("ovos_utils.system.is_running_from_module")
+    def test_globals(self, mod_check, xdg_base, config_filename, core_location):
         core_location.return_value = "default/config/path"
         xdg_base.return_value = "test"
         config_filename.return_value = "test.yaml"
+        mod_check.return_value = False
         os.environ["MYCROFT_SYSTEM_CONFIG"] = "mycroft/system/config"
         os.environ["MYCROFT_WEB_CACHE"] = "mycroft/web/config"
+
+        # Define an ovos.conf file and path for testing
+        os.environ['XDG_CONFIG_HOME'] = join(dirname(__file__), "test_config")
+        shutil.copy(join(dirname(__file__), "test_config", "test.yaml"),
+                    "/tmp/test.yaml")
+
+        # Ensure all globals are reloaded with our test config
         import importlib
-        import ovos_config
+        import ovos_config.models
+
         importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.meta)
+
+        # Test all config paths respect environment overrides/configured values
         from ovos_config.locations import DEFAULT_CONFIG, SYSTEM_CONFIG, \
             OLD_USER_CONFIG, USER_CONFIG, REMOTE_CONFIG, WEB_CONFIG_CACHE
-        self.assertEqual(DEFAULT_CONFIG, "default/config/path/mycroft/configuration/mycroft.conf")
+        self.assertEqual(DEFAULT_CONFIG,
+                         "default/config/path/mycroft/configuration"
+                         "/mycroft.conf")
         self.assertEqual(SYSTEM_CONFIG, "mycroft/system/config")
         self.assertEqual(OLD_USER_CONFIG,
                          expanduser("~/.test/test.yaml"))
-        self.assertEqual(USER_CONFIG,
-                         expanduser("~/.config/test/test.yaml"))
+        self.assertEqual(USER_CONFIG, join(dirname(__file__), "test_config",
+                                           "test/test.yaml"))
         self.assertEqual(REMOTE_CONFIG, "mycroft.ai")
         self.assertEqual(WEB_CONFIG_CACHE, "mycroft/web/config")
+
+        # Override module check and reload to test default config override
+        mod_check.return_value = True
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+        # Ensure default path is read from ovos.conf
+        from ovos_config.locations import DEFAULT_CONFIG
+        self.assertEqual(DEFAULT_CONFIG, "/tmp/test.yaml")
+        # Ensure default config values are present in Configuration object
+        from ovos_config.config import Configuration
+        self.assertEqual(Configuration.default.path, DEFAULT_CONFIG)
+        self.assertTrue(Configuration()["test_config"])
