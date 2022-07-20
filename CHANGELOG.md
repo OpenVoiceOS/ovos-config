@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a3...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a4...HEAD)
+
+**Merged pull requests:**
+
+- Update ovos-utils dependency to stable version [\#14](https://github.com/OpenVoiceOS/ovos-config/pull/14) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.4a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.4a4) (2022-07-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a3...V0.0.4a4)
 
 **Merged pull requests:**
 
