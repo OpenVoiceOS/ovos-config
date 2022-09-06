@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a1...HEAD)
+
+**Merged pull requests:**
+
+- Add `Configuration Structure` documentation with examples [\#15](https://github.com/OpenVoiceOS/ovos-config/pull/15) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.5a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.5a1) (2022-07-31)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4...V0.0.5a1)
+
 ## [V0.0.4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.4) (2022-07-20)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.4a5...V0.0.4)
