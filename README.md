@@ -29,18 +29,19 @@ A simple `ovos_config` should have a structure like:
 {
 "base_folder": "mycroft",
 "config_filename": "mycroft.conf",
-"default_config_path": "<Path to Installed Core>/configuration/mycroft.conf",
+"default_config_path": "<Absolute Path to Installed Core>/configuration/mycroft.conf",
 "module_overrides": {},
 "submodule_mappings": {}
 }
 ```
+>*Note*: `default_config_path` should always be an absolute path. This is generally
+detected automatically, but any manual override must specify an absolute path to a json or yaml config file.
 
 Non-Mycroft modules may specify alternate config paths. A call to `get_ovos_config` from 
 `neon_core` or `neon_messagebus` will return a configuration like:
 
 ```json
 {
-  "xdg": true,
   "base_folder": "neon",
   "config_filename": "neon.yaml",
   "default_config_path": "/etc/example/config/neon.yaml",
@@ -52,7 +53,6 @@ Non-Mycroft modules may specify alternate config paths. A call to `get_ovos_conf
     }
   },
   "submodule_mappings": {
-    "neon_core": "neon_core",
     "neon_core.skills.skill_manager": "neon_core",
     "neon_messagebus": "neon_core",
     "neon_speech": "neon_core",
@@ -67,7 +67,6 @@ the returned configuration would be:
 
 ```json
 {
-  "xdg": true,
   "base_folder": "mycroft",
   "config_filename": "mycroft.conf",
   "default_config_path": "<Path to Installed Core>/configuration/mycroft.conf",
@@ -79,7 +78,6 @@ the returned configuration would be:
     }
   },
   "submodule_mappings": {
-    "neon_core": "neon_core",
     "neon_core.skills.skill_manager": "neon_core",
     "neon_messagebus": "neon_core",
     "neon_speech": "neon_core",
@@ -108,7 +106,7 @@ There are a couple of special configuration keys that change the way the configu
 
 * `Default` config refers to the config specified at `default_config_path` in 
 `ovos.conf` (#1 `/etc/example/config/neon.yaml` in the stack above).
-* `System` config refers to the config in `/etc/{base_folder}/` (#2 `/etc/neon/neon.yaml` in the stack above).
+* `System` config refers to the config at `/etc/{base_folder}/{config_filename}` (#2 `/etc/neon/neon.yaml` in the stack above).
 
 #### protected_keys
 A `"protected_keys"` configuration section may be added to a `Default` or `System` Config file
