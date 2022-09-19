@@ -13,76 +13,31 @@
 # limitations under the License.
 #
 import json
-import re
 from os.path import exists, isfile
 
 import yaml
-
-from ovos_config.locations import USER_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG
-from ovos_utils import camel_case_split
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
 
-try:
-    import mycroft.api as selene_api
-except ImportError:
-    # TODO https://github.com/OpenVoiceOS/selene_api
-    selene_api = None
+from ovos_config.locations import USER_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG
 
 
 def is_remote_list(values):
-    """Check if list corresponds to a backend formatted collection of dicts
-    """
-    for v in values:
-        if not isinstance(v, dict):
-            return False
-        if "@type" not in v.keys():
-            return False
-    return True
+    """ DEPRECATED """
+    from selene_api.config import _is_remote_list
+    return _is_remote_list(values)
 
 
 def translate_remote(config, setting):
-    """Translate config names from server to equivalents for mycroft-core.
-
-    Args:
-        config:     base config to populate
-        settings:   remote settings to be translated
-    """
-    IGNORED_SETTINGS = ["uuid", "@type", "active", "user", "device"]
-
-    for k, v in setting.items():
-        if k not in IGNORED_SETTINGS:
-            # Translate the CamelCase values stored remotely into the
-            # Python-style names used within mycroft-core.
-            key = re.sub(r"Setting(s)?", "", k)
-            key = camel_case_split(key).replace(" ", "_").lower()
-            if isinstance(v, dict):
-                config[key] = config.get(key, {})
-                translate_remote(config[key], v)
-            elif isinstance(v, list):
-                if is_remote_list(v):
-                    if key not in config:
-                        config[key] = {}
-                    translate_list(config[key], v)
-                else:
-                    config[key] = v
-            else:
-                config[key] = v
+    """ DEPRECATED """
+    from selene_api.config import _translate_remote
+    return _translate_remote(config, setting)
 
 
 def translate_list(config, values):
-    """Translate list formatted by mycroft server.
-
-    Args:
-        config (dict): target config
-        values (list): list from mycroft server config
-    """
-    for v in values:
-        module = v["@type"]
-        if v.get("active"):
-            config["module"] = module
-        config[module] = config.get(module, {})
-        translate_remote(config[module], v)
+    """ DEPRECATED """
+    from selene_api.config import _translate_list
+    return _translate_list(config, values)
 
 
 class LocalConf(dict):
@@ -213,46 +168,21 @@ class RemoteConf(LocalConf):
         super(RemoteConf, self).__init__(cache)
 
     def reload(self):
-        if selene_api is None:
-            self.load_local(self.path)
-            return
         try:
-            if not selene_api.is_paired():
+            from selene_api.pairing import is_paired
+            from selene_api.config import RemoteConfigManager
+
+            if not is_paired():
                 self.load_local(self.path)
                 return
 
-            if selene_api.is_backend_disabled():
-                # disable options that require backend
-                config = {
-                    "server": {
-                        "metrics": False,
-                        "sync_skill_settings": False
-                    },
-                    "skills": {"upload_skill_manifest": False},
-                    "opt_in": False
-                }
-                for key in config:
-                    self.__setitem__(key, config[key])
-            else:
-                api = selene_api.DeviceApi()
-                setting = api.get_settings()
-                location = None
-                try:
-                    location = api.get_location()
-                except Exception as e:
-                    LOG.error(f"Exception fetching remote location: {e}")
-                    if exists(self.path) and isfile(self.path):
-                        location = load_commented_json(self.path).get('location')
+            remote = RemoteConfigManager()
 
-                if location:
-                    setting["location"] = location
-                # Remove server specific entries
-                config = {}
-                translate_remote(config, setting)
+            remote.download()
+            for key in remote.config:
+                self.__setitem__(key, remote.config[key])
 
-                for key in config:
-                    self.__setitem__(key, config[key])
-                self.store(self.path)
+            self.store(self.path)
 
         except Exception as e:
             LOG.error(f"Exception fetching remote configuration: {e}")
