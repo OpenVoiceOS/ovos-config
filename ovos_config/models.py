@@ -14,7 +14,7 @@
 #
 import json
 from os.path import exists, isfile
-
+from combo_lock import NamedLock
 import yaml
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
@@ -43,6 +43,11 @@ def translate_list(config, values):
 class LocalConf(dict):
     """Config dictionary from file."""
     allow_overwrite = True
+    # lock is shared among all subclasses,
+    # regardless of what file is being edited only one file should change at a time
+    # this ensure orderly behaviour in anything monitoring changes,
+    #   eg FileWatcher util, configuration.patch bus handlers
+    __lock = NamedLock("ovos_config")
 
     def __init__(self, path):
         super().__init__(self)
@@ -78,17 +83,18 @@ class LocalConf(dict):
             LOG.error(f"in memory configuration, nothing to load")
             return
         if exists(path) and isfile(path):
-            try:
-                if self._get_file_format(path) == "yaml":
-                    with open(path) as f:
-                        config = yaml.safe_load(f)
-                else:
-                    config = load_commented_json(path)
-                for key in config:
-                    self.__setitem__(key, config[key])
-                LOG.debug(f"Configuration {path} loaded")
-            except Exception as e:
-                LOG.exception(f"Error loading configuration '{path}'")
+            with self.__lock:
+                try:
+                    if self._get_file_format(path) == "yaml":
+                        with open(path) as f:
+                            config = yaml.safe_load(f)
+                    else:
+                        config = load_commented_json(path)
+                    for key in config:
+                        self.__setitem__(key, config[key])
+                    LOG.debug(f"Configuration {path} loaded")
+                except Exception as e:
+                    LOG.exception(f"Error loading configuration '{path}'")
         else:
             LOG.debug(f"Configuration '{path}' not defined, skipping")
 
@@ -96,22 +102,18 @@ class LocalConf(dict):
         self.load_local(self.path)
 
     def store(self, path=None):
-        """Cache the received settings locally.
-
-        The cache will be used if the remote is unreachable to load settings
-        that are as close to the user's as possible.
-        """
         path = path or self.path
         if not path:
             LOG.error(f"in memory configuration, no save location")
             return
-        if self._get_file_format(path) == "yaml":
-            with open(path, 'w') as f:
-                yaml.dump(dict(self), f, allow_unicode=True,
-                          default_flow_style=False, sort_keys=False)
-        else:
-            with open(path, 'w') as f:
-                json.dump(self, f, indent=2)
+        with self.__lock:
+            if self._get_file_format(path) == "yaml":
+                with open(path, 'w') as f:
+                    yaml.dump(dict(self), f, allow_unicode=True,
+                              default_flow_style=False, sort_keys=False)
+            else:
+                with open(path, 'w') as f:
+                    json.dump(self, f, indent=2)
 
     def merge(self, conf):
         merge_dict(self, conf)

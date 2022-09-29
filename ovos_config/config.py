@@ -369,7 +369,7 @@ def read_mycroft_config():
     return dict(Configuration())
 
 
-def update_mycroft_config(config, path=None):
+def update_mycroft_config(config, path=None, bus=None):
     """ updates user config file with the contents of provided dict
     if a path is provided that location will be used instead of MycroftUserConfig"""
     if path is None:
@@ -378,4 +378,6 @@ def update_mycroft_config(config, path=None):
         conf = LocalConf(path)
     conf.merge(config)
     conf.store()
+    if bus:  # inform all Configuration objects connected to the bus
+        bus.emit(Message("configuration.patch",  {"config": config}))
     return conf
