@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a2...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a3...HEAD)
+
+**Implemented enhancements:**
+
+- feat/lock [\#17](https://github.com/OpenVoiceOS/ovos-config/pull/17) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.5a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.5a3) (2022-09-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a2...V0.0.5a3)
 
 **Implemented enhancements:**
 
