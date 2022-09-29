@@ -47,7 +47,7 @@ class LocalConf(dict):
     # regardless of what file is being edited only one file should change at a time
     # this ensure orderly behaviour in anything monitoring changes,
     #   eg FileWatcher util, configuration.patch bus handlers
-    lock = NamedLock("ovos_config")
+    __lock = NamedLock("ovos_config")
 
     def __init__(self, path):
         super().__init__(self)
@@ -83,7 +83,7 @@ class LocalConf(dict):
             LOG.error(f"in memory configuration, nothing to load")
             return
         if exists(path) and isfile(path):
-            with self.lock:
+            with self.__lock:
                 try:
                     if self._get_file_format(path) == "yaml":
                         with open(path) as f:
@@ -106,7 +106,7 @@ class LocalConf(dict):
         if not path:
             LOG.error(f"in memory configuration, no save location")
             return
-        with self.lock:
+        with self.__lock:
             if self._get_file_format(path) == "yaml":
                 with open(path, 'w') as f:
                     yaml.dump(dict(self), f, allow_unicode=True,
