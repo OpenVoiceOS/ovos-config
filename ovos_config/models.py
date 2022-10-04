@@ -24,19 +24,19 @@ from ovos_config.locations import USER_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, 
 
 def is_remote_list(values):
     """ DEPRECATED """
-    from selene_api.config import _is_remote_list
+    from ovos_backend_client.config import _is_remote_list
     return _is_remote_list(values)
 
 
 def translate_remote(config, setting):
     """ DEPRECATED """
-    from selene_api.config import _translate_remote
+    from ovos_backend_client.config import _translate_remote
     return _translate_remote(config, setting)
 
 
 def translate_list(config, values):
     """ DEPRECATED """
-    from selene_api.config import _translate_list
+    from ovos_backend_client.config import _translate_list
     return _translate_list(config, values)
 
 
@@ -171,8 +171,8 @@ class RemoteConf(LocalConf):
 
     def reload(self):
         try:
-            from selene_api.pairing import is_paired
-            from selene_api.config import RemoteConfigManager
+            from ovos_backend_client.pairing import is_paired
+            from ovos_backend_client.config import RemoteConfigManager
 
             if not is_paired():
                 self.load_local(self.path)
