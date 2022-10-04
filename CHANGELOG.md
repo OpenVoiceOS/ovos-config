@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a3...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a4...HEAD)
+
+**Implemented enhancements:**
+
+- Feat/bump selene api [\#18](https://github.com/OpenVoiceOS/ovos-config/pull/18) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.5a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.5a4) (2022-09-29)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a3...V0.0.5a4)
 
 **Implemented enhancements:**
 
