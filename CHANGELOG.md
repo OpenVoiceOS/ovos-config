@@ -2,7 +2,16 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a4...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a5...HEAD)
+
+**Merged pull requests:**
+
+- Update ovos\_backend\_client dependency spec [\#21](https://github.com/OpenVoiceOS/ovos-config/pull/21) ([NeonDaniel](https://github.com/NeonDaniel))
+- Feat/workflows [\#20](https://github.com/OpenVoiceOS/ovos-config/pull/20) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.5a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.5a5) (2022-10-04)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a4...V0.0.5a5)
 
 **Implemented enhancements:**
 
