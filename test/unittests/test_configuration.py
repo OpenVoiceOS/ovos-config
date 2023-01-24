@@ -125,7 +125,7 @@ class TestConfiguration(TestCase):
         Configuration.default = default_config
         Configuration.system = system_config
         Configuration.remote = remote_config
-        Configuration.xdg_configs = [user_config]
+        Configuration.ovos_configs = [user_config]
         Configuration.__patch = LocalConf(None)
         Configuration._old_user = LocalConf(None)
         Configuration.load_all_configs()
