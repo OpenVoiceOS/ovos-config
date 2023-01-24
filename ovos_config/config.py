@@ -19,8 +19,9 @@ from time import sleep
 from mycroft_bus_client import Message
 
 from ovos_config.models import LocalConf, MycroftDefaultConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
-from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, get_xdg_config_locations
+from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path
 from ovos_config.utils import FileWatcher
+from ovos_config.meta import get_ovos_default_config_paths
 
 from ovos_utils.json_helper import flattened_delete, merge_dict
 from ovos_utils.log import LOG
@@ -46,7 +47,7 @@ class Configuration(dict):
     remote = RemoteConf()
     # This includes both the user config and
     # /etc/xdg/mycroft/mycroft.conf
-    xdg_configs = [LocalConf(p) for p in get_xdg_config_locations()]
+    ovos_configs = [LocalConf(p) for p in get_ovos_default_config_paths()]
     _old_user = LocalConf(OLD_USER_CONFIG)
     # deprecation warning
     if isfile(OLD_USER_CONFIG):
@@ -147,7 +148,7 @@ class Configuration(dict):
         Configuration.default.reload()
         Configuration.system.reload()
         Configuration.remote.reload()
-        for cfg in Configuration.xdg_configs:
+        for cfg in Configuration.ovos_configs:
             cfg.reload()
 
     @staticmethod
@@ -179,7 +180,7 @@ class Configuration(dict):
             # deprecation warning
             if isfile(OLD_USER_CONFIG):
                 configs.append(Configuration._old_user)
-            configs += Configuration.xdg_configs
+            configs += Configuration.ovos_configs
 
         # runtime patches by skills / bus events
         configs.append(Configuration.__patch)
@@ -255,7 +256,7 @@ class Configuration(dict):
     def set_config_watcher(callback=None):
         """Setup filewatcher to monitor for config file changes"""
         paths = [Configuration.system.path] + \
-                [c.path for c in Configuration.xdg_configs]
+                [c.path for c in Configuration.ovos_configs]
         if callback:
             Configuration._callbacks.append(callback)
         if not Configuration._watchdog:
@@ -268,7 +269,7 @@ class Configuration(dict):
     def _on_file_change(path):
         LOG.info(f'{path} changed on disk, reloading!')
         # reload updated config
-        for cfg in Configuration.xdg_configs + [Configuration.system]:
+        for cfg in Configuration.ovos_configs + [Configuration.system]:
             if cfg.path == path:
                 try:
                     cfg.reload()
