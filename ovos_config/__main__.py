@@ -60,7 +60,7 @@ def walkDict(dic: dict,
                                 full_path,
                                 path+(k,),
                                 found)
-            found = False
+        found = False
 
 
 def pathGet(dic: dict, path: str) -> Any:
@@ -268,8 +268,12 @@ def set(key, value):
             table.add_row(str(i), path, str(values[i]))
         console.print(table)
 
-        choice = Prompt.ask("Which value should be changed?",
-                            choices=[str(i) for i in range(0, len(paths))])
+        exit_ = str(len(paths))
+        choice = Prompt.ask(f"Which value should be changed? ({exit_}='Exit')",
+                            choices=[str(i) for i in range(0, len(paths)+1)])
+        if choice == exit_:
+            console.print("User exit", style="red")
+            exit()
     elif not paths:
         console.print(f"[red]Error:[/red] No key that fits the query")
         exit()
@@ -300,7 +304,14 @@ def set(key, value):
             else:
                 raise TypeError
         elif isinstance(selected_value, list):
-            _value = [value]
+            try:
+                _value = pathGet(local_conf, selected_path)
+            except KeyError:
+                _value = list()
+                console.print(("Note: defining lists in the user config "
+                               "will override subsequent list configurations"),
+                               style="grey53")
+            _value.append(value)
         elif isinstance(selected_value, int):
             _value = int(value)
         elif isinstance(selected_value, float):
