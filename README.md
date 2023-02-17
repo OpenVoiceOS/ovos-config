@@ -9,6 +9,51 @@
 
 helper package to interact with mycroft config
 
+## Command Line usage
+
+A small helper tool is included to quickly show, get or set config values
+
+<img width="1214" alt="ovos-config" src="https://user-images.githubusercontent.com/25036977/219516755-b454f28f-2a34-4caf-a91f-6182ff68049a.png">
+
+A few words about commands and design decisions:
+
+--------------
+
+`get`
+I wanted to make this as enduser friendly as possible. Thus i brought in what i'd call a "loose search"
+Users can search a key or parts therof. Given an entry of
+```python
+{'PHAL': {
+        'ovos-PHAL-plugin-system': {
+                  'enabled': True
+        },
+        'ovos-PHAL-plugin-connectivity-events': {
+                   'enabled': True
+        },
+        ... 
+}
+```
+`ovos-config get -k phal` would yield  **all**  PHAL entries and present it to the user (and the path where they were found)
+you are stll able to get specific values with `ovos-config get -k /PHAL/ovos-PHAL-plugin-system/enabled` (with the root slash indicating a strict search)
+
+_(and if we set the logger to "INFO" from the get go they are even pipe'able)_
+
+------------------
+
+`set` does the same but slighly different. It yields the full paths and presents a choice of those. 
+
+<img width="423" alt="ovos-config2" src="https://user-images.githubusercontent.com/25036977/219526126-dfc547e7-6110-461a-92ba-83e850d03c70.png">
+
+The type is derived from the joined config and thus we can safely cast the value into the user conf (or bust it as seen in the picture)
+
+_the downside:_ the key _has to be_ in the json. Ie. for this to work all entries have to be uncommented and not only present python-side (like `"lang": "en-us"`)
+But this has to be done anyway when we approach setting the keys per gui
+
+------------------
+
+`show`is as straight forward as it can get. Get a full table of either the joined, user, system or remote configuration.
+This can be further refined by passing a `--section`, which can be listed with `ovos-config show -l`
+
 
 ## Configuration Structure
 
