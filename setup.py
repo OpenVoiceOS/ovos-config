@@ -63,5 +63,10 @@ setup(
     install_requires=required('requirements/requirements.txt'),
     packages=find_packages(include=['ovos*']),
     package_data={'ovos_config': ['mycroft.conf']},
-    include_package_data=True
+    include_package_data=True,
+    entry_points={
+        'console_scripts': [
+            'ovos-config=ovos_config.__main__:config'
+        ]
+    }
 )
