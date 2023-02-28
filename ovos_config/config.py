@@ -174,7 +174,7 @@ class Configuration(dict):
 
         configs = [Configuration.default, Configuration.system]
         if not skip_remote:
-            configs.append(Configuration.remote)
+            configs.insert(1, Configuration.remote)
         if not skip_user:
             # deprecation warning
             if isfile(OLD_USER_CONFIG):
