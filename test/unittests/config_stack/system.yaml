@@ -8,8 +8,6 @@ default_spec:
 test:
   system: True
   user: False
-  remote: False
-
 system:
   protected_keys:
     remote:

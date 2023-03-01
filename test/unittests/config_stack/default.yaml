@@ -9,9 +9,9 @@ default_spec:
   from_usr: False
 test:
   default: True
+  remote: False
   system: False
   user: False
-  remote: False
 default_only: default
 system:
   protected_keys:

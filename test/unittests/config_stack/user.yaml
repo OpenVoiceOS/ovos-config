@@ -5,7 +5,6 @@ system_only:
   from_usr: True
 test:
   user: True
-  remote: False
 default_spec:
   from_usr: True
 user_only: True
