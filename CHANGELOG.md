@@ -1,5 +1,21 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5...HEAD)
+
+**Fixed bugs:**
+
+- change the config merge/load order [\#27](https://github.com/OpenVoiceOS/ovos-config/pull/27) ([emphasize](https://github.com/emphasize))
+
+**Merged pull requests:**
+
+- Create config file on `store` if not exists [\#28](https://github.com/OpenVoiceOS/ovos-config/pull/28) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.5) (2022-10-29)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a6...V0.0.5)
+
 ## [V0.0.5a6](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.5a6) (2022-10-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5a5...V0.0.5a6)
