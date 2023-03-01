@@ -4,8 +4,9 @@ system_only:
   from_rem: True
   from_usr: False
 test:
-  user: False
   remote: True
+  system: False
+  user: False
 default_spec:
   from_rem: True
 remote_only: "remote"
