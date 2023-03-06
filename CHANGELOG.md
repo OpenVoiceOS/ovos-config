@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.6a1...HEAD)
+
+**Implemented enhancements:**
+
+- Feat/cli tool [\#24](https://github.com/OpenVoiceOS/ovos-config/pull/24) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.6a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.6a1) (2023-03-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.5...V0.0.6a1)
 
 **Fixed bugs:**
 
