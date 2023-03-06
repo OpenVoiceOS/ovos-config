@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
+## [V0.0.6a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.6a2) (2023-03-06)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.6a1...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.6a1...V0.0.6a2)
 
 **Implemented enhancements:**
 
