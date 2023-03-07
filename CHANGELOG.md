@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.6...HEAD)
+
+**Merged pull requests:**
+
+- Refactor imports to avoid circular import errors [\#30](https://github.com/OpenVoiceOS/ovos-config/pull/30) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.6](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.6) (2023-03-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.6a2...V0.0.6)
+
 ## [V0.0.6a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.6a2) (2023-03-06)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.6a1...V0.0.6a2)
