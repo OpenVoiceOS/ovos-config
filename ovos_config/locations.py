@@ -14,7 +14,6 @@
 import os
 from os.path import join, dirname, expanduser, exists, isfile
 from time import sleep
-from ovos_utils.system import search_mycroft_core_location
 import ovos_config.meta as _ovos_config
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
 
@@ -102,6 +101,7 @@ def get_xdg_config_locations():
 def find_default_config():
     """ find where mycroft is installed and return the path to the default mycroft.conf
     if mycroft is not found then return the bundled file in ovos_config package"""
+    from ovos_utils.system import search_mycroft_core_location
     try:
         mycroft_root = search_mycroft_core_location()
         if not mycroft_root:

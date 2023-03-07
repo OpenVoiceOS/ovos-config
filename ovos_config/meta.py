@@ -52,7 +52,6 @@ from json_database import JsonStorage
 import ovos_config.locations as _oloc
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
-from ovos_utils.system import is_running_from_module
 
 
 def get_ovos_config():
@@ -63,6 +62,8 @@ def get_ovos_config():
         eg, if neon-core is calling this method then neon config overrides are loaded
 
     """
+    from ovos_utils.system import is_running_from_module
+
     # populate default values
     config = {"xdg": True,
               "base_folder": "mycroft",

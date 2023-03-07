@@ -24,7 +24,6 @@ from ovos_config.utils import FileWatcher
 
 from ovos_utils.json_helper import flattened_delete, merge_dict
 from ovos_utils.log import LOG
-from ovos_utils.network_utils import is_connected
 
 
 def _log_old_location_deprecation(old_user_config=OLD_USER_CONFIG):
@@ -232,6 +231,8 @@ class Configuration(dict):
         Args:
             bus: Message bus client instance
         """
+        from ovos_utils.network_utils import is_connected
+
         # remove any old event listeners
         Configuration.deregister_bus()
 
