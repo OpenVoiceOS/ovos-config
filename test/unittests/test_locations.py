@@ -60,7 +60,7 @@ class TestLocations(TestCase):
                          ['/test/default.yml', '/etc/test/test.yaml',
                           'webcache', '~/.test/test.yaml', 'config/test.yaml'])
 
-    @mock.patch("ovos_config.locations.search_mycroft_core_location")
+    @mock.patch("ovos_utils.system.search_mycroft_core_location")
     def test_find_default_config(self, get_core):
         from ovos_config.locations import find_default_config
 
