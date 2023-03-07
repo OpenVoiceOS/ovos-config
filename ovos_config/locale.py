@@ -1,5 +1,5 @@
 from dateutil.tz import gettz, tzlocal
-import ovos_config
+from ovos_config.config import Configuration
 
 # lingua_franca is optional and might not be installed
 # exceptions should only be raised in the parse and format utils
@@ -19,7 +19,7 @@ def get_primary_lang_code(config=None):
     if LF:
         return LF.get_primary_lang_code()
     if not _lang:
-        config = config or ovos_config.Configuration()
+        config = config or Configuration()
         _lang = config.get("lang", "en-us")
     return _lang.split("-")[0]
 
@@ -34,7 +34,7 @@ def get_default_lang(config=None):
     if LF and LF.get_default_loc():
         return LF.get_default_loc()
     if not _lang:
-        config = config or ovos_config.Configuration()
+        config = config or Configuration()
         _lang = config.get("lang", "en-us")
     return _lang
 
@@ -47,7 +47,7 @@ def set_default_lang(lang):
 
 
 def get_config_tz():
-    code = ovos_config.Configuration()["location"]["timezone"]["code"]
+    code = Configuration()["location"]["timezone"]["code"]
     return gettz(code)
 
 
@@ -80,7 +80,7 @@ def load_language(lang):
 
 
 def setup_locale(lang=None, tz=None):
-    lang_code = lang or ovos_config.Configuration().get("lang", "en-us")
+    lang_code = lang or Configuration().get("lang", "en-us")
     # Load language resources, currently en-us must also be loaded at all times
     load_languages([lang_code, "en-us"])
     # Set the active lang to match the configured one
