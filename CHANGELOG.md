@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.6...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.7a1...HEAD)
+
+**Merged pull requests:**
+
+- Handle empty config load [\#31](https://github.com/OpenVoiceOS/ovos-config/pull/31) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.7a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.7a1) (2023-03-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.6...V0.0.7a1)
 
 **Merged pull requests:**
 
