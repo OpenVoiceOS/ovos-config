@@ -95,7 +95,7 @@ class LocalConf(dict):
                             self.__setitem__(key, config[key])
                         LOG.debug(f"Configuration {path} loaded")
                     else:
-                        LOG.warning(f"Empty config found at: {path}")
+                        LOG.debug(f"Empty config found at: {path}")
                 except Exception as e:
                     LOG.exception(f"Error loading configuration '{path}'")
         else:
