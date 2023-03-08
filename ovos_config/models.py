@@ -90,9 +90,12 @@ class LocalConf(dict):
                             config = yaml.safe_load(f)
                     else:
                         config = load_commented_json(path)
-                    for key in config:
-                        self.__setitem__(key, config[key])
-                    LOG.debug(f"Configuration {path} loaded")
+                    if config:
+                        for key in config:
+                            self.__setitem__(key, config[key])
+                        LOG.debug(f"Configuration {path} loaded")
+                    else:
+                        LOG.warning(f"Empty config found at: {path}")
                 except Exception as e:
                     LOG.exception(f"Error loading configuration '{path}'")
         else:

@@ -16,7 +16,7 @@ from os.path import join, dirname, expanduser, exists, isfile
 from time import sleep
 import ovos_config.meta as _ovos_config
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
-
+from ovos_utils.log import LOG
 
 def get_xdg_config_dirs(folder=None):
     """ return list of possible XDG config dirs taking into account ovos.conf """
@@ -111,7 +111,21 @@ def find_default_config():
         # mycroft-core not found
         return join(dirname(__file__), "mycroft.conf")
 
+import inspect
+stack = inspect.stack()
 
+# Record:
+# [0] - frame object
+# [1] - filename
+# [2] - line number
+# [3] - function
+# ...
+for record in stack:
+    try:
+        LOG.info(f"{record[1]}:{record[2]}")
+    except:
+        LOG.error(record)
+LOG.info("Initializing Configuration Paths")
 DEFAULT_CONFIG = _ovos_config.get_ovos_config()['default_config_path']
 SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
                                f'/etc/{_ovos_config.get_xdg_base()}/'
