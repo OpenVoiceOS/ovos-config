@@ -111,21 +111,6 @@ def find_default_config():
         # mycroft-core not found
         return join(dirname(__file__), "mycroft.conf")
 
-import inspect
-stack = inspect.stack()
-
-# Record:
-# [0] - frame object
-# [1] - filename
-# [2] - line number
-# [3] - function
-# ...
-for record in stack:
-    try:
-        LOG.info(f"{record[1]}:{record[2]}")
-    except:
-        LOG.error(record)
-LOG.info("Initializing Configuration Paths")
 DEFAULT_CONFIG = _ovos_config.get_ovos_config()['default_config_path']
 SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
                                f'/etc/{_ovos_config.get_xdg_base()}/'
