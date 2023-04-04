@@ -1,5 +1,9 @@
 # Changelog
 
+## [V0.0.7](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.7) (2023-03-09)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.7a2...V0.0.7)
+
 ## [V0.0.7a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.7a2) (2023-03-08)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.7a1...V0.0.7a2)
