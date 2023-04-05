@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-config/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a1...HEAD)
+
+**Merged pull requests:**
+
+- bump requirements.txt [\#32](https://github.com/OpenVoiceOS/ovos-config/pull/32) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.8a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a1) (2023-04-04)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.7...V0.0.8a1)
+
 ## [V0.0.7](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.7) (2023-03-09)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.7a2...V0.0.7)
