@@ -16,7 +16,8 @@ import json
 from os.path import isfile
 from time import sleep
 
-from mycroft_bus_client import Message
+# imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
+from ovos_utils.messagebus import Message
 
 from ovos_config.models import LocalConf, MycroftDefaultConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
 from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, get_xdg_config_locations
