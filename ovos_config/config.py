@@ -16,7 +16,7 @@ import json
 from os.path import isfile
 from time import sleep
 
-from mycroft_bus_client import Message
+
 
 from ovos_config.models import LocalConf, MycroftDefaultConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
 from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, get_xdg_config_locations
@@ -66,6 +66,8 @@ class Configuration(dict):
         super().__setitem__(key, value)
         # sync with other processes connected to bus
         if Configuration.bus:
+            # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
+            from ovos_utils.messagebus import Message
             Configuration.bus.emit(Message("configuration.patch",
                                            {"config": {key: value}}))
 
@@ -380,5 +382,7 @@ def update_mycroft_config(config, path=None, bus=None):
     conf.merge(config)
     conf.store()
     if bus:  # inform all Configuration objects connected to the bus
+        # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
+        from ovos_utils.messagebus import Message
         bus.emit(Message("configuration.patch",  {"config": config}))
     return conf
