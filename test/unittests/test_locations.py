@@ -86,7 +86,9 @@ class TestLocations(TestCase):
     @mock.patch("ovos_config.meta.get_config_filename")
     @mock.patch("ovos_config.meta.get_xdg_base")
     @mock.patch("ovos_utils.system.is_running_from_module")
-    def test_globals(self, mod_check, xdg_base, config_filename, core_location):
+    @mock.patch("os.path.isfile")
+    def test_globals(self, fcheck, mod_check, xdg_base, config_filename, core_location):
+        fcheck.return_value = True
         core_location.return_value = "default/config/path"
         xdg_base.return_value = "test"
         config_filename.return_value = "test.yaml"
