@@ -2,5 +2,5 @@ PyYAML~=5.4
 watchdog
 combo_lock
 python-dateutil~=2.6
-ovos-utils~=0.0, >=0.0.32
+ovos-utils < 0.1.0
 rich-click
