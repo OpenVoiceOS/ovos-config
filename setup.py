@@ -61,6 +61,9 @@ setup(
     url='https://github.com/OpenVoiceOS/ovos-config',
     description='mycroft-core configuration module',
     install_requires=required('requirements/requirements.txt'),
+    extras_require={
+        "extras": required("requirements/extras.txt")
+    },
     packages=find_packages(include=['ovos*']),
     package_data={'ovos_config': ['mycroft.conf']},
     include_package_data=True,
