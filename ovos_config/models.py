@@ -24,18 +24,27 @@ from ovos_config.locations import USER_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, 
 
 def is_remote_list(values):
     """ DEPRECATED """
+    # TODO: Deprecate in 0.1.0
+    LOG.warning("This reference will be deprecated in v0.1.0. Import from "
+                "ovos_backend_client.config directly")
     from ovos_backend_client.config import _is_remote_list
     return _is_remote_list(values)
 
 
 def translate_remote(config, setting):
     """ DEPRECATED """
+    # TODO: Deprecate in 0.1.0
+    LOG.warning("This reference will be deprecated in v0.1.0. Import from "
+                "ovos_backend_client.config directly")
     from ovos_backend_client.config import _translate_remote
     return _translate_remote(config, setting)
 
 
 def translate_list(config, values):
     """ DEPRECATED """
+    # TODO: Deprecate in 0.1.0
+    LOG.warning("This reference will be deprecated in v0.1.0. Import from "
+                "ovos_backend_client.config directly")
     from ovos_backend_client.config import _translate_list
     return _translate_list(config, values)
 
