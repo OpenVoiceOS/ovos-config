@@ -106,10 +106,14 @@ def find_default_config():
         mycroft_root = search_mycroft_core_location()
         if not mycroft_root:
             raise FileNotFoundError("Couldn't find mycroft core root folder.")
-        return join(mycroft_root, "mycroft", "configuration", "mycroft.conf")
+        cfg = join(mycroft_root, "mycroft", "configuration", "mycroft.conf")
+        if isfile(cfg):
+            return cfg
     except FileNotFoundError:
-        # mycroft-core not found
-        return join(dirname(__file__), "mycroft.conf")
+        pass
+
+    # mycroft-core not found
+    return join(dirname(__file__), "mycroft.conf")
 
 
 DEFAULT_CONFIG = _ovos_config.get_ovos_config()['default_config_path']
