@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.8a5](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.8a5) (2023-04-18)
+## [0.0.8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.8) (2023-04-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a4...0.0.8a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a5...0.0.8)
+
+**Fixed bugs:**
+
+- Configuration file not loaded [\#19](https://github.com/OpenVoiceOS/ovos-config/issues/19)
+
+## [V0.0.8a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a5) (2023-04-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a4...V0.0.8a5)
 
 **Merged pull requests:**
 
