@@ -1,45 +1,12 @@
 # Changelog
 
-## [0.0.8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.8) (2023-04-19)
+## [0.0.9a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a1) (2023-05-01)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a5...0.0.8)
-
-**Fixed bugs:**
-
-- Configuration file not loaded [\#19](https://github.com/OpenVoiceOS/ovos-config/issues/19)
-
-## [V0.0.8a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a5) (2023-04-18)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a4...V0.0.8a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8...0.0.9a1)
 
 **Merged pull requests:**
 
-- Update automation to match ovos-utils [\#36](https://github.com/OpenVoiceOS/ovos-config/pull/36) ([NeonDaniel](https://github.com/NeonDaniel))
-- Move backend client to optional dependencies [\#35](https://github.com/OpenVoiceOS/ovos-config/pull/35) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [V0.0.8a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a4) (2023-04-14)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a3...V0.0.8a4)
-
-**Merged pull requests:**
-
-- fix system\_unit comment [\#34](https://github.com/OpenVoiceOS/ovos-config/pull/34) ([emphasize](https://github.com/emphasize))
-
-## [V0.0.8a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a3) (2023-04-05)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a2...V0.0.8a3)
-
-## [V0.0.8a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a2) (2023-04-05)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a1...V0.0.8a2)
-
-**Merged pull requests:**
-
-- bump requirements.txt [\#32](https://github.com/OpenVoiceOS/ovos-config/pull/32) ([JarbasAl](https://github.com/JarbasAl))
-
-## [V0.0.8a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a1) (2023-04-04)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.7...V0.0.8a1)
+- Bump PyYAML to 6.0 [\#38](https://github.com/OpenVoiceOS/ovos-config/pull/38) ([goldyfruit](https://github.com/goldyfruit))
 
 
 
