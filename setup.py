@@ -13,7 +13,7 @@
 import os
 import os.path
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -43,6 +43,14 @@ def get_version():
     return version
 
 
+def package_files(directory):
+    paths = []
+    for (path, directories, filenames) in os.walk(directory):
+        for filename in filenames:
+            paths.append(os.path.join('..', path, filename))
+    return paths
+
+
 def required(requirements_file):
     """ Read requirements file and remove comments and empty lines. """
     with open(os.path.join(BASEDIR, requirements_file), 'r') as f:
@@ -54,19 +62,26 @@ def required(requirements_file):
                 if pkg.strip() and not pkg.startswith("#")]
 
 
+long_description = ""
+if os.path.isfile(os.path.join(BASEDIR, "README.md")):
+    with open(os.path.join(BASEDIR, "README.md"), "r") as f:
+        long_description = f.read()
+
+
 setup(
     name='ovos-config',
     version=get_version(),
     license='Apache-2.0',
     url='https://github.com/OpenVoiceOS/ovos-config',
     description='mycroft-core configuration module',
+    long_description=long_description,
+    packages=['ovos_config'],
+    package_data={'': package_files('ovos_config')},
+    include_package_data=True,
     install_requires=required('requirements/requirements.txt'),
     extras_require={
         "extras": required("requirements/extras.txt")
     },
-    packages=find_packages(include=['ovos*']),
-    package_data={'ovos_config': ['mycroft.conf']},
-    include_package_data=True,
     entry_points={
         'console_scripts': [
             'ovos-config=ovos_config.__main__:config'
