@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.9a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a1) (2023-05-01)
+## [0.0.9a2](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a2) (2023-05-07)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8...0.0.9a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a1...0.0.9a2)
+
+**Merged pull requests:**
+
+- fix setup [\#39](https://github.com/OpenVoiceOS/ovos-config/pull/39) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.9a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a1) (2023-05-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8...V0.0.9a1)
 
 **Merged pull requests:**
 
