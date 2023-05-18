@@ -10,6 +10,6 @@ on:
 
 jobs:
   py_build_tests:
-    uses: neongeckocom/.github/.github/workflows/python_build_tests.yml@FEAT_OptionalPipAuditTest
+    uses: neongeckocom/.github/.github/workflows/python_build_tests.yml@master
     with:
       test_pipaudit: true
