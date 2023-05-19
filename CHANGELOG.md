@@ -1,8 +1,22 @@
 # Changelog
 
-## [0.0.9a2](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a2) (2023-05-07)
+## [0.0.9a3](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a3) (2023-05-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a1...0.0.9a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a2...0.0.9a3)
+
+**Closed issues:**
+
+- 0.0.9a2 - Page not found [\#41](https://github.com/OpenVoiceOS/ovos-config/issues/41)
+- 0.0.9a2 - Page not found [\#40](https://github.com/OpenVoiceOS/ovos-config/issues/40)
+
+**Merged pull requests:**
+
+- Fix setup.py bug [\#44](https://github.com/OpenVoiceOS/ovos-config/pull/44) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update build\_tests to use shared action [\#43](https://github.com/OpenVoiceOS/ovos-config/pull/43) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.9a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a2) (2023-05-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a1...V0.0.9a2)
 
 **Merged pull requests:**
 
