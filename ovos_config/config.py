@@ -15,13 +15,12 @@
 import json
 from os.path import isfile
 from typing import Optional
-
 from time import sleep
 
-
-
-from ovos_config.models import LocalConf, MycroftDefaultConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
-from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, get_xdg_config_locations
+from ovos_config.models import LocalConf, MycroftDefaultConfig, \
+    MycroftSystemConfig, MycroftUserConfig, RemoteConf
+from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, \
+    get_xdg_config_locations
 from ovos_config.utils import FileWatcher
 
 from ovos_utils.json_helper import flattened_delete, merge_dict
