@@ -14,6 +14,8 @@
 #
 import json
 from os.path import isfile
+from typing import Optional
+
 from time import sleep
 
 
@@ -140,11 +142,17 @@ class Configuration(dict):
 
     @staticmethod
     def reset():
+        """
+        Remove any configuration patches and reload configuration
+        """
         Configuration.__patch = {}
         Configuration.reload()
 
     @staticmethod
     def reload():
+        """
+        Reload all configuration files
+        """
         Configuration.default.reload()
         Configuration.system.reload()
         Configuration.remote.reload()
@@ -152,24 +160,29 @@ class Configuration(dict):
             cfg.reload()
 
     @staticmethod
-    def get_system_constraints():
-        # constraints must come from SYSTEM config
-        # if not defined then load the DEFAULT constraints
-        # these settings can not be set anywhere else!
+    def get_system_constraints() -> dict:
+        """
+        Get Configuration constraints. Constraints must come from SYSTEM config.
+        If not defined, then load the DEFAULT constraints.
+        These settings can not be set anywhere else!
+        @return: dict of system configuration constraints
+        """
+
         return Configuration.system.get("system") or \
-               Configuration.default.get("system") or \
-               {}
+            Configuration.default.get("system") or \
+            {}
 
     @staticmethod
-    def load_all_configs(system_constraints=None):
-        """Load the stack of config files into a single dict
-
-        Returns:
-            (dict) merged dict of all configuration files
+    def load_all_configs(system_constraints: Optional[dict] = None) -> dict:
+        """
+        Load the stack of config files into a single dict
+        @param system_constraints: constraints to limit user/remote config usage
+        @return: merged dict of all configuration files
         """
         # system administrators can define different constraints in how
         # configurations are loaded
-        system_constraints = system_constraints or Configuration.get_system_constraints()
+        system_constraints = system_constraints or \
+            Configuration.get_system_constraints()
         skip_user = system_constraints.get("disable_user_config", False)
         skip_remote = system_constraints.get("disable_remote_config", False)
 
@@ -189,7 +202,12 @@ class Configuration(dict):
         return Configuration.filter_and_merge(configs)
 
     @staticmethod
-    def filter_and_merge(configs):
+    def filter_and_merge(configs) -> dict:
+        """
+        Build and return a configuration dict based on configuration files
+        @param configs: List of Configuration objects to load
+        @return: dict Configuration, built from `configs`
+        """
         # ensure type
         for index, item in enumerate(configs):
             if isinstance(item, str):
@@ -228,10 +246,9 @@ class Configuration(dict):
 
     @staticmethod
     def set_config_update_handlers(bus):
-        """Setup websocket handlers to update config.
-
-        Args:
-            bus: Message bus client instance
+        """
+        Setup websocket handlers to update config on emitted changes.
+        @param bus: Message bus client instance
         """
         from ovos_utils.network_utils import is_connected
 
@@ -255,8 +272,11 @@ class Configuration(dict):
             Configuration.remote.reload()
 
     @staticmethod
-    def set_config_watcher(callback=None):
-        """Setup filewatcher to monitor for config file changes"""
+    def set_config_watcher(callback: Optional[callable] = None):
+        """
+        Setup filewatcher to monitor for config file changes
+        @param callback: optional method to call when configuration is changed
+        """
         paths = [Configuration.system.path] + \
                 [c.path for c in Configuration.xdg_configs]
         if callback:
@@ -268,22 +288,29 @@ class Configuration(dict):
             )
 
     @staticmethod
-    def _on_file_change(path):
+    def _on_file_change(path: str):
+        """
+        Callback method for FileWatcher
+        @param path: Configuration file path reporting a change
+        """
         LOG.info(f'{path} changed on disk, reloading!')
         # reload updated config
         for cfg in Configuration.xdg_configs + [Configuration.system]:
             if cfg.path == path:
                 try:
                     cfg.reload()
+                    break
                 except:
                     # got the file changed signal before write finished
                     sleep(0.5)
-                    try:
-                        cfg.reload()
-                    except:
-                        LOG.exception("Failed to load configuration, syntax seems invalid!")
+                try:
+                    cfg.reload()
+                except:
+                    LOG.exception("Failed to load configuration, "
+                                  "syntax seems invalid!")
                 break
         else:
+            LOG.info(f"Reloading all configuration files, got: {path}")
             # reload all configs
             try:
                 Configuration.reload()
@@ -293,7 +320,8 @@ class Configuration(dict):
                 try:
                     Configuration.reload()
                 except:
-                    LOG.exception("Failed to load configuration, syntax seems invalid!")
+                    LOG.exception("Failed to load configuration, "
+                                  "syntax seems invalid!")
 
         for handler in Configuration._callbacks:
             try:
@@ -303,13 +331,22 @@ class Configuration(dict):
 
     @staticmethod
     def deregister_bus():
+        """
+        Remove messagebus handlers for configuration updates
+        """
         if Configuration.bus:
-            Configuration.bus.remove("configuration.updated", Configuration.updated)
-            Configuration.bus.remove("configuration.patch", Configuration.patch)
-            Configuration.bus.remove("configuration.patch.clear", Configuration.patch_clear)
-            Configuration.bus.remove("configuration.cache.clear", Configuration.clear_cache)
-            Configuration.bus.remove("mycroft.paired", Configuration.handle_remote_update)
-            Configuration.bus.remove("mycroft.internet.connected", Configuration.handle_remote_update)
+            Configuration.bus.remove("configuration.updated",
+                                     Configuration.updated)
+            Configuration.bus.remove("configuration.patch",
+                                     Configuration.patch)
+            Configuration.bus.remove("configuration.patch.clear",
+                                     Configuration.patch_clear)
+            Configuration.bus.remove("configuration.cache.clear",
+                                     Configuration.clear_cache)
+            Configuration.bus.remove("mycroft.paired",
+                                     Configuration.handle_remote_update)
+            Configuration.bus.remove("mycroft.internet.connected",
+                                     Configuration.handle_remote_update)
 
     @staticmethod
     def handle_remote_update(message):
