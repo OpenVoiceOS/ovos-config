@@ -45,6 +45,7 @@ Examples config:
    }
 }
 """
+import os
 from os.path import isfile, join, dirname
 
 from json_database import JsonStorage
@@ -55,19 +56,23 @@ from ovos_utils.log import LOG
 
 
 def get_ovos_config():
-    """ load ovos.conf
-    goes trough all possible ovos.conf paths and loads them in order
-
-    submodule overrides are applied to the final config if overrides are defined for the caller module
-        eg, if neon-core is calling this method then neon config overrides are loaded
+    """
+    Goes through all possible ovos.conf paths and loads them in order. Default
+    `base_folder` and `config_filename` are overridden by envvars
+    `OVOS_CONFIG_BASE_FOLDER` and `OVOS_CONFIG_FILENAME`, respectively.
+    Submodule overrides are applied to the final config if defined for the
+    calling module.
+    eg, if neon is calling this method then neon config overrides are loaded
 
     """
     from ovos_utils.system import is_running_from_module
 
     # populate default values
     config = {"xdg": True,
-              "base_folder": "mycroft",
-              "config_filename": "mycroft.conf"}
+              "base_folder": os.environ.get("OVOS_CONFIG_BASE_FOLDER") or
+              "mycroft",
+              "config_filename": os.environ.get("OVOS_CONFIG_FILENAME") or
+              "mycroft.conf"}
     try:
         config["default_config_path"] = _oloc.find_default_config()
     except FileNotFoundError:  # not a mycroft device
