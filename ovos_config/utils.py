@@ -83,17 +83,3 @@ def init_module_config(module_name: str, module_override: str,
     importlib.reload(ovos_config.models)
     importlib.reload(ovos_config.config)
     importlib.reload(ovos_config)
-
-    try:
-        import mycroft.configuration
-        import mycroft.configuration.locations
-        import mycroft.configuration.config
-        del mycroft.configuration.Configuration
-        importlib.reload(mycroft.configuration.locations)
-        importlib.reload(mycroft.configuration.config)
-        importlib.reload(mycroft.configuration)
-    except ImportError:
-        # Mycroft package not available
-        pass
-    except Exception as e:
-        LOG.exception(f"Failed to override mycroft.configuration: {e}")
