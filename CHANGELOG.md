@@ -1,8 +1,20 @@
 # Changelog
 
-## [0.0.9a5](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a5) (2023-05-24)
+## [0.0.9a6](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a6) (2023-05-24)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a4...0.0.9a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a5...0.0.9a6)
+
+**Implemented enhancements:**
+
+- Port `init_module_config` from neon\_utils with unit tests [\#42](https://github.com/OpenVoiceOS/ovos-config/pull/42) ([NeonDaniel](https://github.com/NeonDaniel))
+
+**Closed issues:**
+
+- Add method to init configuration [\#22](https://github.com/OpenVoiceOS/ovos-config/issues/22)
+
+## [V0.0.9a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a5) (2023-05-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a4...V0.0.9a5)
 
 **Implemented enhancements:**
 
