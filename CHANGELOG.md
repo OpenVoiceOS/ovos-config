@@ -1,8 +1,17 @@
 # Changelog
 
-## [0.0.9a4](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a4) (2023-05-23)
+## [0.0.9a5](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.9a5) (2023-05-24)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a3...0.0.9a4)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a4...0.0.9a5)
+
+**Implemented enhancements:**
+
+- os.env [\#46](https://github.com/OpenVoiceOS/ovos-config/issues/46)
+- Support envvar default configuration overrides [\#47](https://github.com/OpenVoiceOS/ovos-config/pull/47) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.9a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a4) (2023-05-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a3...V0.0.9a4)
 
 **Merged pull requests:**
 
