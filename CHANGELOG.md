@@ -1,45 +1,63 @@
 # Changelog
 
-## [0.0.8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.8) (2023-04-19)
+## [V0.0.9a6](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a6) (2023-05-24)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a5...0.0.8)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a5...V0.0.9a6)
 
-**Fixed bugs:**
+**Implemented enhancements:**
 
-- Configuration file not loaded [\#19](https://github.com/OpenVoiceOS/ovos-config/issues/19)
+- Port `init_module_config` from neon\_utils with unit tests [\#42](https://github.com/OpenVoiceOS/ovos-config/pull/42) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [V0.0.8a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a5) (2023-04-18)
+**Closed issues:**
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a4...V0.0.8a5)
+- Add method to init configuration [\#22](https://github.com/OpenVoiceOS/ovos-config/issues/22)
 
-**Merged pull requests:**
+## [V0.0.9a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a5) (2023-05-24)
 
-- Update automation to match ovos-utils [\#36](https://github.com/OpenVoiceOS/ovos-config/pull/36) ([NeonDaniel](https://github.com/NeonDaniel))
-- Move backend client to optional dependencies [\#35](https://github.com/OpenVoiceOS/ovos-config/pull/35) ([NeonDaniel](https://github.com/NeonDaniel))
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a4...V0.0.9a5)
 
-## [V0.0.8a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a4) (2023-04-14)
+**Implemented enhancements:**
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a3...V0.0.8a4)
+- os.env [\#46](https://github.com/OpenVoiceOS/ovos-config/issues/46)
+- Support envvar default configuration overrides [\#47](https://github.com/OpenVoiceOS/ovos-config/pull/47) ([NeonDaniel](https://github.com/NeonDaniel))
 
-**Merged pull requests:**
+## [V0.0.9a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a4) (2023-05-23)
 
-- fix system\_unit comment [\#34](https://github.com/OpenVoiceOS/ovos-config/pull/34) ([emphasize](https://github.com/emphasize))
-
-## [V0.0.8a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a3) (2023-04-05)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a2...V0.0.8a3)
-
-## [V0.0.8a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a2) (2023-04-05)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8a1...V0.0.8a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a3...V0.0.9a4)
 
 **Merged pull requests:**
 
-- bump requirements.txt [\#32](https://github.com/OpenVoiceOS/ovos-config/pull/32) ([JarbasAl](https://github.com/JarbasAl))
+- Add configuration update unit tests and update documentation [\#45](https://github.com/OpenVoiceOS/ovos-config/pull/45) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [V0.0.8a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.8a1) (2023-04-04)
+## [V0.0.9a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a3) (2023-05-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.7...V0.0.8a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a2...V0.0.9a3)
+
+**Closed issues:**
+
+- 0.0.9a2 - Page not found [\#41](https://github.com/OpenVoiceOS/ovos-config/issues/41)
+- 0.0.9a2 - Page not found [\#40](https://github.com/OpenVoiceOS/ovos-config/issues/40)
+
+**Merged pull requests:**
+
+- Fix setup.py bug [\#44](https://github.com/OpenVoiceOS/ovos-config/pull/44) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update build\_tests to use shared action [\#43](https://github.com/OpenVoiceOS/ovos-config/pull/43) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.9a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a2) (2023-05-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9a1...V0.0.9a2)
+
+**Merged pull requests:**
+
+- fix setup [\#39](https://github.com/OpenVoiceOS/ovos-config/pull/39) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.9a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.9a1) (2023-05-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.8...V0.0.9a1)
+
+**Merged pull requests:**
+
+- Bump PyYAML to 6.0 [\#38](https://github.com/OpenVoiceOS/ovos-config/pull/38) ([goldyfruit](https://github.com/goldyfruit))
 
 
 
