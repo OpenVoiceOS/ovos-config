@@ -264,12 +264,13 @@ class TestConfiguration(TestCase):
         self.assertIsNone(thread.join(0))
 
     def test_on_file_change(self):
-        import ovos_config
-        importlib.reload(ovos_config.config)
-        from ovos_config.config import Configuration
         test_file = join(self.test_dir, "mycroft", "mycroft.conf")
         with open(test_file, 'w') as f:
             f.write('{"testing": true}')
+
+        import ovos_config
+        importlib.reload(ovos_config.config)
+        from ovos_config.config import Configuration
         config = Configuration()
         test_cfg = [c for c in config.xdg_configs if c.path == test_file][0]
         self.assertTrue(config['testing'])
