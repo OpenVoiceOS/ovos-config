@@ -1,3 +1,4 @@
+import importlib
 import logging
 import shutil
 import yaml
@@ -262,9 +263,12 @@ class TestConfiguration(TestCase):
         self.assertIsNone(thread.join(0))
 
     def test_on_file_change(self):
+        import ovos_config
+        importlib.reload(ovos_config.config)
         from ovos_config.config import Configuration
         test_file = join(self.test_dir, "mycroft", "mycroft.conf")
-
+        with open(test_file, 'w') as f:
+            f.write('{"testing": true}')
         config = Configuration()
         self.assertTrue(config['testing'])
         called = Event()
