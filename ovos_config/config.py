@@ -309,18 +309,7 @@ class Configuration(dict):
                                   "syntax seems invalid!")
                 break
         else:
-            LOG.info(f"Reloading all configuration files, got: {path}")
-            # reload all configs
-            try:
-                Configuration.reload()
-            except:
-                # got the file changed signal before write finished
-                sleep(0.5)
-                try:
-                    Configuration.reload()
-                except:
-                    LOG.exception("Failed to load configuration, "
-                                  "syntax seems invalid!")
+            LOG.debug(f"Ignoring non-config file change: {path}")
 
         for handler in Configuration._callbacks:
             try:
