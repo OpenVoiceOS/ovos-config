@@ -278,7 +278,7 @@ class Configuration(dict):
         """
         paths = [Configuration.system.path] + \
                 [c.path for c in Configuration.xdg_configs]
-        if callback:
+        if callback and callback not in Configuration._callbacks:
             Configuration._callbacks.append(callback)
         if not Configuration._watchdog:
             Configuration._watchdog = FileWatcher(
@@ -292,36 +292,36 @@ class Configuration(dict):
         Callback method for FileWatcher
         @param path: Configuration file path reporting a change
         """
-        LOG.info(f'{path} changed on disk, reloading!')
         # reload updated config
-        for cfg in Configuration.xdg_configs + [Configuration.system]:
+        for cfg in Configuration.xdg_configs + [Configuration.system,
+                                                Configuration.remote]:
             if cfg.path == path:
+                old_cfg = hash(cfg)
                 try:
                     cfg.reload()
-                    break
+                    reloaded = True
                 except:
                     # got the file changed signal before write finished
                     sleep(0.5)
+                    reloaded = False
                 try:
-                    cfg.reload()
+                    if not reloaded:
+                        LOG.warning(f"Reload failed, retrying")
+                        cfg.reload()
                 except:
                     LOG.exception("Failed to load configuration, "
                                   "syntax seems invalid!")
+                new_cfg = hash(cfg)
+                if old_cfg == new_cfg:
+                    LOG.info(f"{path} unchanged")
+                    return
                 break
         else:
-            LOG.info(f"Reloading all configuration files, got: {path}")
-            # reload all configs
-            try:
-                Configuration.reload()
-            except:
-                # got the file changed signal before write finished
-                sleep(0.5)
-                try:
-                    Configuration.reload()
-                except:
-                    LOG.exception("Failed to load configuration, "
-                                  "syntax seems invalid!")
+            LOG.info(f"Ignoring non-config file change: {path}")
+            return
 
+        LOG.info(f'{path} changed on disk')
+        LOG.debug(f"Calling {len(Configuration._callbacks)} callbacks")
         for handler in Configuration._callbacks:
             try:
                 handler()
