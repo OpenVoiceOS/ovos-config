@@ -297,21 +297,31 @@ class Configuration(dict):
         for cfg in Configuration.xdg_configs + [Configuration.system,
                                                 Configuration.remote]:
             if cfg.path == path:
+                old_cfg = hash(cfg)
                 try:
                     cfg.reload()
-                    break
+                    reloaded = True
                 except:
                     # got the file changed signal before write finished
                     sleep(0.5)
+                    reloaded = False
                 try:
-                    cfg.reload()
+                    if not reloaded:
+                        LOG.warning(f"Reload failed, retrying")
+                        cfg.reload()
                 except:
                     LOG.exception("Failed to load configuration, "
                                   "syntax seems invalid!")
+                new_cfg = hash(cfg)
+                LOG.debug(f"old={old_cfg}\nnew={new_cfg}")
+                if old_cfg == new_cfg:
+                    LOG.info(f"{path} unchanged")
+                    return
                 break
         else:
             LOG.debug(f"Ignoring non-config file change: {path}")
 
+        LOG.debug(f"Calling {len(Configuration._callbacks)} callbacks")
         for handler in Configuration._callbacks:
             try:
                 handler()

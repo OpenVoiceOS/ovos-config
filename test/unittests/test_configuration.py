@@ -1,13 +1,17 @@
+import logging
 import shutil
 import yaml
 import os
+import json
 
 from unittest.mock import MagicMock, patch, Mock
 from unittest import TestCase, skip
 from threading import Event, Thread
 from os.path import dirname, isfile, join
-import json
 from typing import OrderedDict
+from ovos_utils.log import LOG
+
+LOG.level = logging.DEBUG
 
 
 class TestConfiguration(TestCase):
@@ -256,3 +260,33 @@ class TestConfiguration(TestCase):
         self.assertEqual(str(config), str(thread_config))
 
         self.assertIsNone(thread.join(0))
+
+    def test_on_file_change(self):
+        from ovos_config.config import Configuration
+        test_file = join(self.test_dir, "mycroft", "mycroft.conf")
+
+        config = Configuration()
+        self.assertTrue(config['testing'])
+        called = Event()
+        callback = Mock(side_effect=lambda: called.set())
+        config.set_config_watcher(callback)
+        self.assertIn(test_file, [c.path for c in config.xdg_configs])
+
+        # Test file opened with no changes
+        with open(test_file, 'a') as f:
+            pass
+        self.assertFalse(called.wait(2))
+        callback.assert_not_called()
+
+        # Test file opened with no config changes
+        with open(test_file, 'a') as f:
+            f.write("\n\n// Comment")
+        self.assertFalse(called.wait(2))
+        callback.assert_not_called()
+
+        # Test file changed
+        with open(test_file, 'w') as f:
+            json.dump({"testing": False}, f)
+        self.assertTrue(called.wait(2))
+        callback.assert_called_once()
+        self.assertFalse(config['testing'])
