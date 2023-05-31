@@ -292,7 +292,6 @@ class Configuration(dict):
         Callback method for FileWatcher
         @param path: Configuration file path reporting a change
         """
-        LOG.info(f'{path} changed on disk, reloading!')
         # reload updated config
         for cfg in Configuration.xdg_configs + [Configuration.system,
                                                 Configuration.remote]:
@@ -318,8 +317,10 @@ class Configuration(dict):
                     return
                 break
         else:
-            LOG.debug(f"Ignoring non-config file change: {path}")
+            LOG.info(f"Ignoring non-config file change: {path}")
+            return
 
+        LOG.info(f'{path} changed on disk')
         LOG.debug(f"Calling {len(Configuration._callbacks)} callbacks")
         for handler in Configuration._callbacks:
             try:
