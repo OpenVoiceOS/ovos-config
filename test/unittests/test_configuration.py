@@ -35,6 +35,7 @@ class TestConfiguration(TestCase):
     def tearDown(self):
         from ovos_config.config import Configuration
         Configuration.load_config_stack([{}], True)
+        Configuration._callbacks = []
 
     def test_get(self):
         from ovos_config.config import Configuration
@@ -294,3 +295,12 @@ class TestConfiguration(TestCase):
         self.assertTrue(called.wait(2))
         callback.assert_called_once()
         self.assertFalse(config['testing'])
+
+    def test_set_config_watcher(self):
+        from ovos_config.config import Configuration
+        callback = Mock()
+        config = Configuration()
+        config.set_config_watcher(callback)
+        self.assertEqual(len(config._callbacks), 1)
+        config.set_config_watcher(callback)
+        self.assertEqual(len(config._callbacks), 1)

@@ -278,7 +278,7 @@ class Configuration(dict):
         """
         paths = [Configuration.system.path] + \
                 [c.path for c in Configuration.xdg_configs]
-        if callback:
+        if callback and callback not in Configuration._callbacks:
             Configuration._callbacks.append(callback)
         if not Configuration._watchdog:
             Configuration._watchdog = FileWatcher(
