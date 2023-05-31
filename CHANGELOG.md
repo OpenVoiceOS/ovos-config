@@ -1,8 +1,20 @@
 # Changelog
 
-## [0.0.10a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.10a1) (2023-05-29)
+## [0.0.10a2](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.10a2) (2023-05-31)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9...0.0.10a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10a1...0.0.10a2)
+
+**Closed issues:**
+
+- Clean install failed on missing ovos-tts-plugin-mimic [\#49](https://github.com/OpenVoiceOS/ovos-config/issues/49)
+
+**Merged pull requests:**
+
+- Skip config file reload when a non-config file is modified [\#51](https://github.com/OpenVoiceOS/ovos-config/pull/51) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.10a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.10a1) (2023-05-29)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9...V0.0.10a1)
 
 **Merged pull requests:**
 
