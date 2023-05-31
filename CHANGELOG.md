@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.10a2](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.10a2) (2023-05-31)
+## [0.0.10a3](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.10a3) (2023-05-31)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10a1...0.0.10a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10a2...0.0.10a3)
+
+**Fixed bugs:**
+
+- Update config hash to sort keys to ensure hashes compare [\#52](https://github.com/OpenVoiceOS/ovos-config/pull/52) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.10a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.10a2) (2023-05-31)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10a1...V0.0.10a2)
 
 **Closed issues:**
 
