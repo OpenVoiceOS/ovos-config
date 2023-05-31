@@ -294,7 +294,8 @@ class Configuration(dict):
         """
         LOG.info(f'{path} changed on disk, reloading!')
         # reload updated config
-        for cfg in Configuration.xdg_configs + [Configuration.system]:
+        for cfg in Configuration.xdg_configs + [Configuration.system,
+                                                Configuration.remote]:
             if cfg.path == path:
                 try:
                     cfg.reload()
