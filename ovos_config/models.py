@@ -65,7 +65,6 @@ class LocalConf(dict):
             self.load_local(path)
 
     def __hash__(self):
-        LOG.debug(f"get hash for: {dict(self)}")
         return hash(json.dumps(dict(self)))
 
     def _get_file_format(self, path=None):

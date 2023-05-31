@@ -313,7 +313,6 @@ class Configuration(dict):
                     LOG.exception("Failed to load configuration, "
                                   "syntax seems invalid!")
                 new_cfg = hash(cfg)
-                LOG.debug(f"old={old_cfg}\nnew={new_cfg}")
                 if old_cfg == new_cfg:
                     LOG.info(f"{path} unchanged")
                     return
