@@ -264,14 +264,17 @@ class TestConfiguration(TestCase):
         self.assertIsNone(thread.join(0))
 
     def test_on_file_change(self):
-        import ovos_config
-        importlib.reload(ovos_config.config)
-        from ovos_config.config import Configuration
         test_file = join(self.test_dir, "mycroft", "mycroft.conf")
         with open(test_file, 'w') as f:
             f.write('{"testing": true}')
+
+        import ovos_config
+        importlib.reload(ovos_config.config)
+        from ovos_config.config import Configuration
         config = Configuration()
+        test_cfg = [c for c in config.xdg_configs if c.path == test_file][0]
         self.assertTrue(config['testing'])
+        self.assertEqual(dict(test_cfg), {'testing': True})
         called = Event()
         callback = Mock(side_effect=lambda: called.set())
         config.set_config_watcher(callback)
@@ -287,12 +290,14 @@ class TestConfiguration(TestCase):
         with open(test_file, 'a') as f:
             f.write("\n\n// Comment")
         self.assertFalse(called.wait(2))
+        self.assertEqual(dict(test_cfg), {'testing': True})
         callback.assert_not_called()
 
         # Test file changed
         with open(test_file, 'w') as f:
             json.dump({"testing": False}, f)
         self.assertTrue(called.wait(2))
+        self.assertEqual(dict(test_cfg), {'testing': False})
         callback.assert_called_once()
         self.assertFalse(config['testing'])
 
