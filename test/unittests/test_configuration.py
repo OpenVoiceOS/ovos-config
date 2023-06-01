@@ -1,13 +1,18 @@
+import importlib
+import logging
 import shutil
 import yaml
 import os
+import json
 
 from unittest.mock import MagicMock, patch, Mock
 from unittest import TestCase, skip
 from threading import Event, Thread
 from os.path import dirname, isfile, join
-import json
 from typing import OrderedDict
+from ovos_utils.log import LOG
+
+LOG.level = logging.DEBUG
 
 
 class TestConfiguration(TestCase):
@@ -30,6 +35,7 @@ class TestConfiguration(TestCase):
     def tearDown(self):
         from ovos_config.config import Configuration
         Configuration.load_config_stack([{}], True)
+        Configuration._callbacks = []
 
     def test_get(self):
         from ovos_config.config import Configuration
@@ -256,3 +262,50 @@ class TestConfiguration(TestCase):
         self.assertEqual(str(config), str(thread_config))
 
         self.assertIsNone(thread.join(0))
+
+    def test_on_file_change(self):
+        test_file = join(self.test_dir, "mycroft", "mycroft.conf")
+        with open(test_file, 'w') as f:
+            f.write('{"testing": true}')
+
+        import ovos_config
+        importlib.reload(ovos_config.config)
+        from ovos_config.config import Configuration
+        config = Configuration()
+        test_cfg = [c for c in config.xdg_configs if c.path == test_file][0]
+        self.assertTrue(config['testing'])
+        self.assertEqual(dict(test_cfg), {'testing': True})
+        called = Event()
+        callback = Mock(side_effect=lambda: called.set())
+        config.set_config_watcher(callback)
+        self.assertIn(test_file, [c.path for c in config.xdg_configs])
+
+        # Test file opened with no changes
+        with open(test_file, 'a') as f:
+            pass
+        self.assertFalse(called.wait(2))
+        callback.assert_not_called()
+
+        # Test file opened with no config changes
+        with open(test_file, 'a') as f:
+            f.write("\n\n// Comment")
+        self.assertFalse(called.wait(2))
+        self.assertEqual(dict(test_cfg), {'testing': True})
+        callback.assert_not_called()
+
+        # Test file changed
+        with open(test_file, 'w') as f:
+            json.dump({"testing": False}, f)
+        self.assertTrue(called.wait(2))
+        self.assertEqual(dict(test_cfg), {'testing': False})
+        callback.assert_called_once()
+        self.assertFalse(config['testing'])
+
+    def test_set_config_watcher(self):
+        from ovos_config.config import Configuration
+        callback = Mock()
+        config = Configuration()
+        config.set_config_watcher(callback)
+        self.assertEqual(len(config._callbacks), 1)
+        config.set_config_watcher(callback)
+        self.assertEqual(len(config._callbacks), 1)
