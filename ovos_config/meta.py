@@ -68,15 +68,9 @@ def get_ovos_config():
     from ovos_utils.system import is_running_from_module
 
     # populate default values
-    config = {"xdg": True,
-              "base_folder": os.environ.get("OVOS_CONFIG_BASE_FOLDER") or
-              "mycroft",
-              "config_filename": os.environ.get("OVOS_CONFIG_FILENAME") or
-              "mycroft.conf"}
-    try:
-        config["default_config_path"] = _oloc.find_default_config()
-    except FileNotFoundError:  # not a mycroft device
-        config["default_config_path"] = join(dirname(__file__), "mycroft.conf")
+    config = {"base_folder": os.environ.get("OVOS_CONFIG_BASE_FOLDER") or "mycroft",
+              "config_filename": os.environ.get("OVOS_CONFIG_FILENAME") or "mycroft.conf",
+              "default_config_path": os.environ.get("OVOS_DEFAULT_CONFIG") or f"{dirname(__file__)}/mycroft.conf"}
 
     # load ovos.conf
     for path in get_ovos_default_config_paths():
@@ -164,6 +158,7 @@ def set_xdg_base(folder_name):
     NOTE: this value will be set globally, per core overrides in ovos.conf take precedence
     """
     LOG.info(f"XDG base folder set to: '{folder_name}'")
+    os.environ["OVOS_CONFIG_BASE_FOLDER"] = folder_name
     save_ovos_config({"base_folder": folder_name})
 
 
@@ -178,6 +173,7 @@ def set_config_filename(file_name, core_folder=None):
     if core_folder:
         set_xdg_base(core_folder)
     LOG.info(f"config filename set to: '{file_name}'")
+    os.environ["OVOS_CONFIG_FILENAME"] = folder_name
     save_ovos_config({"config_filename": file_name})
 
 
@@ -190,7 +186,7 @@ def get_config_filename():
     return get_ovos_config().get("config_filename") or "mycroft.conf"
 
 
-def set_default_config(file_path=None):
+def set_default_config(file_path=f"{dirname(__file__)}/mycroft.conf"):
     """ full path to default config file to be used
     NOTE: this is a full path, not a directory! "config_filename" parameter is not used here
 
@@ -198,6 +194,6 @@ def set_default_config(file_path=None):
 
     NOTE: this value will be set globally, per core overrides in ovos.conf take precedence
     """
-    file_path = file_path or _oloc.find_default_config()
     LOG.info(f"default config file changed to: {file_path}")
+    os.environ["OVOS_DEFAULT_CONFIG"] = file_path
     save_ovos_config({"default_config_path": file_path})
