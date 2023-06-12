@@ -173,7 +173,7 @@ def set_config_filename(file_name, core_folder=None):
     if core_folder:
         set_xdg_base(core_folder)
     LOG.info(f"config filename set to: '{file_name}'")
-    os.environ["OVOS_CONFIG_FILENAME"] = folder_name
+    os.environ["OVOS_CONFIG_FILENAME"] = file_name
     save_ovos_config({"config_filename": file_name})
 
 
