@@ -80,6 +80,11 @@ def get_ovos_config():
             # tolerate bad json TODO proper exception (?)
             pass
 
+    # let's check for os.env overrides, those take precedence over ovos.conf default values
+    config["base_folder"] = os.environ.get("OVOS_CONFIG_BASE_FOLDER") or config["base_folder"]
+    config["config_filename"] = os.environ.get("OVOS_CONFIG_FILENAME") or config["config_filename"]
+    config["default_config_path"] = os.environ.get("OVOS_DEFAULT_CONFIG") or config["default_config_path"]
+      
     # let's check for derivatives specific configs
     # the assumption is that these cores are exclusive to each other,
     # this will never find more than one override
@@ -95,12 +100,7 @@ def get_ovos_config():
             if is_running_from_module(k):
                 config = merge_dict(config, cores[subcores[k]])
                 break
-
-    # let's check for os.env overrides, those take precedence over everything else
-    config["base_folder"] = os.environ.get("OVOS_CONFIG_BASE_FOLDER") or config["base_folder"]
-    config["config_filename"] = os.environ.get("OVOS_CONFIG_FILENAME") or config["config_filename"]
-    config["default_config_path"] = os.environ.get("OVOS_DEFAULT_CONFIG") or config["default_config_path"]
-      
+               
     return config
 
 
