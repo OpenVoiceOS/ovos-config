@@ -57,9 +57,9 @@ from ovos_utils.log import LOG
 
 def get_ovos_config():
     """
-    Goes through all possible ovos.conf paths and loads them in order. Default
-    `base_folder` and `config_filename` are overridden by envvars
-    `OVOS_CONFIG_BASE_FOLDER` and `OVOS_CONFIG_FILENAME`, respectively.
+    Goes through all possible ovos.conf paths and loads them in order. 
+    `base_folder`, `config_filename` and "default_config_path" are overridden by envvars
+    `OVOS_CONFIG_BASE_FOLDER`,`OVOS_CONFIG_FILENAME` and `OVOS_DEFAULT_CONFIG`, respectively.
     Submodule overrides are applied to the final config if defined for the
     calling module.
     eg, if neon is calling this method then neon config overrides are loaded
@@ -68,9 +68,9 @@ def get_ovos_config():
     from ovos_utils.system import is_running_from_module
 
     # populate default values
-    config = {"base_folder": os.environ.get("OVOS_CONFIG_BASE_FOLDER") or "mycroft",
-              "config_filename": os.environ.get("OVOS_CONFIG_FILENAME") or "mycroft.conf",
-              "default_config_path": os.environ.get("OVOS_DEFAULT_CONFIG") or f"{dirname(__file__)}/mycroft.conf"}
+    config = {"base_folder": "mycroft",
+              "config_filename": "mycroft.conf",
+              "default_config_path":  f"{dirname(__file__)}/mycroft.conf"}
 
     # load ovos.conf
     for path in get_ovos_default_config_paths():
@@ -96,6 +96,11 @@ def get_ovos_config():
                 config = merge_dict(config, cores[subcores[k]])
                 break
 
+    # let's check for os.env overrides, those take precedence over everything else
+    config["base_folder"] = os.environ.get("OVOS_CONFIG_BASE_FOLDER") or config["base_folder"]
+    config["config_filename"] = os.environ.get("OVOS_CONFIG_FILENAME") or config["config_filename"]
+    config["default_config_path"] = os.environ.get("OVOS_DEFAULT_CONFIG") or config["default_config_path"]
+      
     return config
 
 
