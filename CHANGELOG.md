@@ -1,32 +1,12 @@
 # Changelog
 
-## [V0.0.10a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.10a3) (2023-05-31)
+## [0.0.11a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a1) (2023-07-02)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10a2...V0.0.10a3)
-
-**Fixed bugs:**
-
-- Update config hash to sort keys to ensure hashes compare [\#52](https://github.com/OpenVoiceOS/ovos-config/pull/52) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [V0.0.10a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.10a2) (2023-05-31)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10a1...V0.0.10a2)
-
-**Closed issues:**
-
-- Clean install failed on missing ovos-tts-plugin-mimic [\#49](https://github.com/OpenVoiceOS/ovos-config/issues/49)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10...0.0.11a1)
 
 **Merged pull requests:**
 
-- Skip config file reload when a non-config file is modified [\#51](https://github.com/OpenVoiceOS/ovos-config/pull/51) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [V0.0.10a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.10a1) (2023-05-29)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9...V0.0.10a1)
-
-**Merged pull requests:**
-
-- refactor/better\_defaults [\#50](https://github.com/OpenVoiceOS/ovos-config/pull/50) ([JarbasAl](https://github.com/JarbasAl))
+- Update mycroft.conf [\#55](https://github.com/OpenVoiceOS/ovos-config/pull/55) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
