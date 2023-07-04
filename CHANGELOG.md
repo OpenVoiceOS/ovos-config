@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a1) (2023-07-02)
+## [0.0.11a2](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a2) (2023-07-04)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10...0.0.11a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a1...0.0.11a2)
+
+**Implemented enhancements:**
+
+- document dinkum listener [\#57](https://github.com/OpenVoiceOS/ovos-config/pull/57) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.11a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a1) (2023-07-02)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10...V0.0.11a1)
 
 **Merged pull requests:**
 
