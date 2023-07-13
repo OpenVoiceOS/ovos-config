@@ -1,8 +1,20 @@
 # Changelog
 
-## [0.0.11a3](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a3) (2023-07-04)
+## [0.0.11a4](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a4) (2023-07-13)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a2...0.0.11a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a3...0.0.11a4)
+
+**Closed issues:**
+
+- Some fields not  updating as expected using single command line [\#58](https://github.com/OpenVoiceOS/ovos-config/issues/58)
+
+**Merged pull requests:**
+
+- change connectivity check urls [\#60](https://github.com/OpenVoiceOS/ovos-config/pull/60) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.11a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a3) (2023-07-04)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a2...V0.0.11a3)
 
 **Implemented enhancements:**
 
