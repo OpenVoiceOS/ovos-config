@@ -54,13 +54,14 @@ class LocalConf(dict):
     allow_overwrite = True
     # lock is shared among all subclasses,
     # regardless of what file is being edited only one file should change at a time
-    # this ensure orderly behaviour in anything monitoring changes,
+    # this ensures orderly behaviour in anything monitoring changes,
     #   eg FileWatcher util, configuration.patch bus handlers
     __lock = NamedLock("ovos_config")
 
     def __init__(self, path):
         super().__init__(self)
         self.path = path
+        self.reloading = False
         if path:
             self.load_local(path)
 
@@ -85,7 +86,8 @@ class LocalConf(dict):
             return "json"
 
     def load_local(self, path=None):
-        """Load local json file into self.
+        """
+        Load local json file into self.
 
         Args:
             path (str): file to load
@@ -114,7 +116,9 @@ class LocalConf(dict):
             LOG.debug(f"Configuration '{path}' not defined, skipping")
 
     def reload(self):
+        self.reloading = True
         self.load_local(self.path)
+        self.reloading = False
 
     def store(self, path=None):
         path = path or self.path

@@ -15,7 +15,6 @@
 import json
 from os.path import isfile
 from typing import Optional
-from time import sleep
 
 from ovos_config.models import LocalConf, MycroftDefaultConfig, \
     MycroftSystemConfig, MycroftUserConfig, RemoteConf
@@ -296,28 +295,24 @@ class Configuration(dict):
         for cfg in Configuration.xdg_configs + [Configuration.system,
                                                 Configuration.remote]:
             if cfg.path == path:
+                if cfg.reloading:
+                    LOG.error("Asked to reload file while already reloading!")
+                    continue
                 old_cfg = hash(cfg)
                 try:
                     cfg.reload()
-                    reloaded = True
-                except:
-                    # got the file changed signal before write finished
-                    sleep(0.5)
-                    reloaded = False
-                try:
-                    if not reloaded:
-                        LOG.warning(f"Reload failed, retrying")
-                        cfg.reload()
-                except:
-                    LOG.exception("Failed to load configuration, "
-                                  "syntax seems invalid!")
+                except Exception as e:
+                    # Filewatcher only calls this on file close, so this
+                    # is really an error
+                    LOG.exception(f"Failed to load: {path}: {e}")
+
                 new_cfg = hash(cfg)
                 if old_cfg == new_cfg:
                     LOG.info(f"{path} unchanged")
                     return
                 break
         else:
-            LOG.info(f"Ignoring non-config file change: {path}")
+            LOG.debug(f"Ignoring non-config file change: {path}")
             return
 
         LOG.info(f'{path} changed on disk')
