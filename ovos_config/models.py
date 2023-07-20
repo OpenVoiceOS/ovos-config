@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 import json
-from os.path import exists, isfile
+from os.path import exists, isfile, getmtime
 from combo_lock import NamedLock
 import yaml
 from ovos_utils.json_helper import load_commented_json, merge_dict
@@ -62,6 +62,7 @@ class LocalConf(dict):
         super().__init__(self)
         self.path = path
         self.reloading = False
+        self._last_loaded = None
         if path:
             self.load_local(path)
 
@@ -112,13 +113,16 @@ class LocalConf(dict):
                         LOG.debug(f"Empty config found at: {path}")
                 except Exception as e:
                     LOG.exception(f"Error loading configuration '{path}'")
+                if path == self.path:
+                    self._last_loaded = getmtime(self.path)
         else:
             LOG.debug(f"Configuration '{path}' not defined, skipping")
 
     def reload(self):
-        self.reloading = True
+        if self._last_loaded == getmtime(self.path):
+            LOG.debug(f"File not changed since last load")
+            return
         self.load_local(self.path)
-        self.reloading = False
 
     def store(self, path=None):
         path = path or self.path
