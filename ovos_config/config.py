@@ -295,9 +295,6 @@ class Configuration(dict):
         for cfg in Configuration.xdg_configs + [Configuration.system,
                                                 Configuration.remote]:
             if cfg.path == path:
-                if cfg.reloading:
-                    LOG.error("Asked to reload file while already reloading!")
-                    continue
                 old_cfg = hash(cfg)
                 try:
                     cfg.reload()
