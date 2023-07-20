@@ -61,7 +61,6 @@ class LocalConf(dict):
     def __init__(self, path):
         super().__init__(self)
         self.path = path
-        self.reloading = False
         self._last_loaded = None
         if path:
             self.load_local(path)
@@ -120,7 +119,7 @@ class LocalConf(dict):
 
     def reload(self):
         if self._last_loaded == getmtime(self.path):
-            LOG.debug(f"File not changed since last load")
+            LOG.info(f"File not changed since last load")
             return
         self.load_local(self.path)
 
@@ -204,9 +203,6 @@ class RemoteConf(LocalConf):
             remote = RemoteConfigManager()
 
             remote.download()
-            if remote.config == dict(self):
-                LOG.info("No changes from remote")
-                return
             for key in remote.config:
                 self.__setitem__(key, remote.config[key])
             LOG.debug(f"writing remote config to {self.path}")
