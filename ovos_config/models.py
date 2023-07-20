@@ -204,6 +204,9 @@ class RemoteConf(LocalConf):
             remote = RemoteConfigManager()
 
             remote.download()
+            if hash(remote) == hash(self):
+                LOG.info("No changes from remote")
+                return
             for key in remote.config:
                 self.__setitem__(key, remote.config[key])
 
