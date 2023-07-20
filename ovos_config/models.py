@@ -13,9 +13,11 @@
 # limitations under the License.
 #
 import json
+import yaml
+
+from time import time
 from os.path import exists, isfile, getmtime
 from combo_lock import NamedLock
-import yaml
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
 
@@ -119,7 +121,8 @@ class LocalConf(dict):
 
     def reload(self):
         if self._last_loaded == getmtime(self.path):
-            LOG.info(f"File not changed since last load")
+            LOG.debug(f"File not changed since last load "
+                      f"({time() - self._last_loaded} seconds ago)")
             return
         self.load_local(self.path)
 
