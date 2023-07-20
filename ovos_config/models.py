@@ -121,8 +121,8 @@ class LocalConf(dict):
 
     def reload(self):
         if self._last_loaded == getmtime(self.path):
-            LOG.debug(f"File not changed since last load "
-                      f"({time() - self._last_loaded} seconds ago)")
+            LOG.debug(f"{self.path} not changed since last load "
+                      f"(changed {time() - self._last_loaded} seconds ago)")
             return
         self.load_local(self.path)
 
