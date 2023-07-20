@@ -204,7 +204,7 @@ class RemoteConf(LocalConf):
             remote = RemoteConfigManager()
 
             remote.download()
-            if hash(remote) == hash(self):
+            if remote.config == dict(self):
                 LOG.info("No changes from remote")
                 return
             for key in remote.config:
