@@ -209,7 +209,7 @@ class RemoteConf(LocalConf):
                 return
             for key in remote.config:
                 self.__setitem__(key, remote.config[key])
-
+            LOG.debug(f"writing remote config to {self.path}")
             self.store(self.path)
 
         except Exception as e:
