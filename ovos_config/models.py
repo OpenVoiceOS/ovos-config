@@ -13,9 +13,11 @@
 # limitations under the License.
 #
 import json
-from os.path import exists, isfile
-from combo_lock import NamedLock
 import yaml
+
+from time import time
+from os.path import exists, isfile, getmtime
+from combo_lock import NamedLock
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
 
@@ -54,13 +56,14 @@ class LocalConf(dict):
     allow_overwrite = True
     # lock is shared among all subclasses,
     # regardless of what file is being edited only one file should change at a time
-    # this ensure orderly behaviour in anything monitoring changes,
+    # this ensures orderly behaviour in anything monitoring changes,
     #   eg FileWatcher util, configuration.patch bus handlers
     __lock = NamedLock("ovos_config")
 
     def __init__(self, path):
         super().__init__(self)
         self.path = path
+        self._last_loaded = None
         if path:
             self.load_local(path)
 
@@ -85,7 +88,8 @@ class LocalConf(dict):
             return "json"
 
     def load_local(self, path=None):
-        """Load local json file into self.
+        """
+        Load local json file into self.
 
         Args:
             path (str): file to load
@@ -110,10 +114,16 @@ class LocalConf(dict):
                         LOG.debug(f"Empty config found at: {path}")
                 except Exception as e:
                     LOG.exception(f"Error loading configuration '{path}'")
+                if path == self.path:
+                    self._last_loaded = getmtime(self.path)
         else:
             LOG.debug(f"Configuration '{path}' not defined, skipping")
 
     def reload(self):
+        if self._last_loaded == getmtime(self.path):
+            LOG.debug(f"{self.path} not changed since last load "
+                      f"(changed {time() - self._last_loaded} seconds ago)")
+            return
         self.load_local(self.path)
 
     def store(self, path=None):
@@ -198,7 +208,7 @@ class RemoteConf(LocalConf):
             remote.download()
             for key in remote.config:
                 self.__setitem__(key, remote.config[key])
-
+            LOG.debug(f"writing remote config to {self.path}")
             self.store(self.path)
 
         except Exception as e:
