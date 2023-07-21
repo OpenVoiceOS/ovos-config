@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a4](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a4) (2023-07-13)
+## [0.0.11a5](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a5) (2023-07-21)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a3...0.0.11a4)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a4...0.0.11a5)
+
+**Merged pull requests:**
+
+- Fix infinitely recursive callback [\#61](https://github.com/OpenVoiceOS/ovos-config/pull/61) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.11a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a4) (2023-07-13)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a3...V0.0.11a4)
 
 **Closed issues:**
 
