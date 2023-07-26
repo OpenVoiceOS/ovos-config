@@ -114,13 +114,13 @@ class LocalConf(dict):
                         LOG.debug(f"Empty config found at: {path}")
                 except Exception as e:
                     LOG.exception(f"Error loading configuration '{path}'")
-                if path == self.path:
+                if path == self.path and isfile(self.path):
                     self._last_loaded = getmtime(self.path)
         else:
             LOG.debug(f"Configuration '{path}' not defined, skipping")
 
     def reload(self):
-        if self._last_loaded == getmtime(self.path):
+        if isfile(self.path) and self._last_loaded == getmtime(self.path):
             LOG.debug(f"{self.path} not changed since last load "
                       f"(changed {time() - self._last_loaded} seconds ago)")
             return
