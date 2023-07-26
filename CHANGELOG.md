@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a5](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a5) (2023-07-21)
+## [0.0.11a6](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a6) (2023-07-26)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a4...0.0.11a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a5...0.0.11a6)
+
+**Merged pull requests:**
+
+- Add config path checks before mtime checks [\#62](https://github.com/OpenVoiceOS/ovos-config/pull/62) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.11a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a5) (2023-07-21)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a4...V0.0.11a5)
 
 **Merged pull requests:**
 
