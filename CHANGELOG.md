@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a7](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a7) (2023-08-07)
+## [0.0.11a8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a8) (2023-08-08)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a6...0.0.11a7)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a7...0.0.11a8)
+
+**Merged pull requests:**
+
+- Log deprecation of FileWatcher classes in `.utils` [\#64](https://github.com/OpenVoiceOS/ovos-config/pull/64) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [V0.0.11a7](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a7) (2023-08-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a6...V0.0.11a7)
 
 **Implemented enhancements:**
 
