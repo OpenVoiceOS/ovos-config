@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a8) (2023-08-08)
+## [0.0.11a9](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a9) (2023-08-08)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a7...0.0.11a8)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a8...0.0.11a9)
+
+**Fixed bugs:**
+
+- fix subclassing for deprecation [\#65](https://github.com/OpenVoiceOS/ovos-config/pull/65) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.11a8](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a8) (2023-08-08)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a7...V0.0.11a8)
 
 **Merged pull requests:**
 
