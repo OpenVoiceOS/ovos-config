@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a9](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a9) (2023-08-08)
+## [0.0.11a10](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a10) (2023-08-22)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a8...0.0.11a9)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a9...0.0.11a10)
+
+**Implemented enhancements:**
+
+- Update default translation plugin [\#66](https://github.com/OpenVoiceOS/ovos-config/pull/66) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.11a9](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a9) (2023-08-08)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a8...V0.0.11a9)
 
 **Fixed bugs:**
 
