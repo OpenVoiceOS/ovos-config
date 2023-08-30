@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a10](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a10) (2023-08-22)
+## [0.0.11a11](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a11) (2023-08-30)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a9...0.0.11a10)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a10...0.0.11a11)
+
+**Merged pull requests:**
+
+- \[cache\] Add persistent cache options [\#68](https://github.com/OpenVoiceOS/ovos-config/pull/68) ([goldyfruit](https://github.com/goldyfruit))
+
+## [V0.0.11a10](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a10) (2023-08-22)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a9...V0.0.11a10)
 
 **Implemented enhancements:**
 
