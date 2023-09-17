@@ -1,11 +1,12 @@
 # Changelog
 
-## [0.0.11a11](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a11) (2023-08-30)
+## [0.0.11a12](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a12) (2023-09-17)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a10...0.0.11a11)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a10...0.0.11a12)
 
 **Merged pull requests:**
 
+- Fix typo'd "loosly" [\#72](https://github.com/OpenVoiceOS/ovos-config/pull/72) ([strugee](https://github.com/strugee))
 - \[cache\] Add persistent cache options [\#68](https://github.com/OpenVoiceOS/ovos-config/pull/68) ([goldyfruit](https://github.com/goldyfruit))
 
 ## [V0.0.11a10](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a10) (2023-08-22)
