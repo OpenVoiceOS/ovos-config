@@ -245,7 +245,7 @@ def set(key, value):
     """\b
     Sets a config key in the user configuration
     \b
-    Loosly searches a config key and if multiple are found asks which key and value should be written.
+    Loosely searches a config key and if multiple are found asks which key and value should be written.
     The user may pass a value to bypass prompting.
     \b
     Examples: 
