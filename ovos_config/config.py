@@ -20,7 +20,7 @@ from ovos_config.models import LocalConf, MycroftDefaultConfig, \
     MycroftSystemConfig, MycroftUserConfig, RemoteConf
 from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, \
     get_xdg_config_locations
-from ovos_config.utils import FileWatcher
+from ovos_utils.file_utils import FileWatcher
 
 from ovos_utils.json_helper import flattened_delete, merge_dict
 from ovos_utils.log import LOG
