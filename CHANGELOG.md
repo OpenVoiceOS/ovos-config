@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a12](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a12) (2023-09-17)
+## [0.0.11a13](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a13) (2023-09-18)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a10...0.0.11a12)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a12...0.0.11a13)
+
+**Fixed bugs:**
+
+- fix remote config reload [\#74](https://github.com/OpenVoiceOS/ovos-config/pull/74) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.11a12](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a12) (2023-09-17)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a10...V0.0.11a12)
 
 **Merged pull requests:**
 
