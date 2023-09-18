@@ -189,7 +189,7 @@ class MycroftSystemConfig(ReadOnlyConfig):
 
 
 class RemoteConf(LocalConf):
-    """Config dictionary fetched from mycroft.ai."""
+    """Config dictionary fetched from the backend"""
 
     def __init__(self, cache=WEB_CONFIG_CACHE):
         super(RemoteConf, self).__init__(cache)
@@ -204,12 +204,17 @@ class RemoteConf(LocalConf):
                 return
 
             remote = RemoteConfigManager()
-
             remote.download()
+
+            changed = []
             for key in remote.config:
-                self.__setitem__(key, remote.config[key])
-            LOG.debug(f"writing remote config to {self.path}")
-            self.store(self.path)
+                if self.get(key) != remote.config[key]:
+                    changed.append(key)
+                    self.__setitem__(key, remote.config[key])
+
+            if changed:
+                LOG.debug(f"config key(s) {changed} changed, writing remote config to {self.path}")
+                self.store(self.path)
 
         except Exception as e:
             LOG.error(f"Exception fetching remote configuration: {e}")
