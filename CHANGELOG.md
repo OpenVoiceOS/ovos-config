@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.11a13](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a13) (2023-09-18)
+## [0.0.11a14](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.11a14) (2023-10-18)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a12...0.0.11a13)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a13...0.0.11a14)
+
+**Merged pull requests:**
+
+- add max\_msg\_size [\#76](https://github.com/OpenVoiceOS/ovos-config/pull/76) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.11a13](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.11a13) (2023-09-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11a12...V0.0.11a13)
 
 **Fixed bugs:**
 
