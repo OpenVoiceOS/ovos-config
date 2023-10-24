@@ -18,7 +18,8 @@ try:
             if _FileWatcher is None:
                 raise ImportError("Import from ovos_utils.file_utils directly")
             _FileWatcher.__init__(self, *args, **kwargs)
-            log_deprecation("Import from ovos_utils.file_utils directly", "0.1.0")
+            log_deprecation("Import from ovos_utils.file_utils directly",
+                            "0.0.12")
 
 
     class FileEventHandler(_FileEventHandler):
@@ -26,7 +27,8 @@ try:
             if _FileEventHandler is None:
                 raise ImportError("Import from ovos_utils.file_utils directly")
             _FileEventHandler.__init__(self, *args, **kwargs)
-            log_deprecation("Import from ovos_utils.file_utils directly", "0.1.0")
+            log_deprecation("Import from ovos_utils.file_utils directly",
+                            "0.0.12")
 
 except ImportError:
     LOG.debug("Failed to import `FileWatcher` and `FileEventHandler`")
