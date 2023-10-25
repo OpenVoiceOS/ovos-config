@@ -2,12 +2,38 @@ import json
 import importlib
 
 from typing import Optional
-from ovos_utils.log import LOG
+from ovos_utils.log import LOG, log_deprecation
 from os import makedirs
 from os.path import join, dirname
 from ovos_utils.xdg_utils import xdg_config_home
-# backwards compat
-from ovos_utils.file_utils import FileWatcher, FileEventHandler
+
+try:
+    # TODO: deprecate in 0.0.12, leave only during 0.0.11 life cycle
+    from ovos_utils.file_utils import FileWatcher as _FileWatcher, \
+        FileEventHandler as _FileEventHandler
+
+
+    class FileWatcher(_FileWatcher):
+        def __init__(self, *args, **kwargs):
+            if _FileWatcher is None:
+                raise ImportError("Import from ovos_utils.file_utils directly")
+            _FileWatcher.__init__(self, *args, **kwargs)
+            log_deprecation("Import from ovos_utils.file_utils directly",
+                            "0.0.12")
+
+
+    class FileEventHandler(_FileEventHandler):
+        def __init__(self, *args, **kwargs):
+            if _FileEventHandler is None:
+                raise ImportError("Import from ovos_utils.file_utils directly")
+            _FileEventHandler.__init__(self, *args, **kwargs)
+            log_deprecation("Import from ovos_utils.file_utils directly",
+                            "0.0.12")
+
+except ImportError:
+    LOG.debug("Failed to import `FileWatcher` and `FileEventHandler`")
+    FileWatcher = None
+    FileEventHandler = None
 
 
 def init_module_config(module_name: str, module_override: str,
@@ -83,3 +109,4 @@ def init_module_config(module_name: str, module_override: str,
     importlib.reload(ovos_config.models)
     importlib.reload(ovos_config.config)
     importlib.reload(ovos_config)
+

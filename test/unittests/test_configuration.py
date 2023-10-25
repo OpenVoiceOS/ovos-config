@@ -1,6 +1,8 @@
 import importlib
 import logging
 import shutil
+from time import sleep
+
 import yaml
 import os
 import json
@@ -265,7 +267,7 @@ class TestConfiguration(TestCase):
 
     def test_on_file_change(self):
         test_file = join(self.test_dir, "mycroft", "mycroft.conf")
-        with open(test_file, 'w') as f:
+        with open(test_file, 'w+') as f:
             f.write('{"testing": true}')
 
         import ovos_config
@@ -300,6 +302,44 @@ class TestConfiguration(TestCase):
         self.assertEqual(dict(test_cfg), {'testing': False})
         callback.assert_called_once()
         self.assertFalse(config['testing'])
+
+    def test_on_file_changes_not_called(self):
+        import ovos_config
+        importlib.reload(ovos_config.config)
+
+        done = Event()
+        threads = []
+        call_count = 0
+
+        changed = Event()
+        on_file_change = Mock(side_effect=lambda x: changed.set())
+        ovos_config.config.Configuration._on_file_change = on_file_change
+        ovos_config.config.Configuration.set_config_watcher(Mock())
+
+        test_file = join(self.test_dir, "mycroft", "mycroft.conf")
+        with open(test_file, 'w+') as f:
+            f.write('{"testing": true}')
+
+        # Test file read
+        def _modify_test_file():
+            with open(test_file, "r"):
+                pass
+            nonlocal call_count
+            call_count += 1
+            if call_count >= len(threads):
+                done.set()
+
+        self.assertTrue(changed.wait(2))
+        on_file_change.assert_called_once()
+        on_file_change.reset_mock()
+        for i in range(16):
+            thread = Thread(target=_modify_test_file, daemon=True)
+            threads.append(thread)
+
+        [thread.start() for thread in threads]
+        [thread.join() for thread in threads]
+        self.assertTrue(done.wait(30), call_count)
+        on_file_change.assert_not_called()
 
     def test_set_config_watcher(self):
         from ovos_config.config import Configuration

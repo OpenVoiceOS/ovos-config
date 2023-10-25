@@ -44,7 +44,7 @@ Given an entry of
 
 * `ovos-config set` 
 
-  * Searches loosly for keys containing the query string and presents a choice to the user to define a value
+  * Searches loosely for keys containing the query string and presents a choice to the user to define a value
 
     `ovos-config set -k phal`
     
