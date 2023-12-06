@@ -81,8 +81,9 @@ def load_language(lang):
 
 def setup_locale(lang=None, tz=None):
     lang_code = lang or ovos_config.Configuration().get("lang", "en-us")
+    extra_lang_codes = ovos_config.Configuration().get("secondary_langs", [])
     # Load language resources, currently en-us must also be loaded at all times
-    load_languages([lang_code, "en-us"])
+    load_languages([lang_code, "en-us"] + extra_lang_codes)
     # Set the active lang to match the configured one
     set_default_lang(lang_code)
     # Set the default timezone to match the configured one
