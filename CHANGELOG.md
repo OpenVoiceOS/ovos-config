@@ -1,8 +1,21 @@
 # Changelog
 
-## [0.0.12a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a1) (2023-11-05)
+## [0.0.12a2](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a2) (2023-12-06)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11...0.0.12a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a1...0.0.12a2)
+
+**Fixed bugs:**
+
+- Update locale.py [\#84](https://github.com/OpenVoiceOS/ovos-config/pull/84) ([JarbasAl](https://github.com/JarbasAl))
+
+**Closed issues:**
+
+- Lingua franca lang specific format module isn't loaded. [\#83](https://github.com/OpenVoiceOS/ovos-config/issues/83)
+- Errors loading tts when mimic3-server is not installed [\#80](https://github.com/OpenVoiceOS/ovos-config/issues/80)
+
+## [V0.0.12a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a1) (2023-11-05)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11...V0.0.12a1)
 
 **Closed issues:**
 
