@@ -1,4 +1,5 @@
 from dateutil.tz import gettz, tzlocal
+
 import ovos_config
 
 # lingua_franca is optional and might not be installed
@@ -12,6 +13,39 @@ except ImportError:
 
 _lang = None
 _default_tz = None
+
+
+def get_full_lang_code(lang):
+    """ given a 2-letter lang code, return the full default 4-letter code"""
+    # first give preference to any configured dialects
+    # eg, pt-br instead of pt-pt
+    valid_langs = get_valid_languages()
+    for l in valid_langs:
+        if l.split("-")[0] == lang:
+            return l
+
+    # just go with the default full code
+    langmap = {'az': 'az-az',
+               'ca': 'ca-es',
+               'cs': 'cs-cz',
+               'da': 'da-dk',
+               'de': 'de-de',
+               'en': 'en-us',
+               'es': 'es-es',
+               'eu': 'eu-eu',
+               'fa': 'fa-ir',
+               'fr': 'fr-fr',
+               'hu': 'hu-hu',
+               'it': 'it-it',
+               'nl': 'nl-nl',
+               'pl': 'pl-pl',
+               'pt': 'pt-pt',
+               'ru': 'ru-ru',
+               'sl': 'sl-si',
+               'sv': 'sv-se',
+               'tr': 'tr-tr',
+               'uk': 'uk-ua'}
+    return langmap.get(lang)
 
 
 def get_primary_lang_code(config=None):
@@ -79,11 +113,18 @@ def load_language(lang):
         LF.load_language(lang)
 
 
+def get_valid_languages():
+    """ return all valid runtime languages according to mycroft.conf """
+    lang_code = ovos_config.Configuration().get("lang", "en-us")
+    extra_lang_codes = ovos_config.Configuration().get("secondary_langs", [])
+    return set([lang_code] + extra_lang_codes)
+
+
 def setup_locale(lang=None, tz=None):
     lang_code = lang or ovos_config.Configuration().get("lang", "en-us")
-    extra_lang_codes = ovos_config.Configuration().get("secondary_langs", [])
-    # Load language resources, currently en-us must also be loaded at all times
-    load_languages([lang_code, "en-us"] + extra_lang_codes)
+    valid_langs = get_valid_languages()
+    # load any lang specific resources
+    load_languages(valid_langs)
     # Set the active lang to match the configured one
     set_default_lang(lang_code)
     # Set the default timezone to match the configured one
