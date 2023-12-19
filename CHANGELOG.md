@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.12a3](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a3) (2023-12-07)
+## [0.0.12a4](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a4) (2023-12-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a2...0.0.12a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a3...0.0.12a4)
+
+**Fixed bugs:**
+
+- Force websocket to bind on 127.0.0.1 [\#86](https://github.com/OpenVoiceOS/ovos-config/pull/86) ([goldyfruit](https://github.com/goldyfruit))
+
+## [V0.0.12a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a3) (2023-12-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a2...V0.0.12a3)
 
 **Implemented enhancements:**
 
