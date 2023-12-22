@@ -8,10 +8,8 @@ import ovos_config
 
 try:
     import lingua_franca as LF
-    LF_SUPPORTED = True
 except ImportError:
     LF = None
-    LF_SUPPORTED = False
 
 _lang = None
 _default_tz = None
@@ -81,10 +79,8 @@ def set_default_lang(lang):
     if LF:
         try:
             LF.set_default_lang(lang)
-            LF_SUPPORTED = True  # re-enable LF
         except:
-            LF_SUPPORTED = False
-
+            pass
 
 def get_config_tz():
     code = ovos_config.Configuration()["location"]["timezone"]["code"]
@@ -104,7 +100,7 @@ def set_default_tz(tz=None):
     global _default_tz
     tz = tz or get_config_tz() or tzlocal()
     _default_tz = tz
-    if LF_SUPPORTED:
+    if LF:
         # tz added in recently, depends on version
         try:
             LF.time.set_default_tz(tz)
@@ -117,11 +113,11 @@ def load_languages(langs):
     
     currently only loads lingua-franca language data, in the future 
     other hooks may be added if we need to perform this operation globally"""
-    if LF_SUPPORTED:
+    if LF:
         try:
             LF.load_languages(langs)
         except:
-            LF_SUPPORTED = False
+            pass
 
 
 def load_language(lang):
@@ -129,11 +125,11 @@ def load_language(lang):
     
     currently only loads lingua-franca language data, in the future 
     other hooks may be added if we need to perform this operation globally"""
-    if LF_SUPPORTED:
+    if LF:
         try:
             LF.load_language(lang)
         except:
-            LF_SUPPORTED = False
+            pass
 
 
 def get_valid_languages():
