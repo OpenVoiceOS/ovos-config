@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.12a4](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a4) (2023-12-19)
+## [0.0.12a5](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a5) (2023-12-23)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a3...0.0.12a4)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a4...0.0.12a5)
+
+**Fixed bugs:**
+
+- fix/untangle\_from\_LF [\#88](https://github.com/OpenVoiceOS/ovos-config/pull/88) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.12a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a4) (2023-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a3...V0.0.12a4)
 
 **Fixed bugs:**
 
