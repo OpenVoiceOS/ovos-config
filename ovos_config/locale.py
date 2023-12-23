@@ -50,8 +50,6 @@ def get_full_lang_code(lang):
 
 def get_primary_lang_code(config=None):
     global _lang
-    if LF:
-        return LF.get_primary_lang_code()
     if not _lang:
         config = config or ovos_config.Configuration()
         _lang = config.get("lang", "en-us")
@@ -65,8 +63,6 @@ def get_default_lang(config=None):
     @return: lowercase BCP-47 language code
     """
     global _lang
-    if LF and LF.get_default_loc():
-        return LF.get_default_loc()
     if not _lang:
         config = config or ovos_config.Configuration()
         _lang = config.get("lang", "en-us")
@@ -74,11 +70,17 @@ def get_default_lang(config=None):
 
 
 def set_default_lang(lang):
+    """ setup default language across OVOS packages
+    
+    currently only configures lingua-franca language, in the future 
+    other hooks may be added if we need to perform this operation globally"""
     global _lang
     _lang = lang
     if LF:
-        LF.set_default_lang(lang)
-
+        try:
+            LF.set_default_lang(lang)
+        except:
+            pass
 
 def get_config_tz():
     code = ovos_config.Configuration()["location"]["timezone"]["code"]
@@ -91,7 +93,10 @@ def get_default_tz():
 
 
 def set_default_tz(tz=None):
-    """ configure LF """
+    """ configure timezone across OVOS packages
+    
+    currently only configures lingua-franca, in the future 
+    other hooks may be added if we need to perform this operation globally """
     global _default_tz
     tz = tz or get_config_tz() or tzlocal()
     _default_tz = tz
@@ -104,13 +109,27 @@ def set_default_tz(tz=None):
 
 
 def load_languages(langs):
+    """ load and configure lang specific resources across OVOS packages
+    
+    currently only loads lingua-franca language data, in the future 
+    other hooks may be added if we need to perform this operation globally"""
     if LF:
-        LF.load_languages(langs)
+        try:
+            LF.load_languages(langs)
+        except:
+            pass
 
 
 def load_language(lang):
+    """ load and configure lang specific resources across OVOS packages
+    
+    currently only loads lingua-franca language data, in the future 
+    other hooks may be added if we need to perform this operation globally"""
     if LF:
-        LF.load_language(lang)
+        try:
+            LF.load_language(lang)
+        except:
+            pass
 
 
 def get_valid_languages():
@@ -121,6 +140,10 @@ def get_valid_languages():
 
 
 def setup_locale(lang=None, tz=None):
+    """ setup default language, timezone and other locale data across OVOS packages
+    
+    currently only configures lingua-franca, in the future 
+    other hooks may be added if we need to perform this operation globally"""
     lang_code = lang or ovos_config.Configuration().get("lang", "en-us")
     valid_langs = get_valid_languages()
     # load any lang specific resources
