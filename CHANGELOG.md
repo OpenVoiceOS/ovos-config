@@ -1,8 +1,20 @@
 # Changelog
 
-## [0.0.12a5](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a5) (2023-12-23)
+## [0.0.12a6](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a6) (2023-12-27)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a4...0.0.12a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a5...0.0.12a6)
+
+**Fixed bugs:**
+
+- fix circular import [\#89](https://github.com/OpenVoiceOS/ovos-config/pull/89) ([emphasize](https://github.com/emphasize))
+
+**Closed issues:**
+
+- Exception fetching remote configuration: No module named 'ovos\_backend\_client' [\#75](https://github.com/OpenVoiceOS/ovos-config/issues/75)
+
+## [V0.0.12a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a5) (2023-12-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a4...V0.0.12a5)
 
 **Fixed bugs:**
 
