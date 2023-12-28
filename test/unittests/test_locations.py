@@ -71,6 +71,7 @@ class TestLocations(TestCase):
         config_filename.return_value = "test.yaml"
         mod_check.return_value = False
         os.environ["MYCROFT_SYSTEM_CONFIG"] = "mycroft/system/config"
+        os.environ["MYCROFT_SYSTEM_CONFIG"] = "mycroft/system/config"
         os.environ["MYCROFT_WEB_CACHE"] = "mycroft/web/config"
 
         # Define an ovos.conf file and path for testing
