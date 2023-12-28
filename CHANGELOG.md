@@ -1,8 +1,8 @@
 # Changelog
 
-## [0.0.12a9](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a9) (2023-12-28)
+## [V0.0.12a9](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a9) (2023-12-28)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a8...0.0.12a9)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a8...V0.0.12a9)
 
 **Merged pull requests:**
 
