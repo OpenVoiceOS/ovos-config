@@ -99,20 +99,7 @@ def get_xdg_config_locations():
 
 
 def find_default_config():
-    """ find where mycroft is installed and return the path to the default mycroft.conf
-    if mycroft is not found then return the bundled file in ovos_config package"""
-    from ovos_utils.system import search_mycroft_core_location
-    try:
-        mycroft_root = search_mycroft_core_location()
-        if not mycroft_root:
-            raise FileNotFoundError("Couldn't find mycroft core root folder.")
-        cfg = join(mycroft_root, "mycroft", "configuration", "mycroft.conf")
-        if isfile(cfg):
-            return cfg
-    except FileNotFoundError:
-        pass
-
-    # mycroft-core not found
+    """return the bundled file in ovos_config package"""
     return join(dirname(__file__), "mycroft.conf")
 
 
