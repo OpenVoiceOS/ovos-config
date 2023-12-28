@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.12a7](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a7) (2023-12-28)
+## [0.0.12a8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a8) (2023-12-28)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a6...0.0.12a7)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a7...0.0.12a8)
+
+**Fixed bugs:**
+
+- drop mycroft-core config location [\#90](https://github.com/OpenVoiceOS/ovos-config/pull/90) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.12a7](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a7) (2023-12-28)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a6...V0.0.12a7)
 
 **Merged pull requests:**
 
