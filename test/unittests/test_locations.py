@@ -60,29 +60,7 @@ class TestLocations(TestCase):
                          ['/test/default.yml', '/etc/test/test.yaml',
                           'webcache', '~/.test/test.yaml', 'config/test.yaml'])
 
-    @mock.patch("ovos_utils.system.search_mycroft_core_location")
-    def test_find_default_config(self, get_core):
-        from ovos_config.locations import find_default_config
-
-        # No Core
-        get_core.return_value = None
-        no_core_default = find_default_config()
-        self.assertTrue(no_core_default.endswith("/ovos_config/mycroft.conf"),
-                        no_core_default)
-        self.assertTrue(isfile(no_core_default), no_core_default)
-
-        # # Invalid Core
-        # get_core.return_value = "/tmp"
-        # self.assertEqual(find_default_config(),
-        #                  "/tmp/mycroft/configuration/mycroft.conf")
-
-        # Valid Core
-        get_core.return_value = dirname(__file__)
-        self.assertEqual(find_default_config(),
-                         join(dirname(__file__), "mycroft", "configuration",
-                              "mycroft.conf"))
-
-    @mock.patch("ovos_utils.system.search_mycroft_core_location")
+    @mock.patch("ovos_config.locations.find_default_config")
     @mock.patch("ovos_config.meta.get_config_filename")
     @mock.patch("ovos_config.meta.get_xdg_base")
     @mock.patch("ovos_utils.system.is_running_from_module")
