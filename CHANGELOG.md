@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.12a6](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a6) (2023-12-27)
+## [0.0.12a7](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.12a7) (2023-12-28)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a5...0.0.12a6)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a6...0.0.12a7)
+
+**Merged pull requests:**
+
+- fix instant listen inline doc [\#87](https://github.com/OpenVoiceOS/ovos-config/pull/87) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.12a6](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a6) (2023-12-27)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a5...V0.0.12a6)
 
 **Fixed bugs:**
 
