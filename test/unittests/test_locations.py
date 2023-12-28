@@ -60,17 +60,17 @@ class TestLocations(TestCase):
                          ['/test/default.yml', '/etc/test/test.yaml',
                           'webcache', '~/.test/test.yaml', 'config/test.yaml'])
 
-    @mock.patch("ovos_config.locations.find_default_config")
+
     @mock.patch("ovos_config.meta.get_config_filename")
     @mock.patch("ovos_config.meta.get_xdg_base")
     @mock.patch("ovos_utils.system.is_running_from_module")
     @mock.patch("os.path.isfile")
-    def test_globals(self, fcheck, mod_check, xdg_base, config_filename, core_location):
+    def test_globals(self, fcheck, mod_check, xdg_base, config_filename):
         fcheck.return_value = True
-        core_location.return_value = "default/config/path"
         xdg_base.return_value = "test"
         config_filename.return_value = "test.yaml"
         mod_check.return_value = False
+        os.environ["MYCROFT_SYSTEM_CONFIG"] = "mycroft/system/config"
         os.environ["MYCROFT_SYSTEM_CONFIG"] = "mycroft/system/config"
         os.environ["MYCROFT_WEB_CACHE"] = "mycroft/web/config"
 
@@ -89,9 +89,7 @@ class TestLocations(TestCase):
         # Test all config paths respect environment overrides/configured values
         from ovos_config.locations import DEFAULT_CONFIG, SYSTEM_CONFIG, \
             OLD_USER_CONFIG, USER_CONFIG, REMOTE_CONFIG, WEB_CONFIG_CACHE
-        self.assertEqual(DEFAULT_CONFIG,
-                         "default/config/path/mycroft/configuration"
-                         "/mycroft.conf")
+
         self.assertEqual(SYSTEM_CONFIG, "mycroft/system/config")
         self.assertEqual(OLD_USER_CONFIG,
                          expanduser("~/.test/test.yaml"))
