@@ -1,8 +1,8 @@
 # Changelog
 
-## [0.0.13a3](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a3) (2024-01-23)
+## [V0.0.13a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a3) (2024-01-23)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a2...0.0.13a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a2...V0.0.13a3)
 
 **Implemented enhancements:**
 
