@@ -1,8 +1,32 @@
 # Changelog
 
-## [0.0.13a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a1) (2023-12-29)
+## [V0.0.13a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a3) (2024-01-23)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12...0.0.13a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a2...V0.0.13a3)
+
+**Implemented enhancements:**
+
+- default utterance plugins [\#99](https://github.com/OpenVoiceOS/ovos-config/pull/99) ([JarbasAl](https://github.com/JarbasAl))
+
+**Merged pull requests:**
+
+- adjust adapt matcher pipeline defaults [\#100](https://github.com/OpenVoiceOS/ovos-config/pull/100) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.13a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a2) (2024-01-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a1...V0.0.13a2)
+
+**Implemented enhancements:**
+
+- update/stop\_pipeline [\#94](https://github.com/OpenVoiceOS/ovos-config/pull/94) ([JarbasAl](https://github.com/JarbasAl))
+
+**Closed issues:**
+
+- Services don't start with malformed configuration [\#97](https://github.com/OpenVoiceOS/ovos-config/issues/97)
+
+## [V0.0.13a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a1) (2023-12-29)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12...V0.0.13a1)
 
 **Merged pull requests:**
 
