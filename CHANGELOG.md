@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a5](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a5) (2024-01-23)
+## [0.0.13a6](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a6) (2024-01-23)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a4...0.0.13a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a5...0.0.13a6)
+
+**Merged pull requests:**
+
+- readd low adapt matches \(intent pipeline\) [\#101](https://github.com/OpenVoiceOS/ovos-config/pull/101) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.13a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a5) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a4...V0.0.13a5)
 
 **Implemented enhancements:**
 
