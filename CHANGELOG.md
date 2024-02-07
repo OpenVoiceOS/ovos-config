@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a6](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a6) (2024-01-23)
+## [0.0.13a7](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a7) (2024-02-07)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a5...0.0.13a6)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a6...0.0.13a7)
+
+**Fixed bugs:**
+
+- fix/remove\_broken\_patch [\#107](https://github.com/OpenVoiceOS/ovos-config/pull/107) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a6](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a6) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a5...V0.0.13a6)
 
 **Merged pull requests:**
 
