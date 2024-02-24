@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a7](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a7) (2024-02-07)
+## [0.0.13a8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a8) (2024-02-24)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a6...0.0.13a7)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a7...0.0.13a8)
+
+**Merged pull requests:**
+
+- fix: "adapt\_medium" before padatious [\#110](https://github.com/OpenVoiceOS/ovos-config/pull/110) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a7](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a7) (2024-02-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a6...V0.0.13a7)
 
 **Fixed bugs:**
 
