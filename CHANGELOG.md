@@ -1,5 +1,13 @@
 # Changelog
 
+## [V0.0.13a10](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a10) (2024-02-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a9...V0.0.13a10)
+
+**Merged pull requests:**
+
+- Update ovos-backend-client requirement from \<0.1.0 to \<0.2.0 in /requirements [\#104](https://github.com/OpenVoiceOS/ovos-config/pull/104) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [V0.0.13a9](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a9) (2024-02-26)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a8...V0.0.13a9)
