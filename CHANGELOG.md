@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a8) (2024-02-24)
+## [0.0.13a9](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a9) (2024-02-26)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a7...0.0.13a8)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a8...0.0.13a9)
+
+**Implemented enhancements:**
+
+- improve env vars handling [\#54](https://github.com/OpenVoiceOS/ovos-config/pull/54) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a8](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a8) (2024-02-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a7...V0.0.13a8)
 
 **Merged pull requests:**
 
