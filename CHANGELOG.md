@@ -1,5 +1,13 @@
 # Changelog
 
+## [V0.0.13a11](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a11) (2024-02-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a10...V0.0.13a11)
+
+**Merged pull requests:**
+
+- Update mycroft.conf [\#112](https://github.com/OpenVoiceOS/ovos-config/pull/112) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [V0.0.13a10](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a10) (2024-02-26)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a9...V0.0.13a10)
