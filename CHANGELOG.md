@@ -1,12 +1,16 @@
 # Changelog
 
-## [0.0.13a9](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a9) (2024-02-26)
+## [V0.0.13a9](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a9) (2024-02-26)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a8...0.0.13a9)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a8...V0.0.13a9)
 
 **Implemented enhancements:**
 
 - improve env vars handling [\#54](https://github.com/OpenVoiceOS/ovos-config/pull/54) ([JarbasAl](https://github.com/JarbasAl))
+
+**Merged pull requests:**
+
+- Update ovos-bus-client requirement from ~=0.0.3 to ~=0.0.8 in /requirements [\#106](https://github.com/OpenVoiceOS/ovos-config/pull/106) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [V0.0.13a8](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a8) (2024-02-24)
 
