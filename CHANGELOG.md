@@ -1,32 +1,72 @@
 # Changelog
 
-## [V0.0.10a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.10a3) (2023-05-31)
+## [0.0.13a8](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a8) (2024-02-24)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10a2...V0.0.10a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a7...0.0.13a8)
+
+**Merged pull requests:**
+
+- fix: "adapt\_medium" before padatious [\#110](https://github.com/OpenVoiceOS/ovos-config/pull/110) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a7](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a7) (2024-02-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a6...V0.0.13a7)
 
 **Fixed bugs:**
 
-- Update config hash to sort keys to ensure hashes compare [\#52](https://github.com/OpenVoiceOS/ovos-config/pull/52) ([NeonDaniel](https://github.com/NeonDaniel))
+- fix/remove\_broken\_patch [\#107](https://github.com/OpenVoiceOS/ovos-config/pull/107) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.10a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.10a2) (2023-05-31)
+## [V0.0.13a6](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a6) (2024-01-23)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.10a1...V0.0.10a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a5...V0.0.13a6)
+
+**Merged pull requests:**
+
+- readd low adapt matches \(intent pipeline\) [\#101](https://github.com/OpenVoiceOS/ovos-config/pull/101) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.13a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a5) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a4...V0.0.13a5)
+
+**Implemented enhancements:**
+
+- Update mycroft.conf [\#95](https://github.com/OpenVoiceOS/ovos-config/pull/95) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a4) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a3...V0.0.13a4)
+
+## [V0.0.13a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a3) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a2...V0.0.13a3)
+
+**Implemented enhancements:**
+
+- default utterance plugins [\#99](https://github.com/OpenVoiceOS/ovos-config/pull/99) ([JarbasAl](https://github.com/JarbasAl))
+
+**Merged pull requests:**
+
+- adjust adapt matcher pipeline defaults [\#100](https://github.com/OpenVoiceOS/ovos-config/pull/100) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.13a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a2) (2024-01-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a1...V0.0.13a2)
+
+**Implemented enhancements:**
+
+- update/stop\_pipeline [\#94](https://github.com/OpenVoiceOS/ovos-config/pull/94) ([JarbasAl](https://github.com/JarbasAl))
 
 **Closed issues:**
 
-- Clean install failed on missing ovos-tts-plugin-mimic [\#49](https://github.com/OpenVoiceOS/ovos-config/issues/49)
+- Services don't start with malformed configuration [\#97](https://github.com/OpenVoiceOS/ovos-config/issues/97)
+
+## [V0.0.13a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a1) (2023-12-29)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12...V0.0.13a1)
 
 **Merged pull requests:**
 
-- Skip config file reload when a non-config file is modified [\#51](https://github.com/OpenVoiceOS/ovos-config/pull/51) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [V0.0.10a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.10a1) (2023-05-29)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.9...V0.0.10a1)
-
-**Merged pull requests:**
-
-- refactor/better\_defaults [\#50](https://github.com/OpenVoiceOS/ovos-config/pull/50) ([JarbasAl](https://github.com/JarbasAl))
+- document transformer plugins [\#93](https://github.com/OpenVoiceOS/ovos-config/pull/93) ([JarbasAl](https://github.com/JarbasAl))
 
 
 

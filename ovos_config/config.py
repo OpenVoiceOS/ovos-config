@@ -15,13 +15,12 @@
 import json
 from os.path import isfile
 from typing import Optional
-from time import sleep
 
 from ovos_config.models import LocalConf, MycroftDefaultConfig, \
     MycroftSystemConfig, MycroftUserConfig, RemoteConf
 from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, \
     get_xdg_config_locations
-from ovos_config.utils import FileWatcher
+from ovos_utils.file_utils import FileWatcher
 
 from ovos_utils.json_helper import flattened_delete, merge_dict
 from ovos_utils.log import LOG
@@ -55,10 +54,6 @@ class Configuration(dict):
     _callbacks = []
 
     def __init__(self):
-        # python does not support proper overloading
-        # when instantiation a Configuration object (new style)
-        # the get method is replaced for proper dict behaviour
-        self.get = self._real_get
         super().__init__(**self.load_all_configs())
 
     # dict methods
@@ -299,25 +294,18 @@ class Configuration(dict):
                 old_cfg = hash(cfg)
                 try:
                     cfg.reload()
-                    reloaded = True
-                except:
-                    # got the file changed signal before write finished
-                    sleep(0.5)
-                    reloaded = False
-                try:
-                    if not reloaded:
-                        LOG.warning(f"Reload failed, retrying")
-                        cfg.reload()
-                except:
-                    LOG.exception("Failed to load configuration, "
-                                  "syntax seems invalid!")
+                except Exception as e:
+                    # Filewatcher only calls this on file close, so this
+                    # is really an error
+                    LOG.exception(f"Failed to load: {path}: {e}")
+
                 new_cfg = hash(cfg)
                 if old_cfg == new_cfg:
                     LOG.info(f"{path} unchanged")
                     return
                 break
         else:
-            LOG.info(f"Ignoring non-config file change: {path}")
+            LOG.debug(f"Ignoring non-config file change: {path}")
             return
 
         LOG.info(f'{path} changed on disk')
@@ -386,17 +374,6 @@ class Configuration(dict):
         Configuration.__patch = {}
 
     # Backwards compat methods
-    @staticmethod
-    def get(configs=None, cache=True, remote=True):
-        """DEPRECATED - use Configuration class instead"""
-        LOG.warning("Configuration.get() has been deprecated, use Configuration() instead")
-        # NOTE: this is only called if using the class directly
-        # if using an instance (dict object) self._real_get is called instead
-        return Configuration.load_config_stack(configs, cache, remote)
-
-    def _real_get(self, key, default=None):
-        return self.__getitem__(key) or default
-
     @staticmethod
     def clear_cache(message=None):
         """DEPRECATED - there is no cache anymore """

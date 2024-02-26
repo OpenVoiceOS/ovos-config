@@ -52,7 +52,6 @@ from json_database import JsonStorage
 
 import ovos_config.locations as _oloc
 from ovos_utils.json_helper import load_commented_json, merge_dict
-from ovos_utils.log import LOG
 
 
 def get_ovos_config():
@@ -120,6 +119,8 @@ def get_ovos_default_config_paths():
      eg. ["/etc/OpenVoiceOS/ovos.conf", "/home/user/.config/OpenVoiceOS/ovos.conf"]
 
      """
+    from ovos_utils.log import LOG
+
     paths = []
     if isfile("/etc/OpenVoiceOS/ovos.conf"):
         paths.append("/etc/OpenVoiceOS/ovos.conf")
@@ -139,6 +140,8 @@ def get_ovos_default_config_paths():
 
 
 def is_using_xdg():
+    from ovos_utils.log import LOG
+
     """ BACKWARDS COMPAT: logs warning and always returns True"""
     LOG.warning("is_using_xdg has been deprecated! XDG specs are always honoured, this method will be removed in a future release")
     return True
@@ -162,6 +165,8 @@ def set_xdg_base(folder_name):
 
     NOTE: this value will be set globally, per core overrides in ovos.conf take precedence
     """
+    from ovos_utils.log import LOG
+
     LOG.info(f"XDG base folder set to: '{folder_name}'")
     os.environ["OVOS_CONFIG_BASE_FOLDER"] = folder_name
     save_ovos_config({"base_folder": folder_name})
@@ -175,6 +180,8 @@ def set_config_filename(file_name, core_folder=None):
 
     NOTE: this value will be set globally, per core overrides in ovos.conf take precedence
     """
+    from ovos_utils.log import LOG
+
     if core_folder:
         set_xdg_base(core_folder)
     LOG.info(f"config filename set to: '{file_name}'")
@@ -199,6 +206,8 @@ def set_default_config(file_path=f"{dirname(__file__)}/mycroft.conf"):
 
     NOTE: this value will be set globally, per core overrides in ovos.conf take precedence
     """
+    from ovos_utils.log import LOG
+    
     LOG.info(f"default config file changed to: {file_path}")
     os.environ["OVOS_DEFAULT_CONFIG"] = file_path
     save_ovos_config({"default_config_path": file_path})

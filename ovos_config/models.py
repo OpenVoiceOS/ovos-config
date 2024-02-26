@@ -13,9 +13,11 @@
 # limitations under the License.
 #
 import json
-from os.path import exists, isfile
-from combo_lock import NamedLock
 import yaml
+
+from time import time
+from os.path import exists, isfile, getmtime
+from combo_lock import NamedLock
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
 
@@ -54,13 +56,14 @@ class LocalConf(dict):
     allow_overwrite = True
     # lock is shared among all subclasses,
     # regardless of what file is being edited only one file should change at a time
-    # this ensure orderly behaviour in anything monitoring changes,
+    # this ensures orderly behaviour in anything monitoring changes,
     #   eg FileWatcher util, configuration.patch bus handlers
     __lock = NamedLock("ovos_config")
 
     def __init__(self, path):
         super().__init__(self)
         self.path = path
+        self._last_loaded = None
         if path:
             self.load_local(path)
 
@@ -85,7 +88,8 @@ class LocalConf(dict):
             return "json"
 
     def load_local(self, path=None):
-        """Load local json file into self.
+        """
+        Load local json file into self.
 
         Args:
             path (str): file to load
@@ -110,10 +114,16 @@ class LocalConf(dict):
                         LOG.debug(f"Empty config found at: {path}")
                 except Exception as e:
                     LOG.exception(f"Error loading configuration '{path}'")
+                if path == self.path and isfile(self.path):
+                    self._last_loaded = getmtime(self.path)
         else:
             LOG.debug(f"Configuration '{path}' not defined, skipping")
 
     def reload(self):
+        if isfile(self.path) and self._last_loaded == getmtime(self.path):
+            LOG.debug(f"{self.path} not changed since last load "
+                      f"(changed {time() - self._last_loaded} seconds ago)")
+            return
         self.load_local(self.path)
 
     def store(self, path=None):
@@ -179,7 +189,7 @@ class MycroftSystemConfig(ReadOnlyConfig):
 
 
 class RemoteConf(LocalConf):
-    """Config dictionary fetched from mycroft.ai."""
+    """Config dictionary fetched from the backend"""
 
     def __init__(self, cache=WEB_CONFIG_CACHE):
         super(RemoteConf, self).__init__(cache)
@@ -194,12 +204,17 @@ class RemoteConf(LocalConf):
                 return
 
             remote = RemoteConfigManager()
-
             remote.download()
-            for key in remote.config:
-                self.__setitem__(key, remote.config[key])
 
-            self.store(self.path)
+            changed = []
+            for key in remote.config:
+                if self.get(key) != remote.config[key]:
+                    changed.append(key)
+                    self.__setitem__(key, remote.config[key])
+
+            if changed:
+                LOG.debug(f"config key(s) {changed} changed, writing remote config to {self.path}")
+                self.store(self.path)
 
         except Exception as e:
             LOG.error(f"Exception fetching remote configuration: {e}")
