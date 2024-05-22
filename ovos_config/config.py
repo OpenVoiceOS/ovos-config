@@ -54,10 +54,6 @@ class Configuration(dict):
     _callbacks = []
 
     def __init__(self):
-        # python does not support proper overloading
-        # when instantiation a Configuration object (new style)
-        # the get method is replaced for proper dict behaviour
-        self.get = self._real_get
         super().__init__(**self.load_all_configs())
 
     # dict methods
@@ -378,17 +374,6 @@ class Configuration(dict):
         Configuration.__patch = {}
 
     # Backwards compat methods
-    @staticmethod
-    def get(configs=None, cache=True, remote=True):
-        """DEPRECATED - use Configuration class instead"""
-        LOG.warning("Configuration.get() has been deprecated, use Configuration() instead")
-        # NOTE: this is only called if using the class directly
-        # if using an instance (dict object) self._real_get is called instead
-        return Configuration.load_config_stack(configs, cache, remote)
-
-    def _real_get(self, key, default=None):
-        return self.__getitem__(key) or default
-
     @staticmethod
     def clear_cache(message=None):
         """DEPRECATED - there is no cache anymore """

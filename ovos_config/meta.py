@@ -56,9 +56,9 @@ from ovos_utils.json_helper import load_commented_json, merge_dict
 
 def get_ovos_config():
     """
-    Goes through all possible ovos.conf paths and loads them in order. Default
-    `base_folder` and `config_filename` are overridden by envvars
-    `OVOS_CONFIG_BASE_FOLDER` and `OVOS_CONFIG_FILENAME`, respectively.
+    Goes through all possible ovos.conf paths and loads them in order. 
+    `base_folder`, `config_filename` and "default_config_path" are overridden by envvars
+    `OVOS_CONFIG_BASE_FOLDER`,`OVOS_CONFIG_FILENAME` and `OVOS_DEFAULT_CONFIG`, respectively.
     Submodule overrides are applied to the final config if defined for the
     calling module.
     eg, if neon is calling this method then neon config overrides are loaded
@@ -67,15 +67,9 @@ def get_ovos_config():
     from ovos_utils.system import is_running_from_module
 
     # populate default values
-    config = {"xdg": True,
-              "base_folder": os.environ.get("OVOS_CONFIG_BASE_FOLDER") or
-              "mycroft",
-              "config_filename": os.environ.get("OVOS_CONFIG_FILENAME") or
-              "mycroft.conf"}
-    try:
-        config["default_config_path"] = _oloc.find_default_config()
-    except FileNotFoundError:  # not a mycroft device
-        config["default_config_path"] = join(dirname(__file__), "mycroft.conf")
+    config = {"base_folder": "mycroft",
+              "config_filename": "mycroft.conf",
+              "default_config_path":  f"{dirname(__file__)}/mycroft.conf"}
 
     # load ovos.conf
     for path in get_ovos_default_config_paths():
@@ -85,6 +79,11 @@ def get_ovos_config():
             # tolerate bad json TODO proper exception (?)
             pass
 
+    # let's check for os.env overrides, those take precedence over ovos.conf default values
+    config["base_folder"] = os.environ.get("OVOS_CONFIG_BASE_FOLDER") or config["base_folder"]
+    config["config_filename"] = os.environ.get("OVOS_CONFIG_FILENAME") or config["config_filename"]
+    config["default_config_path"] = os.environ.get("OVOS_DEFAULT_CONFIG") or config["default_config_path"]
+      
     # let's check for derivatives specific configs
     # the assumption is that these cores are exclusive to each other,
     # this will never find more than one override
@@ -100,7 +99,7 @@ def get_ovos_config():
             if is_running_from_module(k):
                 config = merge_dict(config, cores[subcores[k]])
                 break
-
+               
     return config
 
 
@@ -169,6 +168,7 @@ def set_xdg_base(folder_name):
     from ovos_utils.log import LOG
 
     LOG.info(f"XDG base folder set to: '{folder_name}'")
+    os.environ["OVOS_CONFIG_BASE_FOLDER"] = folder_name
     save_ovos_config({"base_folder": folder_name})
 
 
@@ -185,6 +185,7 @@ def set_config_filename(file_name, core_folder=None):
     if core_folder:
         set_xdg_base(core_folder)
     LOG.info(f"config filename set to: '{file_name}'")
+    os.environ["OVOS_CONFIG_FILENAME"] = file_name
     save_ovos_config({"config_filename": file_name})
 
 
@@ -197,7 +198,7 @@ def get_config_filename():
     return get_ovos_config().get("config_filename") or "mycroft.conf"
 
 
-def set_default_config(file_path=None):
+def set_default_config(file_path=f"{dirname(__file__)}/mycroft.conf"):
     """ full path to default config file to be used
     NOTE: this is a full path, not a directory! "config_filename" parameter is not used here
 
@@ -207,6 +208,6 @@ def set_default_config(file_path=None):
     """
     from ovos_utils.log import LOG
     
-    file_path = file_path or _oloc.find_default_config()
     LOG.info(f"default config file changed to: {file_path}")
+    os.environ["OVOS_DEFAULT_CONFIG"] = file_path
     save_ovos_config({"default_config_path": file_path})
