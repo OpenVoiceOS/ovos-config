@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.13a13](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a13) (2024-05-30)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a12...0.0.13a13)
+
+**Merged pull requests:**
+
+- move to vosk [\#124](https://github.com/OpenVoiceOS/ovos-config/pull/124) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a12](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a12) (2024-02-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a11...V0.0.13a12)
+
 ## [V0.0.13a11](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a11) (2024-02-26)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a10...V0.0.13a11)
