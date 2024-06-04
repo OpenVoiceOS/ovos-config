@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a13](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a13) (2024-05-30)
+## [0.0.13a14](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a14) (2024-06-04)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a12...0.0.13a13)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a13...0.0.13a14)
+
+**Merged pull requests:**
+
+- feat/ocp\_pipeline [\#96](https://github.com/OpenVoiceOS/ovos-config/pull/96) ([NeonJarbas](https://github.com/NeonJarbas))
+
+## [V0.0.13a13](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a13) (2024-05-30)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a12...V0.0.13a13)
 
 **Merged pull requests:**
 
