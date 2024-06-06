@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a15](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a15) (2024-06-06)
+## [0.0.13a16](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a16) (2024-06-06)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a14...0.0.13a15)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a15...0.0.13a16)
+
+**Merged pull requests:**
+
+- Update python-dateutil requirement from ~=2.6 to ~=2.9 in /requirements [\#115](https://github.com/OpenVoiceOS/ovos-config/pull/115) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [V0.0.13a15](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a15) (2024-06-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a14...V0.0.13a15)
 
 **Fixed bugs:**
 
