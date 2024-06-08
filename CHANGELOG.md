@@ -1,8 +1,17 @@
 # Changelog
 
-## [0.0.13a16](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a16) (2024-06-06)
+## [0.0.13a17](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a17) (2024-06-08)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a15...0.0.13a16)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a16...0.0.13a17)
+
+**Fixed bugs:**
+
+- trying to black list a skill.  throws error [\#118](https://github.com/OpenVoiceOS/ovos-config/issues/118)
+- fix: unbound local var [\#127](https://github.com/OpenVoiceOS/ovos-config/pull/127) ([mikejgray](https://github.com/mikejgray))
+
+## [V0.0.13a16](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a16) (2024-06-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a15...V0.0.13a16)
 
 **Merged pull requests:**
 
