@@ -4,29 +4,29 @@ on:
     branches:
       - dev
     paths-ignore:
-      - 'ovos_config/version.py'
-      - 'examples/**'
-      - '.github/**'
-      - '.gitignore'
-      - 'LICENSE'
-      - 'CHANGELOG.md'
-      - 'MANIFEST.in'
-      - 'readme.md'
-      - 'scripts/**'
+      - "ovos_config/version.py"
+      - "examples/**"
+      - ".github/**"
+      - ".gitignore"
+      - "LICENSE"
+      - "CHANGELOG.md"
+      - "MANIFEST.in"
+      - "readme.md"
+      - "scripts/**"
   push:
     branches:
       - master
     paths-ignore:
-      - 'ovos_config/version.py'
-      - 'requirements/**'
-      - 'examples/**'
-      - '.github/**'
-      - '.gitignore'
-      - 'LICENSE'
-      - 'CHANGELOG.md'
-      - 'MANIFEST.in'
-      - 'readme.md'
-      - 'scripts/**'
+      - "ovos_config/version.py"
+      - "requirements/**"
+      - "examples/**"
+      - ".github/**"
+      - ".gitignore"
+      - "LICENSE"
+      - "CHANGELOG.md"
+      - "MANIFEST.in"
+      - "readme.md"
+      - "scripts/**"
   workflow_dispatch:
 
 jobs:
@@ -34,14 +34,15 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python-version: [ 3.7, 3.8, 3.9]
+        python-version: [3.8, 3.9, "3.10", "3.11"]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: "pip"
       - name: Install System Dependencies
         run: |
           sudo apt-get update
@@ -62,4 +63,4 @@ jobs:
       - name: Upload coverage
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v4

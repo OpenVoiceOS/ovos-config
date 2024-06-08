@@ -160,7 +160,7 @@ def show(user, system, remote, section, list_sections):
     # based on chosen configuration
     if name != "Joined":
         _sections = [k for k, v in config.items() if isinstance(v, dict)]
-        if len([k for k, v in config.items() if not isinstance(v, dict)]):
+        if [k for k, v in config.items() if not isinstance(v, dict)]:
             _sections.append("base")
     else:
         _sections = SECTIONS
@@ -275,7 +275,7 @@ def set(key, value):
             console.print("User exit", style="red")
             exit()
     elif not paths:
-        console.print(f"[red]Error:[/red] No key that fits the query")
+        console.print("[red]Error:[/red] No key that fits the query")
         exit()
     else:
         choice = 0
@@ -292,6 +292,8 @@ def set(key, value):
                             f"(type: [red]{selected_type}[/red]) "))
         value = value.replace('"','').replace("'","").replace("`","")
 
+    local_conf = CONFIGS[2][1]
+    _value = None
     # type checking/casting
     try:
         if isinstance(selected_value, str):
@@ -319,8 +321,7 @@ def set(key, value):
     except (TypeError, ValueError):
         console.print(f"[red]Error:[/red] The value passed can't be cast into {selected_type}")
         exit()
-    
-    local_conf = CONFIGS[2][1]
+
     pathSet(local_conf, selected_path, _value)
     local_conf.store()
 
