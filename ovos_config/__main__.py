@@ -241,7 +241,7 @@ def get(key):
 @config.command()
 @click.option("--key", "-k", required=True, help="the key (or parts thereof) which should be searched")
 @click.option("--value", "-v", help="value the key should get associated with")
-def set_config_key(key, value):
+def set(key, value):
     """\b
     Sets a config key in the user configuration
     \b
