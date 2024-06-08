@@ -96,13 +96,13 @@ class LocalConf(dict):
         """
         path = path or self.path
         if not path:
-            LOG.error(f"in memory configuration, nothing to load")
+            LOG.error("in memory configuration, nothing to load")
             return
         if exists(path) and isfile(path):
             with self.__lock:
                 try:
                     if self._get_file_format(path) == "yaml":
-                        with open(path) as f:
+                        with open(path, encoding="utf-8") as f:
                             config = yaml.safe_load(f)
                     else:
                         config = load_commented_json(path)
@@ -120,7 +120,9 @@ class LocalConf(dict):
             LOG.debug(f"Configuration '{path}' not defined, skipping")
 
     def reload(self):
-        if isfile(self.path) and self._last_loaded == getmtime(self.path):
+        if isfile(self.path) \
+            and self._last_loaded \
+            and self._last_loaded == getmtime(self.path):
             LOG.debug(f"{self.path} not changed since last load "
                       f"(changed {time() - self._last_loaded} seconds ago)")
             return
@@ -129,15 +131,15 @@ class LocalConf(dict):
     def store(self, path=None):
         path = path or self.path
         if not path:
-            LOG.error(f"in memory configuration, no save location")
+            LOG.error("in memory configuration, no save location")
             return
         with self.__lock:
             if self._get_file_format(path) == "yaml":
-                with open(path, 'w+') as f:
+                with open(path, 'w+', encoding="utf-8") as f:
                     yaml.dump(dict(self), f, allow_unicode=True,
                               default_flow_style=False, sort_keys=False)
             else:
-                with open(path, 'w+') as f:
+                with open(path, 'w+', encoding="utf-8") as f:
                     json.dump(self, f, indent=2)
 
     def merge(self, conf):
