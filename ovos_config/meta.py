@@ -3,6 +3,7 @@
 The ovos config is json with comment support like the regular mycroft.conf
 
 Default locations tried by order until a file is found
+- /usr/share/OpenVoiceOS/ovos.conf
 - /etc/OpenVoiceOS/ovos.conf
 - /etc/mycroft/ovos.conf
 
@@ -116,12 +117,14 @@ def save_ovos_config(new_config):
 def get_ovos_default_config_paths():
     """ return a list of all existing ovos.conf file locations by order of precedence
 
-     eg. ["/etc/OpenVoiceOS/ovos.conf", "/home/user/.config/OpenVoiceOS/ovos.conf"]
+     eg. ["/usr/share/OpenVoiceOS/ovos.conf", "/etc/OpenVoiceOS/ovos.conf", "/home/user/.config/OpenVoiceOS/ovos.conf"]
 
      """
     from ovos_utils.log import LOG
 
     paths = []
+    if isfile("/usr/share/OpenVoiceOS/ovos.conf"):
+        paths.append("/usr/share/OpenVoiceOS/ovos.conf")
     if isfile("/etc/OpenVoiceOS/ovos.conf"):
         paths.append("/etc/OpenVoiceOS/ovos.conf")
     elif isfile("/etc/mycroft/ovos.conf"):
