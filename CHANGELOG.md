@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a17](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a17) (2024-06-08)
+## [0.0.13a18](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a18) (2024-06-11)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a16...0.0.13a17)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a17...0.0.13a18)
+
+**Implemented enhancements:**
+
+- better listener defaults [\#133](https://github.com/OpenVoiceOS/ovos-config/pull/133) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a17](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a17) (2024-06-08)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a16...V0.0.13a17)
 
 **Fixed bugs:**
 
