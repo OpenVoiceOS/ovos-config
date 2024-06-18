@@ -1,8 +1,23 @@
 # Changelog
 
-## [0.0.13a18](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a18) (2024-06-11)
+## [0.0.13a19](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a19) (2024-06-18)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a17...0.0.13a18)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a18...0.0.13a19)
+
+**Fixed bugs:**
+
+- update workflows [\#108](https://github.com/OpenVoiceOS/ovos-config/issues/108)
+- `ovos-config set` doesn't take the path syntax that `ovos-config get` outputs [\#73](https://github.com/OpenVoiceOS/ovos-config/issues/73)
+- ovos-config command line not giving expected response [\#59](https://github.com/OpenVoiceOS/ovos-config/issues/59)
+- fix config set [\#134](https://github.com/OpenVoiceOS/ovos-config/pull/134) ([JarbasAl](https://github.com/JarbasAl))
+
+**Closed issues:**
+
+- source/destination documentation [\#69](https://github.com/OpenVoiceOS/ovos-config/issues/69)
+
+## [V0.0.13a18](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a18) (2024-06-11)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a17...V0.0.13a18)
 
 **Implemented enhancements:**
 
