@@ -254,6 +254,7 @@ def set(key, value):
     ovos-config set -k blacklisted_skills -v myskill    # Adds "myskill" as an blacklisted skill
                                                         # Since this is a pretty specific key and a value is passed, the user won't be prompted
     """
+    key = key.lstrip("/")
     tuples = list(walkDict(CONFIG, key, full_path=True))
     values = [tup[1] for tup in tuples]
     paths = ["/".join(tup[0]) for tup in tuples]
