@@ -55,10 +55,12 @@ class TestLocations(TestCase):
         webcache_loc.return_value = "webcache"
         from ovos_config.locations import get_config_locations
         self.assertEqual(get_config_locations(False, False, False,
-                                              False, False), list())
+                                              False, False, False
+                                              ), list())
         self.assertEqual(get_config_locations(),
-                         ['/test/default.yml', '/etc/test/test.yaml',
-                          'webcache', '~/.test/test.yaml', 'config/test.yaml'])
+                         ['/test/default.yml', '/usr/share/test/test.yaml',
+                          '/etc/test/test.yaml', 'webcache',
+                          '~/.test/test.yaml', 'config/test.yaml'])
 
 
     @mock.patch("ovos_config.meta.get_config_filename")
@@ -70,6 +72,7 @@ class TestLocations(TestCase):
         xdg_base.return_value = "test"
         config_filename.return_value = "test.yaml"
         mod_check.return_value = False
+        os.environ["OVOS_DISTRIBUTION_CONFIG"] = "mycroft/distribution/config"
         os.environ["MYCROFT_SYSTEM_CONFIG"] = "mycroft/system/config"
         os.environ["MYCROFT_WEB_CACHE"] = "mycroft/web/config"
 
@@ -86,9 +89,11 @@ class TestLocations(TestCase):
         importlib.reload(ovos_config.meta)
 
         # Test all config paths respect environment overrides/configured values
-        from ovos_config.locations import DEFAULT_CONFIG, SYSTEM_CONFIG, \
-            OLD_USER_CONFIG, USER_CONFIG, REMOTE_CONFIG, WEB_CONFIG_CACHE
+        from ovos_config.locations import DEFAULT_CONFIG, DISTRIBUTION_CONFIG, \
+            SYSTEM_CONFIG, OLD_USER_CONFIG, USER_CONFIG, REMOTE_CONFIG, \
+            WEB_CONFIG_CACHE
 
+        self.assertEqual(DISTRIBUTION_CONFIG, "mycroft/distribution/config")
         self.assertEqual(SYSTEM_CONFIG, "mycroft/system/config")
         self.assertEqual(OLD_USER_CONFIG,
                          expanduser("~/.test/test.yaml"))

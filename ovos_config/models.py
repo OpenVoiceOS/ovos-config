@@ -21,7 +21,7 @@ from combo_lock import NamedLock
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
 
-from ovos_config.locations import USER_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG
+from ovos_config.locations import USER_CONFIG, DISTRIBUTION_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG
 
 
 def is_remote_list(values):
@@ -183,6 +183,11 @@ class MycroftDefaultConfig(ReadOnlyConfig):
         # in case we got it wrong / non standard
         self.path = root_config
         self.reload()
+
+
+class OvosDistributionConfig(ReadOnlyConfig):
+    def __init__(self, allow_overwrite=False):
+        super().__init__(DISTRIBUTION_CONFIG, allow_overwrite)
 
 
 class MycroftSystemConfig(ReadOnlyConfig):
