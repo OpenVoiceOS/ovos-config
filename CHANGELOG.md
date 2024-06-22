@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a20](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a20) (2024-06-22)
+## [0.0.13a21](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a21) (2024-06-22)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a19...0.0.13a20)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a20...0.0.13a21)
+
+**Implemented enhancements:**
+
+- feat: add /usr/share as a config location [\#128](https://github.com/OpenVoiceOS/ovos-config/pull/128) ([PureTryOut](https://github.com/PureTryOut))
+
+## [V0.0.13a20](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a20) (2024-06-22)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a19...V0.0.13a20)
 
 **Fixed bugs:**
 
