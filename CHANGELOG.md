@@ -1,8 +1,20 @@
 # Changelog
 
-## [0.0.13a19](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a19) (2024-06-18)
+## [0.0.13a20](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a20) (2024-06-22)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a18...0.0.13a19)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a19...0.0.13a20)
+
+**Fixed bugs:**
+
+- log\_level change should be handles by services [\#125](https://github.com/OpenVoiceOS/ovos-config/issues/125)
+
+**Merged pull requests:**
+
+- Update mycroft.conf [\#136](https://github.com/OpenVoiceOS/ovos-config/pull/136) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a19](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a19) (2024-06-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a18...V0.0.13a19)
 
 **Fixed bugs:**
 
