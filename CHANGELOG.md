@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a22](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a22) (2024-06-25)
+## [0.0.13a23](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a23) (2024-07-11)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a21...0.0.13a22)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a22...0.0.13a23)
+
+**Merged pull requests:**
+
+- tweak OCP defaults [\#139](https://github.com/OpenVoiceOS/ovos-config/pull/139) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a22](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a22) (2024-06-25)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a21...V0.0.13a22)
 
 **Fixed bugs:**
 
