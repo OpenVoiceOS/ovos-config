@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a23](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a23) (2024-07-11)
+## [0.0.13a24](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a24) (2024-07-17)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a22...0.0.13a23)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a23...0.0.13a24)
+
+**Merged pull requests:**
+
+- document audio options [\#141](https://github.com/OpenVoiceOS/ovos-config/pull/141) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a23](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a23) (2024-07-11)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a22...V0.0.13a23)
 
 **Merged pull requests:**
 
