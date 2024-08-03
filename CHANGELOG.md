@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a24](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a24) (2024-07-17)
+## [0.0.13a25](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a25) (2024-08-03)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a23...0.0.13a24)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a24...0.0.13a25)
+
+**Merged pull requests:**
+
+- document "common\_query" config options [\#143](https://github.com/OpenVoiceOS/ovos-config/pull/143) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a24](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a24) (2024-07-17)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a23...V0.0.13a24)
 
 **Merged pull requests:**
 
