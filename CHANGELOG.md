@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a25](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a25) (2024-08-03)
+## [0.0.13a26](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a26) (2024-08-05)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a24...0.0.13a25)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a25...0.0.13a26)
+
+**Merged pull requests:**
+
+- document "fake\_barge\_in" [\#144](https://github.com/OpenVoiceOS/ovos-config/pull/144) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a25](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a25) (2024-08-03)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a24...V0.0.13a25)
 
 **Merged pull requests:**
 
