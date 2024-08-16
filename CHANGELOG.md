@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.0.13a26](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a26) (2024-08-05)
+## [0.0.13a27](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a27) (2024-08-16)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a25...0.0.13a26)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a26...0.0.13a27)
+
+**Breaking changes:**
+
+- deprecate/ovos\_conf [\#138](https://github.com/OpenVoiceOS/ovos-config/pull/138) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a26](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a26) (2024-08-05)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a25...V0.0.13a26)
 
 **Merged pull requests:**
 
