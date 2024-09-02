@@ -1,8 +1,8 @@
 # Changelog
 
-## [0.0.13a27](https://github.com/OpenVoiceOS/ovos-config/tree/0.0.13a27) (2024-08-16)
+## [V0.0.13a27](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a27) (2024-08-16)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a26...0.0.13a27)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a26...V0.0.13a27)
 
 **Breaking changes:**
 
