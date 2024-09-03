@@ -55,21 +55,22 @@ class TestLocations(TestCase):
         webcache_loc.return_value = "webcache"
         from ovos_config.locations import get_config_locations
         self.assertEqual(get_config_locations(False, False, False,
-                                              False, False), list())
+                                              False, False, False
+                                              ), list())
         self.assertEqual(get_config_locations(),
-                         ['/test/default.yml', '/etc/test/test.yaml',
-                          'webcache', '~/.test/test.yaml', 'config/test.yaml'])
+                         ['/test/default.yml', '/usr/share/test/test.yaml',
+                          '/etc/test/test.yaml', 'webcache',
+                          '~/.test/test.yaml', 'config/test.yaml'])
 
 
     @mock.patch("ovos_config.meta.get_config_filename")
     @mock.patch("ovos_config.meta.get_xdg_base")
-    @mock.patch("ovos_utils.system.is_running_from_module")
     @mock.patch("os.path.isfile")
-    def test_globals(self, fcheck, mod_check, xdg_base, config_filename):
+    def test_globals(self, fcheck, xdg_base, config_filename):
         fcheck.return_value = True
         xdg_base.return_value = "test"
         config_filename.return_value = "test.yaml"
-        mod_check.return_value = False
+        os.environ["OVOS_DISTRIBUTION_CONFIG"] = "mycroft/distribution/config"
         os.environ["MYCROFT_SYSTEM_CONFIG"] = "mycroft/system/config"
         os.environ["MYCROFT_WEB_CACHE"] = "mycroft/web/config"
 
@@ -86,9 +87,11 @@ class TestLocations(TestCase):
         importlib.reload(ovos_config.meta)
 
         # Test all config paths respect environment overrides/configured values
-        from ovos_config.locations import DEFAULT_CONFIG, SYSTEM_CONFIG, \
-            OLD_USER_CONFIG, USER_CONFIG, REMOTE_CONFIG, WEB_CONFIG_CACHE
+        from ovos_config.locations import DEFAULT_CONFIG, DISTRIBUTION_CONFIG, \
+            SYSTEM_CONFIG, OLD_USER_CONFIG, USER_CONFIG, REMOTE_CONFIG, \
+            WEB_CONFIG_CACHE
 
+        self.assertEqual(DISTRIBUTION_CONFIG, "mycroft/distribution/config")
         self.assertEqual(SYSTEM_CONFIG, "mycroft/system/config")
         self.assertEqual(OLD_USER_CONFIG,
                          expanduser("~/.test/test.yaml"))
@@ -97,12 +100,14 @@ class TestLocations(TestCase):
         self.assertEqual(REMOTE_CONFIG, "mycroft.ai")
         self.assertEqual(WEB_CONFIG_CACHE, "mycroft/web/config")
 
-        # Override module check and reload to test default config override
-        mod_check.return_value = True
+
+        # test default config override
+        self.assertTrue(DEFAULT_CONFIG != "/tmp/test.yaml")
+        os.environ["OVOS_DEFAULT_CONFIG"] = "/tmp/test.yaml"
         importlib.reload(ovos_config.locations)
         importlib.reload(ovos_config.models)
         importlib.reload(ovos_config.config)
-        # Ensure default path is read from ovos.conf
+        # Ensure default path is read from env var
         from ovos_config.locations import DEFAULT_CONFIG
         self.assertEqual(DEFAULT_CONFIG, "/tmp/test.yaml")
         # Ensure default config values are present in Configuration object

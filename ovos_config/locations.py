@@ -55,8 +55,8 @@ def find_user_config():
     if isfile(path):
         return path
     old, path = get_config_locations(default=False, web_cache=False,
-                                     system=False, old_user=True,
-                                     user=True)
+                                     distribution=False, system=False,
+                                     old_user=True, user=True)
     if isfile(path):
         return path
     if isfile(old):
@@ -64,13 +64,15 @@ def find_user_config():
     return path
 
 
-def get_config_locations(default=True, web_cache=True, system=True,
-                         old_user=True, user=True):
+def get_config_locations(default=True, web_cache=True, distribution=True,
+                         system=True, old_user=True, user=True):
     """return list of all possible config files paths sorted by priority taking into account ovos.conf"""
     locs = []
     ovos_cfg = _ovos_config.get_ovos_config()
     if default:
         locs.append(ovos_cfg["default_config_path"])
+    if distribution:
+        locs.append(f"/usr/share/{ovos_cfg['base_folder']}/{ovos_cfg['config_filename']}")
     if system:
         locs.append(f"/etc/{ovos_cfg['base_folder']}/{ovos_cfg['config_filename']}")
     if web_cache:
@@ -104,6 +106,9 @@ def find_default_config():
 
 
 DEFAULT_CONFIG = _ovos_config.get_ovos_config()['default_config_path']
+DISTRIBUTION_CONFIG = os.environ.get('OVOS_DISTRIBUTION_CONFIG',
+                               f'/usr/share/{_ovos_config.get_xdg_base()}/'
+                               f'{_ovos_config.get_config_filename()}')
 SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
                                f'/etc/{_ovos_config.get_xdg_base()}/'
                                f'{_ovos_config.get_config_filename()}')

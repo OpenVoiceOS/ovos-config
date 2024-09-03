@@ -65,8 +65,8 @@ def init_module_config(module_name: str, module_override: str,
 
     # Check for and update submodules
     if module_name == "__main__":
-        raise ValueError(f"Configuring `__main__` has unintended consequences"
-                         f"and is not supported here")
+        raise ValueError("Configuring `__main__` has unintended consequences"
+                         "and is not supported here")
     if module_name in ovos_conf['submodule_mappings']:
         LOG.debug(f"{module_name} already configured, skipping configuration")
     else:
@@ -109,4 +109,3 @@ def init_module_config(module_name: str, module_override: str,
     importlib.reload(ovos_config.models)
     importlib.reload(ovos_config.config)
     importlib.reload(ovos_config)
-

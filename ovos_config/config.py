@@ -17,7 +17,8 @@ from os.path import isfile
 from typing import Optional
 
 from ovos_config.models import LocalConf, MycroftDefaultConfig, \
-    MycroftSystemConfig, MycroftUserConfig, RemoteConf
+    OvosDistributionConfig, MycroftSystemConfig, MycroftUserConfig, \
+    RemoteConf
 from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, \
     get_xdg_config_locations
 from ovos_utils.file_utils import FileWatcher
@@ -41,6 +42,7 @@ class Configuration(dict):
     __patch = LocalConf(None)  # Patch config that skills can update to override config
     bus = None
     default = MycroftDefaultConfig()
+    distribution = OvosDistributionConfig()
     system = MycroftSystemConfig()
     remote = RemoteConf()
     # This includes both the user config and
@@ -54,10 +56,6 @@ class Configuration(dict):
     _callbacks = []
 
     def __init__(self):
-        # python does not support proper overloading
-        # when instantiation a Configuration object (new style)
-        # the get method is replaced for proper dict behaviour
-        self.get = self._real_get
         super().__init__(**self.load_all_configs())
 
     # dict methods
@@ -160,13 +158,14 @@ class Configuration(dict):
     @staticmethod
     def get_system_constraints() -> dict:
         """
-        Get Configuration constraints. Constraints must come from SYSTEM config.
+        Get Configuration constraints. Constraints must come from DISTRIBUTION or SYSTEM config.
         If not defined, then load the DEFAULT constraints.
         These settings can not be set anywhere else!
         @return: dict of system configuration constraints
         """
 
-        return Configuration.system.get("system") or \
+        return Configuration.distribution.get("system") or \
+            Configuration.system.get("system") or \
             Configuration.default.get("system") or \
             {}
 
@@ -184,7 +183,7 @@ class Configuration(dict):
         skip_user = system_constraints.get("disable_user_config", False)
         skip_remote = system_constraints.get("disable_remote_config", False)
 
-        configs = [Configuration.default, Configuration.system]
+        configs = [Configuration.default, Configuration.distribution, Configuration.system]
         if not skip_remote:
             configs.insert(1, Configuration.remote)
         if not skip_user:
@@ -275,7 +274,7 @@ class Configuration(dict):
         Setup filewatcher to monitor for config file changes
         @param callback: optional method to call when configuration is changed
         """
-        paths = [Configuration.system.path] + \
+        paths = [Configuration.distribution.path, Configuration.system.path] + \
                 [c.path for c in Configuration.xdg_configs]
         if callback and callback not in Configuration._callbacks:
             Configuration._callbacks.append(callback)
@@ -292,7 +291,8 @@ class Configuration(dict):
         @param path: Configuration file path reporting a change
         """
         # reload updated config
-        for cfg in Configuration.xdg_configs + [Configuration.system,
+        for cfg in Configuration.xdg_configs + [Configuration.distribution,
+                                                Configuration.system,
                                                 Configuration.remote]:
             if cfg.path == path:
                 old_cfg = hash(cfg)
@@ -378,17 +378,6 @@ class Configuration(dict):
         Configuration.__patch = {}
 
     # Backwards compat methods
-    @staticmethod
-    def get(configs=None, cache=True, remote=True):
-        """DEPRECATED - use Configuration class instead"""
-        LOG.warning("Configuration.get() has been deprecated, use Configuration() instead")
-        # NOTE: this is only called if using the class directly
-        # if using an instance (dict object) self._real_get is called instead
-        return Configuration.load_config_stack(configs, cache, remote)
-
-    def _real_get(self, key, default=None):
-        return self.__getitem__(key) or default
-
     @staticmethod
     def clear_cache(message=None):
         """DEPRECATED - there is no cache anymore """

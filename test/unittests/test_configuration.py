@@ -39,15 +39,6 @@ class TestConfiguration(TestCase):
         Configuration.load_config_stack([{}], True)
         Configuration._callbacks = []
 
-    def test_get(self):
-        from ovos_config.config import Configuration
-        d1 = {'a': 1, 'b': {'c': 1, 'd': 2}}
-        d2 = {'b': {'d': 'changed'}}
-        d = Configuration.get([d1, d2])
-        self.assertEqual(d['a'], d1['a'])
-        self.assertEqual(d['b']['d'], d2['b']['d'])
-        self.assertEqual(d['b']['c'], d1['b']['c'])
-
     @patch('mycroft.api.DeviceApi')
     @skip("requires backend to be enabled, TODO refactor test!")
     def test_remote(self, mock_api):

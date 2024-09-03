@@ -1,89 +1,236 @@
 # Changelog
 
-## [V0.0.12a9](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a9) (2023-12-28)
+## [V0.0.13a27](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a27) (2024-08-16)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a8...V0.0.12a9)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a26...V0.0.13a27)
 
-**Merged pull requests:**
+**Breaking changes:**
 
-- stable utils [\#91](https://github.com/OpenVoiceOS/ovos-config/pull/91) ([JarbasAl](https://github.com/JarbasAl))
+- deprecate/ovos\_conf [\#138](https://github.com/OpenVoiceOS/ovos-config/pull/138) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.12a8](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a8) (2023-12-28)
+## [V0.0.13a26](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a26) (2024-08-05)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a7...V0.0.12a8)
-
-**Fixed bugs:**
-
-- drop mycroft-core config location [\#90](https://github.com/OpenVoiceOS/ovos-config/pull/90) ([JarbasAl](https://github.com/JarbasAl))
-
-## [V0.0.12a7](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a7) (2023-12-28)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a6...V0.0.12a7)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a25...V0.0.13a26)
 
 **Merged pull requests:**
 
-- fix instant listen inline doc [\#87](https://github.com/OpenVoiceOS/ovos-config/pull/87) ([emphasize](https://github.com/emphasize))
+- document "fake\_barge\_in" [\#144](https://github.com/OpenVoiceOS/ovos-config/pull/144) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.12a6](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a6) (2023-12-27)
+## [V0.0.13a25](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a25) (2024-08-03)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a5...V0.0.12a6)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a24...V0.0.13a25)
+
+**Merged pull requests:**
+
+- document "common\_query" config options [\#143](https://github.com/OpenVoiceOS/ovos-config/pull/143) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a24](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a24) (2024-07-17)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a23...V0.0.13a24)
+
+**Merged pull requests:**
+
+- document audio options [\#141](https://github.com/OpenVoiceOS/ovos-config/pull/141) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a23](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a23) (2024-07-11)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a22...V0.0.13a23)
+
+**Merged pull requests:**
+
+- tweak OCP defaults [\#139](https://github.com/OpenVoiceOS/ovos-config/pull/139) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a22](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a22) (2024-06-25)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a21...V0.0.13a22)
 
 **Fixed bugs:**
 
-- fix circular import [\#89](https://github.com/OpenVoiceOS/ovos-config/pull/89) ([emphasize](https://github.com/emphasize))
+- revert to single thread [\#137](https://github.com/OpenVoiceOS/ovos-config/pull/137) ([JarbasAl](https://github.com/JarbasAl))
 
-**Closed issues:**
+## [V0.0.13a21](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a21) (2024-06-22)
 
-- Exception fetching remote configuration: No module named 'ovos\_backend\_client' [\#75](https://github.com/OpenVoiceOS/ovos-config/issues/75)
-
-## [V0.0.12a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a5) (2023-12-23)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a4...V0.0.12a5)
-
-**Fixed bugs:**
-
-- fix/untangle\_from\_LF [\#88](https://github.com/OpenVoiceOS/ovos-config/pull/88) ([JarbasAl](https://github.com/JarbasAl))
-
-## [V0.0.12a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a4) (2023-12-19)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a3...V0.0.12a4)
-
-**Fixed bugs:**
-
-- Force websocket to bind on 127.0.0.1 [\#86](https://github.com/OpenVoiceOS/ovos-config/pull/86) ([goldyfruit](https://github.com/goldyfruit))
-
-## [V0.0.12a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a3) (2023-12-07)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a2...V0.0.12a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a20...V0.0.13a21)
 
 **Implemented enhancements:**
 
-- feat/lang\_utils [\#85](https://github.com/OpenVoiceOS/ovos-config/pull/85) ([JarbasAl](https://github.com/JarbasAl))
+- feat: add /usr/share as a config location [\#128](https://github.com/OpenVoiceOS/ovos-config/pull/128) ([PureTryOut](https://github.com/PureTryOut))
 
-## [V0.0.12a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a2) (2023-12-06)
+## [V0.0.13a20](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a20) (2024-06-22)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12a1...V0.0.12a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a19...V0.0.13a20)
 
 **Fixed bugs:**
 
-- Update locale.py [\#84](https://github.com/OpenVoiceOS/ovos-config/pull/84) ([JarbasAl](https://github.com/JarbasAl))
-
-**Closed issues:**
-
-- Lingua franca lang specific format module isn't loaded. [\#83](https://github.com/OpenVoiceOS/ovos-config/issues/83)
-- Errors loading tts when mimic3-server is not installed [\#80](https://github.com/OpenVoiceOS/ovos-config/issues/80)
-
-## [V0.0.12a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.12a1) (2023-11-05)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.11...V0.0.12a1)
-
-**Closed issues:**
-
-- Invalid JSON Error [\#79](https://github.com/OpenVoiceOS/ovos-config/issues/79)
+- log\_level change should be handles by services [\#125](https://github.com/OpenVoiceOS/ovos-config/issues/125)
 
 **Merged pull requests:**
 
-- removed deprecated mimic3 [\#81](https://github.com/OpenVoiceOS/ovos-config/pull/81) ([builderjer](https://github.com/builderjer))
+- Update mycroft.conf [\#136](https://github.com/OpenVoiceOS/ovos-config/pull/136) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a19](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a19) (2024-06-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a18...V0.0.13a19)
+
+**Fixed bugs:**
+
+- update workflows [\#108](https://github.com/OpenVoiceOS/ovos-config/issues/108)
+- `ovos-config set` doesn't take the path syntax that `ovos-config get` outputs [\#73](https://github.com/OpenVoiceOS/ovos-config/issues/73)
+- ovos-config command line not giving expected response [\#59](https://github.com/OpenVoiceOS/ovos-config/issues/59)
+- fix config set [\#134](https://github.com/OpenVoiceOS/ovos-config/pull/134) ([JarbasAl](https://github.com/JarbasAl))
+
+**Closed issues:**
+
+- source/destination documentation [\#69](https://github.com/OpenVoiceOS/ovos-config/issues/69)
+
+## [V0.0.13a18](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a18) (2024-06-11)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a17...V0.0.13a18)
+
+**Implemented enhancements:**
+
+- better listener defaults [\#133](https://github.com/OpenVoiceOS/ovos-config/pull/133) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a17](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a17) (2024-06-08)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a16...V0.0.13a17)
+
+**Fixed bugs:**
+
+- trying to black list a skill.  throws error [\#118](https://github.com/OpenVoiceOS/ovos-config/issues/118)
+- fix: unbound local var [\#127](https://github.com/OpenVoiceOS/ovos-config/pull/127) ([mikejgray](https://github.com/mikejgray))
+
+## [V0.0.13a16](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a16) (2024-06-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a15...V0.0.13a16)
+
+**Merged pull requests:**
+
+- Update python-dateutil requirement from ~=2.6 to ~=2.9 in /requirements [\#115](https://github.com/OpenVoiceOS/ovos-config/pull/115) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [V0.0.13a15](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a15) (2024-06-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a14...V0.0.13a15)
+
+**Fixed bugs:**
+
+- fix/typo [\#126](https://github.com/OpenVoiceOS/ovos-config/pull/126) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a14](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a14) (2024-06-04)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a13...V0.0.13a14)
+
+**Merged pull requests:**
+
+- feat/ocp\_pipeline [\#96](https://github.com/OpenVoiceOS/ovos-config/pull/96) ([NeonJarbas](https://github.com/NeonJarbas))
+
+## [V0.0.13a13](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a13) (2024-05-30)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a12...V0.0.13a13)
+
+**Merged pull requests:**
+
+- move to vosk [\#124](https://github.com/OpenVoiceOS/ovos-config/pull/124) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a12](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a12) (2024-02-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a11...V0.0.13a12)
+
+## [V0.0.13a11](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a11) (2024-02-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a10...V0.0.13a11)
+
+**Merged pull requests:**
+
+- Update mycroft.conf [\#112](https://github.com/OpenVoiceOS/ovos-config/pull/112) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a10](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a10) (2024-02-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a9...V0.0.13a10)
+
+**Merged pull requests:**
+
+- Update ovos-backend-client requirement from \<0.1.0 to \<0.2.0 in /requirements [\#104](https://github.com/OpenVoiceOS/ovos-config/pull/104) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [V0.0.13a9](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a9) (2024-02-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a8...V0.0.13a9)
+
+**Implemented enhancements:**
+
+- improve env vars handling [\#54](https://github.com/OpenVoiceOS/ovos-config/pull/54) ([JarbasAl](https://github.com/JarbasAl))
+
+**Merged pull requests:**
+
+- Update ovos-bus-client requirement from ~=0.0.3 to ~=0.0.8 in /requirements [\#106](https://github.com/OpenVoiceOS/ovos-config/pull/106) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [V0.0.13a8](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a8) (2024-02-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a7...V0.0.13a8)
+
+**Merged pull requests:**
+
+- fix: "adapt\_medium" before padatious [\#110](https://github.com/OpenVoiceOS/ovos-config/pull/110) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a7](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a7) (2024-02-07)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a6...V0.0.13a7)
+
+**Fixed bugs:**
+
+- fix/remove\_broken\_patch [\#107](https://github.com/OpenVoiceOS/ovos-config/pull/107) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a6](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a6) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a5...V0.0.13a6)
+
+**Merged pull requests:**
+
+- readd low adapt matches \(intent pipeline\) [\#101](https://github.com/OpenVoiceOS/ovos-config/pull/101) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.13a5](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a5) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a4...V0.0.13a5)
+
+**Implemented enhancements:**
+
+- Update mycroft.conf [\#95](https://github.com/OpenVoiceOS/ovos-config/pull/95) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.13a4](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a4) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a3...V0.0.13a4)
+
+## [V0.0.13a3](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a3) (2024-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a2...V0.0.13a3)
+
+**Implemented enhancements:**
+
+- default utterance plugins [\#99](https://github.com/OpenVoiceOS/ovos-config/pull/99) ([JarbasAl](https://github.com/JarbasAl))
+
+**Merged pull requests:**
+
+- adjust adapt matcher pipeline defaults [\#100](https://github.com/OpenVoiceOS/ovos-config/pull/100) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.13a2](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a2) (2024-01-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.13a1...V0.0.13a2)
+
+**Implemented enhancements:**
+
+- update/stop\_pipeline [\#94](https://github.com/OpenVoiceOS/ovos-config/pull/94) ([JarbasAl](https://github.com/JarbasAl))
+
+**Closed issues:**
+
+- Services don't start with malformed configuration [\#97](https://github.com/OpenVoiceOS/ovos-config/issues/97)
+
+## [V0.0.13a1](https://github.com/OpenVoiceOS/ovos-config/tree/V0.0.13a1) (2023-12-29)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.0.12...V0.0.13a1)
+
+**Merged pull requests:**
+
+- document transformer plugins [\#93](https://github.com/OpenVoiceOS/ovos-config/pull/93) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
