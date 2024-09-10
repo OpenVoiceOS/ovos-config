@@ -247,8 +247,6 @@ class Configuration(dict):
         Setup websocket handlers to update config on emitted changes.
         @param bus: Message bus client instance
         """
-        from ovos_utils.network_utils import is_connected
-
         # remove any old event listeners
         Configuration.deregister_bus()
 
@@ -264,9 +262,14 @@ class Configuration(dict):
 
         Configuration.set_config_watcher()
 
-        # do the initial remote fetch
-        if is_connected():
-            Configuration.remote.reload()
+        try:
+            # TODO - investigate why this import fails sometimes
+            from ovos_utils.network_utils import is_connected
+            if is_connected():
+                # do the initial remote fetch
+                Configuration.remote.reload()
+        except:
+            pass
 
     @staticmethod
     def set_config_watcher(callback: Optional[callable] = None):

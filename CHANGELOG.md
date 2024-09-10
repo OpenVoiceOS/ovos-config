@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.1.0a1) (2024-09-10)
+## [0.1.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.1.1a1) (2024-09-10)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/V0.1.0...0.1.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.1.0...0.1.1a1)
 
 **Merged pull requests:**
 
-- chore:semver\_automations [\#147](https://github.com/OpenVoiceOS/ovos-config/pull/147) ([JarbasAl](https://github.com/JarbasAl))
+- chore:semver\_versioning [\#149](https://github.com/OpenVoiceOS/ovos-config/pull/149) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
