@@ -222,7 +222,7 @@ class TestConfiguration(TestCase):
         from ovos_utils.messagebus import FakeBus
         event = Event()
         bus = FakeBus()
-        thread_config = None
+        thread_config: dict = {}
 
         def _wait_for_changes():
             nonlocal thread_config

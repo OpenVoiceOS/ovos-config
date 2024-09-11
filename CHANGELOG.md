@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.1.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.1.2a1) (2024-09-11)
+## [0.2.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.2.0a1) (2024-09-11)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.1.1...0.1.2a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.1.2...0.2.0a1)
 
 **Merged pull requests:**
 
-- fix:backend\_client\_version\_compat [\#151](https://github.com/OpenVoiceOS/ovos-config/pull/151) ([JarbasAl](https://github.com/JarbasAl))
+- feat:fallback\_plugins [\#153](https://github.com/OpenVoiceOS/ovos-config/pull/153) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
