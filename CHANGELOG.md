@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.2.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.2.0a1) (2024-09-11)
+## [0.2.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.2.1a1) (2024-09-15)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.1.2...0.2.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.2.0...0.2.1a1)
 
 **Merged pull requests:**
 
-- feat:fallback\_plugins [\#153](https://github.com/OpenVoiceOS/ovos-config/pull/153) ([JarbasAl](https://github.com/JarbasAl))
+- fix:microphone default [\#155](https://github.com/OpenVoiceOS/ovos-config/pull/155) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
