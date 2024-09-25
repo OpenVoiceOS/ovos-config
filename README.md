@@ -53,6 +53,14 @@ Given an entry of
     The type is derived from the joined config and thus can be safely cast into the user conf.\
     Optionally a value (`-v`) can be sent as an argument.
 
+
+* `ovos-config autoconfigure`
+  
+![image](https://github.com/user-attachments/assets/7a39707e-ac56-498c-a269-337f4de88442)
+
+![image](https://github.com/user-attachments/assets/01ee6b46-c3c2-4fd9-b048-5fe3f074f031)
+
+
 * `ovos-config show` 
 
   * Get a full table of either the joined, user (`-u`), system (`-s`) or remote (`-r`) configuration.
