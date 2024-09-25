@@ -138,29 +138,20 @@ def config():
 @click.option("--female", "-f", is_flag=True, help="set default female voice for TTS")
 def autoconfigure(lang, online, offline, male, female):
     """
-    Automatically configures the language, STT, and TTS settings based on user input.
+Automatically configures the language, STT, and TTS settings based on user input.
 
-    This function sets up configurations for language, online or offline speech-to-text,
-    and male or female text-to-speech voice options. The function ensures that only one
-    of the mutually exclusive options (online/offline and male/female) is selected, and
-    merges the appropriate configuration files for the selected options.
+sets up configurations for language, online or offline speech-to-text, and male or female text-to-speech voice options.
 
-    Args:
-        lang (str): The language code to be used for configuration (e.g., 'en', 'en-US').
-        online (bool): Flag to set online STT plugin as default.
-        offline (bool): Flag to set offline STT plugin as default.
-        male (bool): Flag to set male voice for TTS as default.
-        female (bool): Flag to set female voice for TTS as default.
+ensures that only one of the mutually exclusive options (online/offline and male/female) is selected, and merges the appropriate configuration files for the selected options.
 
-    Raises:
-        ValueError: If both `online` and `offline` or both `male` and `female` are passed.
+Notes:
 
-    Notes:
-        - If neither `online` nor `offline` are provided, defaults to `online`.
-        - If neither `male` nor `female` are provided, TTS configuration is skipped.
-        - The function merges configuration files based on the specified options and stores
-          the final configuration in the user's config file.
-    """
+    - If neither `online` nor `offline` are provided, defaults to `online`.
+
+    - If neither `male` nor `female` are provided, TTS configuration is skipped.
+
+    - The function merges configuration files based on the specified options and stores the final configuration in the user's config file.
+"""
     if not online and not offline:
         console.print("[red]Defaulting to online public servers[/red]")
         online = True
