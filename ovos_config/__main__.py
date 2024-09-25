@@ -170,6 +170,7 @@ Notes:
     except ImportError:
         stdlang = lang
         console.print(f"[red]ERROR: Failed to standardize lang tag, please install latest 'ovos-utils' package[/red]")
+
     config = LocalConf(USER_CONFIG)
     config["tts"] = {"ovos-tts-plugin-server": {}}
     config["stt"] = {"ovos-stt-plugin-server": {}}
@@ -210,6 +211,21 @@ Notes:
             do_merge("online_female")
 
     config["lang"] = stdlang
+
+    try:
+        from ovos_plugin_manager.stt import find_stt_plugins
+        from ovos_plugin_manager.tts import find_tts_plugins
+        available_stt = list(find_stt_plugins().keys())
+        console.print(f"INFO: available STT plugins: {available_stt}")
+        available_tts = list(find_tts_plugins().keys())
+        console.print(f"INFO: available TTS plugins: {available_tts}")
+        if config["tts"]["module"] not in available_tts:
+            console.print(f"[red]ERROR: TTS plugin seems to be missing, please install '{config['tts']['module']}'[/red]")
+        if config["stt"]["module"] not in available_stt:
+            console.print(f"[red]ERROR: STT plugin seems to be missing, please install '{config['stt']['module']}'[/red]")
+    except ImportError:
+        console.print(f"[red]ERROR: Skipping plugin validation, 'ovos-plugin-manager' not installed[/red]")
+
     config.store()
     console.print(f"Config updated: {config.path}")
 
