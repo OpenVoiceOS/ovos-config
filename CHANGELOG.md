@@ -1,12 +1,13 @@
 # Changelog
 
-## [0.2.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.2.1a1) (2024-09-15)
+## [0.3.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.3.0a1) (2024-09-25)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.2.0...0.2.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.2.1...0.3.0a1)
 
 **Merged pull requests:**
 
-- fix:microphone default [\#155](https://github.com/OpenVoiceOS/ovos-config/pull/155) ([JarbasAl](https://github.com/JarbasAl))
+- feat:autoconfigure language [\#158](https://github.com/OpenVoiceOS/ovos-config/pull/158) ([JarbasAl](https://github.com/JarbasAl))
+- Document utterance\_filename [\#157](https://github.com/OpenVoiceOS/ovos-config/pull/157) ([Erotemic](https://github.com/Erotemic))
 
 
 
