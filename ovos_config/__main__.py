@@ -215,16 +215,32 @@ Notes:
     try:
         from ovos_plugin_manager.stt import find_stt_plugins
         from ovos_plugin_manager.tts import find_tts_plugins
+
         available_stt = list(find_stt_plugins().keys())
-        console.print(f"INFO: available STT plugins: {available_stt}")
         available_tts = list(find_tts_plugins().keys())
-        console.print(f"INFO: available TTS plugins: {available_tts}")
-        if config["tts"]["module"] not in available_tts:
-            console.print(f"[red]ERROR: TTS plugin seems to be missing, please install '{config['tts']['module']}'[/red]")
+
+        console.print("[blue]Available STT plugins:[/blue]")
+        for plugin in available_stt:
+            console.print(f"  - '{plugin}'")
+        console.print("[blue]Available TTS plugins:[/blue]")
+        for plugin in available_tts:
+            console.print(f"  - '{plugin}'")
+
+        missing_plugins = []
         if config["stt"]["module"] not in available_stt:
-            console.print(f"[red]ERROR: STT plugin seems to be missing, please install '{config['stt']['module']}'[/red]")
+            missing_plugins.append(f"STT plugin '{config['stt']['module']}'")
+        if config["tts"]["module"] not in available_tts:
+            missing_plugins.append(f"TTS plugin '{config['tts']['module']}'")
+
+        if missing_plugins:
+            console.print("[yellow]WARNING: The following plugins are missing:[/yellow]")
+            for plugin in missing_plugins:
+                console.print(f"  - {plugin}")
+            console.print("Please install the missing plugins using 'pip install <plugin_name>'")
     except ImportError:
-        console.print(f"[red]ERROR: Skipping plugin validation, 'ovos-plugin-manager' not installed[/red]")
+        console.print("[yellow]WARNING: 'ovos-plugin-manager' not installed. Skipping plugin validation.[/yellow]")
+        console.print(
+            "To enable plugin validation, install 'ovos-plugin-manager' using 'pip install ovos-plugin-manager'")
 
     config.store()
     console.print(f"Config updated: {config.path}")
