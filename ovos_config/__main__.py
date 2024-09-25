@@ -182,6 +182,7 @@ Notes:
                 path = paths[0]
 
         if not os.path.isfile(path):
+            console.print(f"[red]ERROR: {folder} not available for {stdlang}[/red]")
             return
 
         c = LocalConf(path)
