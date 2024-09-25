@@ -156,9 +156,9 @@ Notes:
         online = True
 
     if online and offline:
-        raise ValueError("pass either --online or --offline, not both")
+        raise click.UsageError("Pass either --online or --offline, not both")
     if male and female:
-        raise ValueError("pass either --male or --female, not both")
+        raise click.UsageError("Pass either --male or --female, not both")
 
     if not male and not female:
         console.print("[red]Skipping TTS configuration, pass '--male' or '--female' to set language defaults[/red]")
