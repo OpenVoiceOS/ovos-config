@@ -4,7 +4,6 @@ import os.path
 from typing import Any, Tuple
 
 import rich_click as click
-from ovos_utils.lang import standardize_lang_tag
 from rich import print_json
 from rich.console import Console
 from rich.prompt import Prompt
@@ -164,6 +163,7 @@ Notes:
     if not male and not female:
         console.print("[red]Skipping TTS configuration, pass '--male' or '--female' to set language defaults[/red]")
 
+    from ovos_utils.lang import standardize_lang_tag
     stdlang = standardize_lang_tag(lang, macro=True)
     console.print(f"Standardized lang-code: {stdlang}")
 
@@ -189,6 +189,7 @@ Notes:
         config.merge(c)
         console.print(f"Merged config: {c.path}")
 
+    do_merge("base")
     if offline:
         do_merge("offline_stt")
         if male:
