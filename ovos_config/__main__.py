@@ -166,7 +166,7 @@ Notes:
     try:
         from ovos_utils.lang import standardize_lang_tag
         stdlang = standardize_lang_tag(lang, macro=True)
-        console.print(f"Standardized lang-code: {stdlang}")
+        console.print(f"[blue]Standardized lang-code:[/blue] {stdlang}")
     except ImportError:
         stdlang = lang
         console.print(f"[red]ERROR: Failed to standardize lang tag, please install latest 'ovos-utils' package[/red]")
@@ -246,9 +246,15 @@ Notes:
     console.print(f"Config updated: {config.path}")
 
     print_json(json.dumps({k: v for k, v in config.items()
-                           if k in ["lang", "tts", "stt",
-                                    "system_unit", "date_format",
-                                    "time_format", "spoken_time_format"]}))
+                           if k in ["lang",
+                                    "tts", "stt",
+                                    "system_unit",
+                                    "temperature_unit",
+                                    "windspeed_unit",
+                                    "precipitation_unit",
+                                    "date_format",
+                                    "time_format",
+                                    "spoken_time_format"]}))
 
 
 @config.command()
