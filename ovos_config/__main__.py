@@ -163,10 +163,13 @@ Notes:
     if not male and not female:
         console.print("[red]Skipping TTS configuration, pass '--male' or '--female' to set language defaults[/red]")
 
-    from ovos_utils.lang import standardize_lang_tag
-    stdlang = standardize_lang_tag(lang, macro=True)
-    console.print(f"Standardized lang-code: {stdlang}")
-
+    try:
+        from ovos_utils.lang import standardize_lang_tag
+        stdlang = standardize_lang_tag(lang, macro=True)
+        console.print(f"Standardized lang-code: {stdlang}")
+    except ImportError:
+        stdlang = lang
+        console.print(f"[red]ERROR: Failed to standardize lang tag, please install latest 'ovos-utils' package[/red]")
     config = LocalConf(USER_CONFIG)
     config["tts"] = {"ovos-tts-plugin-server": {}}
     config["stt"] = {"ovos-stt-plugin-server": {}}
