@@ -211,7 +211,9 @@ Notes:
     console.print(f"Config updated: {config.path}")
 
     print_json(json.dumps({k: v for k, v in config.items()
-                           if k in ["lang", "tts", "stt", "system_unit", "date_format"]}))
+                           if k in ["lang", "tts", "stt",
+                                    "system_unit", "date_format",
+                                    "time_format", "spoken_time_format"]}))
 
 
 @config.command()
