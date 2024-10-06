@@ -1,13 +1,12 @@
 # Changelog
 
-## [0.3.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.3.0a1) (2024-09-25)
+## [0.3.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.3.1a1) (2024-10-06)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.2.1...0.3.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.3.0...0.3.1a1)
 
 **Merged pull requests:**
 
-- feat:autoconfigure language [\#158](https://github.com/OpenVoiceOS/ovos-config/pull/158) ([JarbasAl](https://github.com/JarbasAl))
-- Document utterance\_filename [\#157](https://github.com/OpenVoiceOS/ovos-config/pull/157) ([Erotemic](https://github.com/Erotemic))
+- fix:catalan\_offline\_tts [\#162](https://github.com/OpenVoiceOS/ovos-config/pull/162) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
