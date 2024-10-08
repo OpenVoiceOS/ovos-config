@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.3.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.3.1a1) (2024-10-06)
+## [0.4.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.0a1) (2024-10-08)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.3.0...0.3.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.3.1...0.4.0a1)
 
 **Merged pull requests:**
 
-- fix:catalan\_offline\_tts [\#162](https://github.com/OpenVoiceOS/ovos-config/pull/162) ([JarbasAl](https://github.com/JarbasAl))
+- feat:enable fake barge in by default [\#164](https://github.com/OpenVoiceOS/ovos-config/pull/164) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
