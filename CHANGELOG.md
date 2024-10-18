@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.2a1) (2024-10-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.1a1...0.4.2a1)
+
+**Merged pull requests:**
+
+- fix:server urls catalan [\#169](https://github.com/OpenVoiceOS/ovos-config/pull/169) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.4.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.1a1) (2024-10-15)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.0...0.4.1a1)
