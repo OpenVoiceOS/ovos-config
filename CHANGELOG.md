@@ -1,12 +1,20 @@
 # Changelog
 
-## [0.4.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.0a1) (2024-10-08)
+## [0.4.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.2a1) (2024-10-18)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.3.1...0.4.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.1a1...0.4.2a1)
 
 **Merged pull requests:**
 
-- feat:enable fake barge in by default [\#164](https://github.com/OpenVoiceOS/ovos-config/pull/164) ([JarbasAl](https://github.com/JarbasAl))
+- fix:server urls catalan [\#169](https://github.com/OpenVoiceOS/ovos-config/pull/169) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.4.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.1a1) (2024-10-15)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.0...0.4.1a1)
+
+**Merged pull requests:**
+
+- deprecate ready settings [\#166](https://github.com/OpenVoiceOS/ovos-config/pull/166) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
