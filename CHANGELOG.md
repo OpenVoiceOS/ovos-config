@@ -1,20 +1,12 @@
 # Changelog
 
-## [0.4.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.2a1) (2024-10-18)
+## [0.4.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.3a1) (2024-10-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.1a1...0.4.2a1)
-
-**Merged pull requests:**
-
-- fix:server urls catalan [\#169](https://github.com/OpenVoiceOS/ovos-config/pull/169) ([JarbasAl](https://github.com/JarbasAl))
-
-## [0.4.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.1a1) (2024-10-15)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.0...0.4.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.2...0.4.3a1)
 
 **Merged pull requests:**
 
-- deprecate ready settings [\#166](https://github.com/OpenVoiceOS/ovos-config/pull/166) ([JarbasAl](https://github.com/JarbasAl))
+- fix:utterance filename [\#171](https://github.com/OpenVoiceOS/ovos-config/pull/171) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
