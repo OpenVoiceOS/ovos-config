@@ -265,7 +265,7 @@ class Configuration(dict):
         try:
             # TODO - investigate why this import fails sometimes
             from ovos_utils.network_utils import is_connected
-            if is_connected():
+            if is_connected_http():
                 # do the initial remote fetch
                 Configuration.remote.reload()
         except:
