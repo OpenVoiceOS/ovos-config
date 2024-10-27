@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.4.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.4a1) (2024-10-23)
+## [0.4.5a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.5a1) (2024-10-27)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.3...0.4.4a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.4...0.4.5a1)
 
 **Merged pull requests:**
 
-- fix:disable g2p [\#174](https://github.com/OpenVoiceOS/ovos-config/pull/174) ([JarbasAl](https://github.com/JarbasAl))
+- fix:gui spam [\#176](https://github.com/OpenVoiceOS/ovos-config/pull/176) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
