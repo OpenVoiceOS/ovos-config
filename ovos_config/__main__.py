@@ -40,10 +40,7 @@ def dictDepth(dic: dict, level: int = 1) -> int:
                for key in dic)
 
 def walkDict(dic: dict, key: str, only_endpoints: bool = False):
-    if key.startswith("/"):
-        yield from walkDict_(dic, key.lstrip("/").split("/"), True, only_endpoints)
-    else:
-        yield from walkDict_(dic, key.split("/"), False, only_endpoints)
+    yield from _walkDict(dic, key.lstrip("/").split("/"), key.startswith("/"), only_endpoints)
 
 def pathMatches(key: Tuple, path: Tuple, key_absolute: bool) -> bool:
     if key_absolute and len(path) != len(key):
@@ -54,7 +51,7 @@ def pathMatches(key: Tuple, path: Tuple, key_absolute: bool) -> bool:
 
     return all(key_part.lower() in path_part.lower() for (key_part, path_part) in zip(key, path[-len(key):]))
 
-def walkDict_(dic: dict,
+def _walkDict(dic: dict,
               key: Tuple,
               key_absolute: bool,
               only_endpoints: bool = False,
@@ -65,7 +62,7 @@ def walkDict_(dic: dict,
                 yield path + (k,), dic[k]
 
         if isinstance(dic[k], dict):
-            yield from walkDict_(dic[k],
+            yield from _walkDict(dic[k],
                                  key,
                                  key_absolute,
                                  only_endpoints,
