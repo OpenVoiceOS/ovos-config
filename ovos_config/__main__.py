@@ -39,30 +39,37 @@ def dictDepth(dic: dict, level: int = 1) -> int:
     return max(dictDepth(dic[key], level + 1)
                for key in dic)
 
+def walkDict(dic: dict, key: str, only_endpoints: bool = False):
+    if key.startswith("/"):
+        yield from walkDict_(dic, key.lstrip("/").split("/"), True, only_endpoints)
+    else:
+        yield from walkDict_(dic, key.split("/"), False, only_endpoints)
 
-def walkDict(dic: dict,
-             key: str,
-             full_path: bool = False,
-             path: Tuple = (),
-             found: bool = False):
+def pathMatches(key: Tuple, path: Tuple, key_absolute: bool) -> bool:
+    if key_absolute and len(path) != len(key):
+        return False
+
+    if len(path) < len(key):
+        return False
+
+    return all(key_part.lower() in path_part.lower() for (key_part, path_part) in zip(key, path[-len(key):]))
+
+def walkDict_(dic: dict,
+              key: Tuple,
+              key_absolute: bool,
+              only_endpoints: bool = False,
+              path: Tuple = ()):
     for k in dic.keys():
-        if key.lower() in k.lower():
-            found = True
-            if not full_path:
+        if not (only_endpoints and isinstance(dic[k], dict)):
+            if pathMatches(key, path + (k,), key_absolute):
                 yield path + (k,), dic[k]
-                found = False
 
-        # endpoint
-        if type(dic[k]) != dict:
-            if found:
-                yield path + (k,), dic[k]
-        else:
-            yield from walkDict(dic[k],
-                                key,
-                                full_path,
-                                path + (k,),
-                                found)
-        found = False
+        if isinstance(dic[k], dict):
+            yield from walkDict_(dic[k],
+                                 key,
+                                 key_absolute,
+                                 only_endpoints,
+                                 path + (k,))
 
 
 def pathGet(dic: dict, path: str) -> Any:
@@ -348,26 +355,13 @@ def get(key):
     ovos-config get -k lang                              # get all lang key values across the configuration
     ovos-config get -k /tts/module                       # get the key at the position specified
     """
-    strict = True if "/" in key else False
-    if strict:
-        if not key.startswith("/"):
-            console.print("A strict key search has to start with `/` (root)")
-            exit()
-
-        value = pathGet(CONFIG, key)
-        # Configuration is excepting ValueError itself
-        if value is None:
-            exit()
-
-        console.print(f"[red]{value}[/red]")
+    values = list(walkDict(CONFIG, key))
+    if not values:
+        console.print(f"No key with the name {key} found")
     else:
-        values = list(walkDict(CONFIG, key))
-        if not values:
-            console.print(f"No key with the name {key} found")
-        else:
-            for path, value in values:
-                console.print((f"Value: [red]{value}[/red], "
-                               f"found in [red]/{'/'.join(path)}[/red]"))
+        for path, value in values:
+            console.print((f"Value: [red]{value}[/red], "
+                           f"found in [red]/{'/'.join(path)}[/red]"))
 
 
 @config.command()
@@ -386,13 +380,7 @@ def set(key, value):
     ovos-config set -k blacklisted_skills -v myskill    # Adds "myskill" as an blacklisted skill
                                                         # Since this is a pretty specific key and a value is passed, the user won't be prompted
     """
-    absolute_path = key.startswith("/")
-    key = key.lstrip("/")
-
-    if absolute_path:
-        tuples = [(key.split("/"), pathGet(CONFIG, key))]
-    else:
-        tuples = list(walkDict(CONFIG, key, full_path=True))
+    tuples = list(walkDict(CONFIG, key, only_endpoints=True))
     values = [tup[1] for tup in tuples]
     paths = ["/".join(tup[0]) for tup in tuples]
 
