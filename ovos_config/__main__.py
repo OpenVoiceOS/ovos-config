@@ -59,7 +59,7 @@ def _walkDict(dic: dict,
     for k in dic:
         if not (only_endpoints and isinstance(dic[k], dict)):
             if pathMatches(key, path + (k,), key_absolute):
-                yield path + (k,), dic[k]
+                yield "/".join(path + (k,)), dic[k]
 
         if isinstance(dic[k], dict):
             yield from _walkDict(dic[k],
@@ -358,7 +358,7 @@ def get(key):
     else:
         for path, value in values:
             console.print((f"Value: [red]{value}[/red], "
-                           f"found in [red]/{'/'.join(path)}[/red]"))
+                           f"found in [red]/{path}[/red]"))
 
 
 @config.command()
@@ -379,7 +379,7 @@ def set(key, value):
     """
     tuples = list(walkDict(CONFIG, key, only_endpoints=True))
     values = [tup[1] for tup in tuples]
-    paths = ["/".join(tup[0]) for tup in tuples]
+    paths = [tup[0] for tup in tuples]
 
     if len(paths) > 1:
         table = Table(show_header=True, header_style="bold red")
