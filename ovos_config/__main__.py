@@ -59,7 +59,7 @@ def walkDict_(dic: dict,
               key_absolute: bool,
               only_endpoints: bool = False,
               path: Tuple = ()):
-    for k in dic.keys():
+    for k in dic:
         if not (only_endpoints and isinstance(dic[k], dict)):
             if pathMatches(key, path + (k,), key_absolute):
                 yield path + (k,), dic[k]
