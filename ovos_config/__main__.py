@@ -40,6 +40,17 @@ def dictDepth(dic: dict, level: int = 1) -> int:
                for key in dic)
 
 def walkDict(dic: dict, key: str, only_endpoints: bool = False):
+    """Walk through dictionary and yield matching key paths and their value..
+
+    Args:
+        dic: Dictionary to search
+        key: Key str to search for (absolute or partial path)
+        only_endpoints: If True, only yield leaf nodes
+
+    Yields:
+        Tuple of (path, value) for each matching key
+        For backwards compatibility, 'path' has no leading slash.
+    """
     yield from _walkDict(dic,
                          (key[1:] if key.startswith("/") else key).split("/"),
                          key.startswith("/"),
@@ -60,9 +71,9 @@ def _walkDict(dic: dict,
               only_endpoints: bool = False,
               path: Tuple = ()):
     for k in dic:
-        if not (only_endpoints and isinstance(dic[k], dict)):
-            if pathMatches(key, path + (k,), key_absolute):
-                yield "/".join(path + (k,)), dic[k]
+        if not (only_endpoints and isinstance(dic[k], dict)) and \
+                   pathMatches(key, path + (k,), key_absolute):
+            yield "/".join(path + (k,)), dic[k]
 
         if isinstance(dic[k], dict):
             yield from _walkDict(dic[k],
