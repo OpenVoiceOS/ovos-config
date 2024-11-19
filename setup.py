@@ -80,9 +80,6 @@ setup(
     package_data={'': package_files('ovos_config')},
     include_package_data=True,
     install_requires=required('requirements/requirements.txt'),
-    extras_require={
-        "extras": required("requirements/extras.txt")
-    },
     entry_points={
         'console_scripts': [
             'ovos-config=ovos_config.__main__:config'

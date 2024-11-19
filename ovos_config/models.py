@@ -24,33 +24,6 @@ from ovos_utils.log import LOG
 from ovos_config.locations import USER_CONFIG, DISTRIBUTION_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG
 
 
-def is_remote_list(values):
-    """ DEPRECATED """
-    # TODO: Deprecate in 0.1.0
-    LOG.warning("This reference will be deprecated in v0.1.0. Import from "
-                "ovos_backend_client.config directly")
-    from ovos_backend_client.config import _is_remote_list
-    return _is_remote_list(values)
-
-
-def translate_remote(config, setting):
-    """ DEPRECATED """
-    # TODO: Deprecate in 0.1.0
-    LOG.warning("This reference will be deprecated in v0.1.0. Import from "
-                "ovos_backend_client.config directly")
-    from ovos_backend_client.config import _translate_remote
-    return _translate_remote(config, setting)
-
-
-def translate_list(config, values):
-    """ DEPRECATED """
-    # TODO: Deprecate in 0.1.0
-    LOG.warning("This reference will be deprecated in v0.1.0. Import from "
-                "ovos_backend_client.config directly")
-    from ovos_backend_client.config import _translate_list
-    return _translate_list(config, values)
-
-
 class LocalConf(dict):
     """Config dictionary from file."""
     allow_overwrite = True
@@ -196,36 +169,11 @@ class MycroftSystemConfig(ReadOnlyConfig):
 
 
 class RemoteConf(LocalConf):
-    """Config dictionary fetched from the backend"""
+    """Config dictionary fetched from the backend
+    It's a local file expected to be managed by an external service"""
 
     def __init__(self, cache=WEB_CONFIG_CACHE):
         super(RemoteConf, self).__init__(cache)
-
-    def reload(self):
-        try:
-            from ovos_backend_client.pairing import is_paired
-            from ovos_backend_client.config import RemoteConfigManager
-
-            if not is_paired():
-                self.load_local(self.path)
-                return
-
-            remote = RemoteConfigManager()
-            remote.download()
-
-            changed = []
-            for key in remote.config:
-                if self.get(key) != remote.config[key]:
-                    changed.append(key)
-                    self.__setitem__(key, remote.config[key])
-
-            if changed:
-                LOG.debug(f"config key(s) {changed} changed, writing remote config to {self.path}")
-                self.store(self.path)
-
-        except Exception as e:
-            LOG.error(f"Exception fetching remote configuration: {e}")
-            self.load_local(self.path)
 
 
 class MycroftUserConfig(LocalConf):
