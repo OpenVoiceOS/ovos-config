@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.4.5a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.5a1) (2024-10-27)
+## [1.0.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.0a1) (2024-11-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.4...0.4.5a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.6...1.0.0a1)
 
-**Merged pull requests:**
+**Breaking changes:**
 
-- fix:gui spam [\#176](https://github.com/OpenVoiceOS/ovos-config/pull/176) ([JarbasAl](https://github.com/JarbasAl))
+- deprecate:backend client [\#183](https://github.com/OpenVoiceOS/ovos-config/pull/183) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
