@@ -3,4 +3,4 @@ flake8==3.7.9
 pytest==8.2.2
 pytest-cov==2.8.1
 cov-core==1.15.0
-ovos-bus-client<1.0.0
+ovos-bus-client<2.0.0
