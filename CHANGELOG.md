@@ -1,12 +1,12 @@
 # Changelog
 
-## [1.0.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.0a1) (2024-11-19)
+## [1.0.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.1a1) (2024-11-23)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.6...1.0.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.0...1.0.1a1)
 
-**Breaking changes:**
+**Merged pull requests:**
 
-- deprecate:backend client [\#183](https://github.com/OpenVoiceOS/ovos-config/pull/183) ([JarbasAl](https://github.com/JarbasAl))
+- fix: update STT server urls for pt and ca [\#186](https://github.com/OpenVoiceOS/ovos-config/pull/186) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
