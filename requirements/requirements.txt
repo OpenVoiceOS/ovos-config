@@ -1,5 +1,5 @@
 PyYAML>=5.4.0,<7.0.0
-combo_lock~=0.2
+combo_lock~=0.3
 python-dateutil~=2.9
 ovos-utils>=0.0.37,<1.0.0
 rich-click ~=1.6
