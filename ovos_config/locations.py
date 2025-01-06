@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
-from os.path import join, dirname, expanduser, exists, isfile
+import warnings
+from os.path import join, dirname, exists, isfile
 from time import sleep
 import ovos_config.meta as _ovos_config
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
@@ -86,6 +87,11 @@ def get_config_locations(default=True, web_cache=True, distribution=True,
 
 def get_webcache_location():
     """ return remote config cache full file path taking into account ovos.conf """
+    warnings.warn(
+        "deprecated without replacement, OVOS no longer supports remote config",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return join(get_xdg_config_save_path(), 'web_cache.json')
 
 
@@ -102,6 +108,11 @@ def get_xdg_config_locations():
 
 def find_default_config():
     """return the bundled file in ovos_config package"""
+    warnings.warn(
+        "use 'from ovos_config.locations import USER_CONFIG'",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return join(dirname(__file__), "mycroft.conf")
 
 
@@ -112,14 +123,8 @@ DISTRIBUTION_CONFIG = os.environ.get('OVOS_DISTRIBUTION_CONFIG',
 SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
                                f'/etc/{_ovos_config.get_xdg_base()}/'
                                f'{_ovos_config.get_config_filename()}')
-# TODO: remove in 22.02
-# Make sure we support the old location still
-# Deprecated and will be removed eventually
-OLD_USER_CONFIG = join(expanduser('~'), '.' + _ovos_config.get_xdg_base(),
-                       _ovos_config.get_config_filename())
-USER_CONFIG = join(get_xdg_config_save_path(),
-                   _ovos_config.get_config_filename())
-REMOTE_CONFIG = "mycroft.ai"
+USER_CONFIG = join(get_xdg_config_save_path(), _ovos_config.get_config_filename())
+ASSISTANT_CONFIG = join(get_xdg_config_save_path(), "runtime.conf") # for plugins/skills to store changes
 WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE') or \
                    get_webcache_location()
 
@@ -142,6 +147,4 @@ def __ensure_folder_exists(path):
                 except Exception as e:
                     pass
 
-
-__ensure_folder_exists(WEB_CONFIG_CACHE)
 __ensure_folder_exists(USER_CONFIG)

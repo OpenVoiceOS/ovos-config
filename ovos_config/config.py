@@ -13,45 +13,31 @@
 # limitations under the License.
 #
 import json
+import warnings
 from os.path import isfile
 from typing import Optional
 
-from ovos_config.models import LocalConf, MycroftDefaultConfig, \
-    OvosDistributionConfig, MycroftSystemConfig, MycroftUserConfig, \
-    RemoteConf
-from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, \
-    get_xdg_config_locations
-from ovos_utils.file_utils import FileWatcher
+from ovos_config.locations import get_xdg_config_locations
+from ovos_config.models import LocalConf, DefaultConfig, \
+    DistributionConfig, SystemConfig, RemoteConf, AssistantConfig
 
+from ovos_utils.file_utils import FileWatcher
 from ovos_utils.json_helper import flattened_delete, merge_dict
 from ovos_utils.log import LOG
-
-
-def _log_old_location_deprecation(old_user_config=OLD_USER_CONFIG):
-    LOG.warning(" ===============================================")
-    LOG.warning(" ==             DEPRECATION WARNING           ==")
-    LOG.warning(" ===============================================")
-    LOG.warning(f" You still have a config file at {old_user_config}")
-    LOG.warning(" Note that this location is deprecated and will" +
-                " not be used in the future")
-    LOG.warning(" Please move it to " + get_xdg_config_save_path())
 
 
 class Configuration(dict):
     """Namespace for operations on the configuration singleton."""
     __patch = LocalConf(None)  # Patch config that skills can update to override config
     bus = None
-    default = MycroftDefaultConfig()
-    distribution = OvosDistributionConfig()
-    system = MycroftSystemConfig()
+    default = DefaultConfig()
+    distribution = DistributionConfig()
+    system = SystemConfig()
     remote = RemoteConf()
+    assistant = AssistantConfig()  # for runtime changes
     # This includes both the user config and
     # /etc/xdg/mycroft/mycroft.conf
     xdg_configs = [LocalConf(p) for p in get_xdg_config_locations()]
-    _old_user = LocalConf(OLD_USER_CONFIG)
-    # deprecation warning
-    if isfile(OLD_USER_CONFIG):
-        _log_old_location_deprecation(OLD_USER_CONFIG)
     _watchdog = None
     _callbacks = []
 
@@ -65,7 +51,7 @@ class Configuration(dict):
         # sync with other processes connected to bus
         if Configuration.bus:
             # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
-            from ovos_utils.messagebus import Message
+            from ovos_utils.fakebus import Message
             Configuration.bus.emit(Message("configuration.patch",
                                            {"config": {key: value}}))
 
@@ -152,6 +138,7 @@ class Configuration(dict):
         Configuration.default.reload()
         Configuration.system.reload()
         Configuration.remote.reload()
+        Configuration.assistant.reload()
         for cfg in Configuration.xdg_configs:
             cfg.reload()
 
@@ -179,17 +166,14 @@ class Configuration(dict):
         # system administrators can define different constraints in how
         # configurations are loaded
         system_constraints = system_constraints or \
-            Configuration.get_system_constraints()
+                             Configuration.get_system_constraints()
         skip_user = system_constraints.get("disable_user_config", False)
         skip_remote = system_constraints.get("disable_remote_config", False)
 
-        configs = [Configuration.default, Configuration.distribution, Configuration.system]
+        configs = [Configuration.default, Configuration.distribution, Configuration.system, Configuration.assistant]
         if not skip_remote:
             configs.insert(1, Configuration.remote)
         if not skip_user:
-            # deprecation warning
-            if isfile(OLD_USER_CONFIG):
-                configs.append(Configuration._old_user)
             configs += Configuration.xdg_configs
 
         # runtime patches by skills / bus events
@@ -389,20 +373,25 @@ class Configuration(dict):
 
 def read_mycroft_config():
     """ returns a stateless dict with the loaded configuration """
+    warnings.warn(
+        "use 'Configuration()' directly",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return dict(Configuration())
 
 
 def update_mycroft_config(config, path=None, bus=None):
     """ updates user config file with the contents of provided dict
-    if a path is provided that location will be used instead of MycroftUserConfig"""
+    if a path is provided that location will be used instead of AssistantConfig"""
     if path is None:
-        conf = MycroftUserConfig()
+        conf = AssistantConfig()
     else:
         conf = LocalConf(path)
     conf.merge(config)
     conf.store()
     if bus:  # inform all Configuration objects connected to the bus
         # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
-        from ovos_utils.messagebus import Message
-        bus.emit(Message("configuration.patch",  {"config": config}))
+        from ovos_utils.fakebus import Message
+        bus.emit(Message("configuration.patch", {"config": config}))
     return conf

@@ -13,15 +13,16 @@
 # limitations under the License.
 #
 import json
-import yaml
-
-from time import time
+import warnings
 from os.path import exists, isfile, getmtime
+from time import time
+
+import yaml
 from combo_lock import NamedLock
+from ovos_config.locations import USER_CONFIG, DISTRIBUTION_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG, ASSISTANT_CONFIG
+
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
-
-from ovos_config.locations import USER_CONFIG, DISTRIBUTION_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG
 
 
 class LocalConf(dict):
@@ -94,8 +95,8 @@ class LocalConf(dict):
 
     def reload(self):
         if isfile(self.path) \
-            and self._last_loaded \
-            and self._last_loaded == getmtime(self.path):
+                and self._last_loaded \
+                and self._last_loaded == getmtime(self.path):
             LOG.debug(f"{self.path} not changed since last load "
                       f"(changed {time() - self._last_loaded} seconds ago)")
             return
@@ -148,7 +149,7 @@ class ReadOnlyConfig(LocalConf):
         super().store(path)
 
 
-class MycroftDefaultConfig(ReadOnlyConfig):
+class DefaultConfig(ReadOnlyConfig):
     def __init__(self):
         super().__init__(DEFAULT_CONFIG)
 
@@ -158,27 +159,87 @@ class MycroftDefaultConfig(ReadOnlyConfig):
         self.reload()
 
 
-class OvosDistributionConfig(ReadOnlyConfig):
+class DistributionConfig(ReadOnlyConfig):
     def __init__(self, allow_overwrite=False):
         super().__init__(DISTRIBUTION_CONFIG, allow_overwrite)
 
 
-class MycroftSystemConfig(ReadOnlyConfig):
+class SystemConfig(ReadOnlyConfig):
     def __init__(self, allow_overwrite=False):
         super().__init__(SYSTEM_CONFIG, allow_overwrite)
 
 
+class AssistantConfig(LocalConf):
+    def __init__(self):
+        super().__init__(ASSISTANT_CONFIG)
+
+
+class UserConfig(LocalConf):
+    def __init__(self):
+        super().__init__(USER_CONFIG)
+
+
+#############################
+# backwards compat
 class RemoteConf(LocalConf):
     """Config dictionary fetched from the backend
     It's a local file expected to be managed by an external service"""
 
     def __init__(self, cache=WEB_CONFIG_CACHE):
+        warnings.warn(
+            "deprecated without replacement, OVOS no longer supports remote config",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         super(RemoteConf, self).__init__(cache)
 
 
-class MycroftUserConfig(LocalConf):
+
+class MycroftDefaultConfig(DefaultConfig):
     def __init__(self):
-        super().__init__(USER_CONFIG)
+        warnings.warn(
+            "renamed to 'DefaultConfig'",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__()
 
 
-MycroftXDGConfig = MycroftUserConfig
+class OvosDistributionConfig(DistributionConfig):
+    def __init__(self):
+        warnings.warn(
+            "renamed to 'DistributionConfig'",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__()
+
+
+class MycroftSystemConfig(SystemConfig):
+    def __init__(self):
+        warnings.warn(
+            "renamed to 'SystemConfig'",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__()
+
+
+class MycroftUserConfig(UserConfig):
+    def __init__(self):
+        warnings.warn(
+            "renamed to 'UserConfig'",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__()
+
+
+class MycroftXDGConfig(UserConfig):
+    def __init__(self):
+        warnings.warn(
+            "renamed to 'UserConfig'",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__()
