@@ -13,15 +13,14 @@
 # limitations under the License.
 #
 import json
+import warnings
 from typing import Optional
 
-from ovos_config.models import LocalConf, MycroftDefaultConfig, \
-    OvosDistributionConfig, MycroftSystemConfig, MycroftUserConfig, \
-    RemoteConf
-from ovos_config.locations import OLD_USER_CONFIG, get_xdg_config_save_path, \
-    get_xdg_config_locations
-from ovos_utils.file_utils import FileWatcher
+from ovos_config.locations import get_xdg_config_locations
+from ovos_config.models import LocalConf, DefaultConfig, \
+    DistributionConfig, SystemConfig, RemoteConf, AssistantConfig
 
+from ovos_utils.file_utils import FileWatcher
 from ovos_utils.json_helper import flattened_delete, merge_dict
 from ovos_utils.log import LOG
 
@@ -50,10 +49,11 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
     """Namespace for operations on the configuration singleton."""
     __patch = LocalConf(None)  # Patch config that skills can update to override config
     bus = None
-    default = MycroftDefaultConfig()
-    distribution = OvosDistributionConfig()
-    system = MycroftSystemConfig()
+    default = DefaultConfig()
+    distribution = DistributionConfig()
+    system = SystemConfig()
     remote = RemoteConf()
+    assistant = AssistantConfig()  # for runtime changes
     # This includes both the user config and
     # /etc/xdg/mycroft/mycroft.conf, in merge order: the user's own file is
     # last, so it wins over the system-wide XDG dirs
@@ -212,6 +212,7 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         Configuration.distribution.reload()
         Configuration.system.reload()
         Configuration.remote.reload()
+        Configuration.assistant.reload()
         for cfg in Configuration.xdg_configs:
             cfg.reload()
         Configuration._invalidate_cache()
@@ -253,11 +254,11 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         # system administrators can define different constraints in how
         # configurations are loaded
         system_constraints = system_constraints or \
-            Configuration.get_system_constraints()
+                             Configuration.get_system_constraints()
         skip_user = system_constraints.get("disable_user_config", False)
         skip_remote = system_constraints.get("disable_remote_config", False)
 
-        configs = [Configuration.default, Configuration.distribution, Configuration.system]
+        configs = [Configuration.default, Configuration.distribution, Configuration.system, Configuration.assistant]
         if not skip_remote:
             configs.insert(1, Configuration.remote)
         if not skip_user:
@@ -475,20 +476,25 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
 
 def read_mycroft_config():
     """ returns a stateless dict with the loaded configuration """
+    warnings.warn(
+        "use 'Configuration()' directly",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return dict(Configuration())
 
 
 def update_mycroft_config(config, path=None, bus=None):
     """ updates user config file with the contents of provided dict
-    if a path is provided that location will be used instead of MycroftUserConfig"""
+    if a path is provided that location will be used instead of AssistantConfig"""
     if path is None:
-        conf = MycroftUserConfig()
+        conf = AssistantConfig()
     else:
         conf = LocalConf(path)
     conf.merge(config)
     conf.store()
     if bus:  # inform all Configuration objects connected to the bus
         # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
-        from ovos_utils.messagebus import Message
-        bus.emit(Message("configuration.patch",  {"config": config}))
+        from ovos_utils.fakebus import Message
+        bus.emit(Message("configuration.patch", {"config": config}))
     return conf
