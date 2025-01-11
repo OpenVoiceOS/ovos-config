@@ -1,14 +1,13 @@
 import importlib
 import logging
 import shutil
-from time import sleep
 
 import yaml
 import os
 import json
 
-from unittest.mock import MagicMock, patch, Mock
-from unittest import TestCase, skip
+from unittest.mock import patch, Mock
+from unittest import TestCase
 from threading import Event, Thread
 from os.path import dirname, isfile, join
 from typing import OrderedDict
@@ -38,21 +37,6 @@ class TestConfiguration(TestCase):
         from ovos_config.config import Configuration
         Configuration.load_config_stack([{}], True)
         Configuration._callbacks = []
-
-    @patch('mycroft.api.DeviceApi')
-    @skip("requires backend to be enabled, TODO refactor test!")
-    def test_remote(self, mock_api):
-        from ovos_config.models import RemoteConf
-        remote_conf = {'TestConfig': True, 'uuid': 1234}
-        remote_location = {'city': {'name': 'Stockholm'}}
-        dev_api = MagicMock()
-        dev_api.get_settings.return_value = remote_conf
-        dev_api.get_location.return_value = remote_location
-        mock_api.return_value = dev_api
-
-        rc = RemoteConf()
-        self.assertTrue(rc['test_config'])
-        self.assertEqual(rc['location']['city']['name'], 'Stockholm')
 
     @patch('json.dump')
     @patch('ovos_config.models.exists')
