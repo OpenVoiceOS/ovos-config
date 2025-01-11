@@ -10,13 +10,13 @@ from rich.prompt import Prompt
 from rich.table import Table
 
 from ovos_config import Configuration, LocalConf
-from ovos_config.locations import USER_CONFIG
+from ovos_config.locations import USER_CONFIG, ASSISTANT_CONFIG
 
 CONFIG = Configuration()
 CONFIGS = [("Joined", CONFIG),
            ("Sytem", CONFIG.system),
-           ("User", LocalConf(USER_CONFIG)),
-           ("Remote", CONFIG.remote)]
+           ("Assistant", LocalConf(ASSISTANT_CONFIG)),
+           ("User", LocalConf(USER_CONFIG))]
 SECTIONS = [k for k, v in CONFIG.items() if isinstance(v, dict)] + ["base"]
 
 
@@ -106,7 +106,7 @@ click.rich_click.STYLE_SWITCH = "indian_red"
 click.rich_click.COMMAND_GROUPS = {
     "ovos-config": [
         {
-            "name": "Show configuration tables (Joined/User/System/Remote)",
+            "name": "Show configuration tables (Joined/User/System/Assistant)",
             "commands": ["show"],
             "table_styles": {
                 "row_styles": ["white"],
@@ -278,11 +278,11 @@ Notes:
 @config.command()
 @click.option("--user", "-u", is_flag=True, help="User Configuration")
 @click.option("--system", "-s", is_flag=True, help="System Configuration")
-@click.option("--remote", "-r", is_flag=True, help="Remote Configuration")
+@click.option("--assistant", "-a", is_flag=True, help="Assistant Configuration")
 @click.option("--section", default="", show_default=False,
               help="Choose a specific section from the underlying configuration")
 @click.option("--list-sections", "-l", is_flag=True, help="List the sections based on the underlying configuration")
-def show(user, system, remote, section, list_sections):
+def show(user, system, assistant, section, list_sections):
     """\b
     By ommiting a specific configuration a joined configuration table is shown. (which is the one ultimately gets loaded by ovos)
     \b
@@ -294,16 +294,16 @@ def show(user, system, remote, section, list_sections):
     ovos-config show -s -l                              # shows the sections of the system configuration
     ovos-config show -u --section base                  # shows only the base (ie. top level) values of the user configuration 
 
-    note: joining pattern: user > system > remote > default
+    note: joining pattern: user > system > assistant > default
     \b
     """
-    if not any([user, system, remote]):
+    if not any([user, system, assistant]):
         name, config = CONFIGS[0]
     elif system:
         name, config = CONFIGS[1]
     elif user:
         name, config = CONFIGS[2]
-    elif remote:
+    elif assistant:
         name, config = CONFIGS[3]
 
     # based on chosen configuration
