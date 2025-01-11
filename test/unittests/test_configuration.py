@@ -36,6 +36,8 @@ class TestConfiguration(TestCase):
     def tearDown(self):
         from ovos_config.config import Configuration
         Configuration.load_config_stack([{}])
+        # Give file watcher time to initialize
+        time.sleep(0.1)
         Configuration._callbacks = []
 
     @patch('json.dump')
