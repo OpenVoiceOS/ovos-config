@@ -18,7 +18,7 @@ from typing import Optional
 
 from ovos_config.locations import get_xdg_config_locations, ASSISTANT_CONFIG, USER_CONFIG
 from ovos_config.models import LocalConf, DefaultConfig, \
-    DistributionConfig, SystemConfig, RemoteConf, AssistantConfig
+    DistributionConfig, SystemConfig, AssistantConfig
 
 from ovos_utils.file_utils import FileWatcher
 from ovos_utils.json_helper import flattened_delete, merge_dict
@@ -52,7 +52,6 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
     default = DefaultConfig()
     distribution = DistributionConfig()
     system = SystemConfig()
-    remote = RemoteConf()
     assistant = AssistantConfig()  # for runtime changes
     # This includes both the user config and
     # /etc/xdg/mycroft/mycroft.conf, in merge order: the user's own file is
@@ -171,14 +170,11 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
 
     # config methods
     @staticmethod
-    def load_config_stack(configs=None, cache=False, remote=True):
+    def load_config_stack(configs=None):
         """Load a stack of config dicts into a single dict
 
         Args:
             configs (list): list of dicts to load
-            cache (boolean): True if result should be cached
-            remote (boolean): False if the Mycroft Home settings shouldn't
-                              be loaded
         Returns:
             (dict) merged dict of all configuration files
         """
@@ -186,8 +182,6 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         if configs:
             return Configuration.filter_and_merge(configs)
         system_constraints = Configuration.get_system_constraints()
-        if not remote:
-            system_constraints["disable_remote_config"] = True
         return Configuration.load_all_configs(system_constraints)
 
     @staticmethod
@@ -211,7 +205,6 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         Configuration.default.reload()
         Configuration.distribution.reload()
         Configuration.system.reload()
-        Configuration.remote.reload()
         Configuration.assistant.reload()
         for cfg in Configuration.xdg_configs:
             cfg.reload()
@@ -235,7 +228,7 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
     def load_all_configs(system_constraints: Optional[dict] = None) -> dict:
         """
         Load the stack of config files into a single dict
-        @param system_constraints: constraints to limit user/remote config usage
+        @param system_constraints: constraints to limit user config usage
         @return: merged dict of all configuration files
         """
         # Custom constraints bypass the cache entirely (both read and
@@ -256,11 +249,8 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         system_constraints = system_constraints or \
                              Configuration.get_system_constraints()
         skip_user = system_constraints.get("disable_user_config", False)
-        skip_remote = system_constraints.get("disable_remote_config", False)
 
         configs = [Configuration.default, Configuration.distribution, Configuration.system, Configuration.assistant]
-        if not skip_remote:
-            configs.insert(1, Configuration.remote)
         if not skip_user:
             configs += Configuration.xdg_configs
 
@@ -295,23 +285,16 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         # configurations are loaded
         system_conf = Configuration.get_system_constraints()
         protected_keys = system_conf.get("protected_keys") or {}
-        protected_remote = protected_keys.get("remote") or []
         protected_user = protected_keys.get("user") or []
         skip_user = system_conf.get("disable_user_config", False)
-        skip_remote = system_conf.get("disable_remote_config", False)
 
         # Merge all configs into one
         base = {}
         for cfg in configs:
             is_user = cfg.path is None or cfg.path not in [Configuration.default.path,
                                                            Configuration.system.path]
-            is_remote = cfg.path == Configuration.remote.path
-            if (is_remote and skip_remote) or (is_user and skip_user):
+            if is_user and skip_user:
                 continue
-            elif is_remote:
-                # delete protected keys from remote config
-                for protection in protected_remote:
-                    flattened_delete(cfg, protection)
             elif is_user:
                 # delete protected keys from user config
                 for protection in protected_user:
@@ -334,20 +317,8 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         bus.on("configuration.patch", Configuration.patch)
         bus.on("configuration.patch.clear", Configuration.patch_clear)
         bus.on("configuration.cache.clear", Configuration.clear_cache)
-        # TODO unify these namespaces, they seem to differ between dev/mk2/PHAL
-        bus.on("mycroft.paired", Configuration.handle_remote_update)
-        bus.on("mycroft.internet.connected", Configuration.handle_remote_update)
 
         Configuration.set_config_watcher()
-
-        try:
-            # TODO - investigate why this import fails sometimes
-            from ovos_utils.network_utils import is_connected_http
-            if is_connected_http():
-                # do the initial remote fetch
-                Configuration.remote.reload()
-        except:
-            pass
 
     @staticmethod
     def set_config_watcher(callback: Optional[callable] = None):
@@ -377,8 +348,7 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         """
         # reload updated config
         for cfg in Configuration.xdg_configs + [Configuration.distribution,
-                                                Configuration.system,
-                                                Configuration.remote]:
+                                                Configuration.system]:
             if cfg.path == path:
                 old_cfg = hash(cfg)
                 try:
@@ -420,19 +390,6 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
                                      Configuration.patch_clear)
             Configuration.bus.remove("configuration.cache.clear",
                                      Configuration.clear_cache)
-            Configuration.bus.remove("mycroft.paired",
-                                     Configuration.handle_remote_update)
-            Configuration.bus.remove("mycroft.internet.connected",
-                                     Configuration.handle_remote_update)
-
-    @staticmethod
-    def handle_remote_update(message):
-        """Handler for paired/internet connect
-
-        Triggers an update of remote config.
-        """
-        Configuration.remote.reload()
-        Configuration._invalidate_cache()
 
     @staticmethod
     def updated(message):
