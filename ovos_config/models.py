@@ -194,7 +194,6 @@ class RemoteConf(LocalConf):
         super(RemoteConf, self).__init__(cache)
 
 
-
 class MycroftDefaultConfig(DefaultConfig):
     def __init__(self):
         warnings.warn(
