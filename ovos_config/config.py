@@ -17,7 +17,7 @@ import warnings
 from os.path import isfile
 from typing import Optional
 
-from ovos_config.locations import get_xdg_config_locations
+from ovos_config.locations import get_xdg_config_locations, ASSISTANT_CONFIG, USER_CONFIG
 from ovos_config.models import LocalConf, DefaultConfig, \
     DistributionConfig, SystemConfig, RemoteConf, AssistantConfig
 
@@ -371,6 +371,20 @@ class Configuration(dict):
         Configuration.updated(message)
 
 
+def update_assistant_config(config, bus=None):
+    f""" updates assistant config file with the contents of provided dict 
+    path: {ASSISTANT_CONFIG}
+    """
+    conf = AssistantConfig()
+    conf.merge(config)
+    conf.store()
+    if bus:  # inform all Configuration objects connected to the bus
+        # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
+        from ovos_utils.fakebus import Message
+        bus.emit(Message("configuration.patch", {"config": config}))
+    return conf
+
+
 def read_mycroft_config():
     """ returns a stateless dict with the loaded configuration """
     warnings.warn(
@@ -384,14 +398,10 @@ def read_mycroft_config():
 def update_mycroft_config(config, path=None, bus=None):
     """ updates user config file with the contents of provided dict
     if a path is provided that location will be used instead of AssistantConfig"""
-    if path is None:
-        conf = AssistantConfig()
-    else:
-        conf = LocalConf(path)
-    conf.merge(config)
-    conf.store()
-    if bus:  # inform all Configuration objects connected to the bus
-        # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
-        from ovos_utils.fakebus import Message
-        bus.emit(Message("configuration.patch", {"config": config}))
-    return conf
+    warnings.warn(
+        "use 'update_assistant_config' instead",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    LOG.warning(f"Updating '{ASSISTANT_CONFIG}' NOT '{path or USER_CONFIG}'")
+    return update_assistant_config(config, bus)
