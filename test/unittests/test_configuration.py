@@ -35,7 +35,7 @@ class TestConfiguration(TestCase):
 
     def tearDown(self):
         from ovos_config.config import Configuration
-        Configuration.load_config_stack([{}], True)
+        Configuration.load_config_stack([{}])
         Configuration._callbacks = []
 
     @patch('json.dump')
@@ -132,11 +132,9 @@ class TestConfiguration(TestCase):
         test_dir = join(dirname(__file__), "config_stack")
         default_config = LocalConf(join(test_dir, "default.yaml"))
         system_config = LocalConf(join(test_dir, "system.yaml"))
-        remote_config = LocalConf(join(test_dir, "remote.yaml"))
         user_config = LocalConf(join(test_dir, "user.yaml"))
         Configuration.default = default_config
         Configuration.system = system_config
-        Configuration.remote = remote_config
         Configuration.xdg_configs = [user_config]
         Configuration.__patch = LocalConf(None)
         Configuration._old_user = LocalConf(None)
@@ -150,18 +148,17 @@ class TestConfiguration(TestCase):
                                                  "from_usr": False})
         # Test default constraints (overridden)
         self.assertEqual(config["default_spec"], {"from_sys": True,
-                                                  "from_rem": True,
+                                                  "from_rem": False,
                                                   "from_usr": True})
         # Test nested constraints
         self.assertEqual(config["test"], {"default": True,
                                           "system": True,
                                           "user": True,
-                                          "remote": True})
+                                          "remote": False})
         # Test non-overridden default config
         self.assertEqual(config["default_only"], "default")
         # Test protected key is undefined
         self.assertFalse("user_only" in config)
-        self.assertEqual(config["remote_only"], "remote")
 
     def test_config_patches_filewatch(self):
         event = Event()
