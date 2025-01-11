@@ -18,8 +18,8 @@ from os.path import isfile
 from typing import Optional
 
 from ovos_config.locations import get_xdg_config_locations, ASSISTANT_CONFIG, USER_CONFIG
-from ovos_config.models import LocalConf, DefaultConfig, \
-    DistributionConfig, SystemConfig, AssistantConfig
+from ovos_config.models import LocalConf, DefaultConfig, DistributionConfig, SystemConfig, AssistantConfig, \
+    MycroftDefaultConfig, OvosDistributionConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
 
 from ovos_utils.file_utils import FileWatcher
 from ovos_utils.json_helper import flattened_delete, merge_dict
