@@ -355,7 +355,7 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         Setup filewatcher to monitor for config file changes
         @param callback: optional method to call when configuration is changed
         """
-        paths = [Configuration.distribution.path, Configuration.system.path] + \
+        paths = [Configuration.distribution.path, Configuration.system.path, Configuration.assistant.path] + \
                 [c.path for c in Configuration.xdg_configs]
         if callback and callback not in Configuration._callbacks:
             Configuration._callbacks.append(callback)
