@@ -294,7 +294,7 @@ def show(user, system, assistant, section, list_sections):
     ovos-config show -s -l                              # shows the sections of the system configuration
     ovos-config show -u --section base                  # shows only the base (ie. top level) values of the user configuration 
 
-    note: joining pattern: user > system > assistant > default
+    note: joining pattern: user > assistant > system  > default
     \b
     """
     if not any([user, system, assistant]):
