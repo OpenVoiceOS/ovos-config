@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a2) (2025-01-25)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2a1...1.0.2a2)
+
+**Merged pull requests:**
+
+- more padatious config [\#197](https://github.com/OpenVoiceOS/ovos-config/pull/197) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [1.0.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a1) (2025-01-25)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.1...1.0.2a1)
