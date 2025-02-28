@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2a3](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a3) (2025-02-28)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2a2...1.0.2a3)
+
+**Merged pull requests:**
+
+- fix: drop padatious\_medium [\#200](https://github.com/OpenVoiceOS/ovos-config/pull/200) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [1.0.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a2) (2025-01-25)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2a1...1.0.2a2)
