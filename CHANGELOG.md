@@ -1,12 +1,32 @@
 # Changelog
 
-## [1.0.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.1a1) (2024-11-23)
+## [1.0.2a3](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a3) (2025-02-28)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.0...1.0.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2a2...1.0.2a3)
 
 **Merged pull requests:**
 
-- fix: update STT server urls for pt and ca [\#186](https://github.com/OpenVoiceOS/ovos-config/pull/186) ([JarbasAl](https://github.com/JarbasAl))
+- fix: drop padatious\_medium [\#200](https://github.com/OpenVoiceOS/ovos-config/pull/200) ([JarbasAl](https://github.com/JarbasAl))
+
+## [1.0.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a2) (2025-01-25)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2a1...1.0.2a2)
+
+**Merged pull requests:**
+
+- more padatious config [\#197](https://github.com/OpenVoiceOS/ovos-config/pull/197) ([JarbasAl](https://github.com/JarbasAl))
+
+## [1.0.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a1) (2025-01-25)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.1...1.0.2a1)
+
+**Closed issues:**
+
+- new STT catalan servers [\#185](https://github.com/OpenVoiceOS/ovos-config/issues/185)
+
+**Merged pull requests:**
+
+- documentation: new padatious options [\#195](https://github.com/OpenVoiceOS/ovos-config/pull/195) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
