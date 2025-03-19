@@ -1,12 +1,12 @@
 # Changelog
 
-## [1.0.5a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.5a1) (2025-03-19)
+## [1.0.6a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.6a1) (2025-03-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4...1.0.5a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.5...1.0.6a1)
 
 **Merged pull requests:**
 
-- fix: python version in automations [\#206](https://github.com/OpenVoiceOS/ovos-config/pull/206) ([JarbasAl](https://github.com/JarbasAl))
+- Update lang configs [\#208](https://github.com/OpenVoiceOS/ovos-config/pull/208) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
