@@ -1,12 +1,21 @@
 # Changelog
 
-## [1.0.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.3a1) (2025-03-13)
+## [1.0.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a2) (2025-03-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2...1.0.3a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a1...1.0.4a2)
 
 **Merged pull requests:**
 
-- documentation: add opendata servers [\#202](https://github.com/OpenVoiceOS/ovos-config/pull/202) ([JarbasAl](https://github.com/JarbasAl))
+- Bump flake8 from 3.7.9 to 7.1.2 in /requirements [\#199](https://github.com/OpenVoiceOS/ovos-config/pull/199) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [1.0.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a1) (2025-03-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.3...1.0.4a1)
+
+**Merged pull requests:**
+
+- Update combo-lock requirement from ~=0.2 to ~=0.3 in /requirements [\#192](https://github.com/OpenVoiceOS/ovos-config/pull/192) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump pytest-cov from 2.8.1 to 6.0.0 in /requirements [\#189](https://github.com/OpenVoiceOS/ovos-config/pull/189) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 
 
