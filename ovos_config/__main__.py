@@ -170,9 +170,8 @@ Notes:
 
     - The function merges configuration files based on the specified options and stores the final configuration in the user's config file.
 """
-    if not online and not offline and not hybrid:
-        console.print("[red]Defaulting STT to online public servers[/red]")
-        console.print("[red]Defaulting TTS to offline plugins[/red]")
+    if not online and not offline:
+        console.print("[red]WARNING: Defaulting STT to online public servers[/red]")
         hybrid = True
 
     if online and offline:
@@ -218,7 +217,6 @@ Notes:
     # select STT
     if hybrid or online:
         do_merge("online_stt")
-        config["stt"]["module"] = "ovos-stt-plugin-server"
     else:
         do_merge("offline_stt")
 
@@ -229,7 +227,6 @@ Notes:
         do_merge("offline_male" if male else "offline_female")
     else:
         do_merge("online_male" if male else "online_female")
-        config["tts"]["module"] = "ovos-tts-plugin-server"
 
     config["lang"] = stdlang
     try:
