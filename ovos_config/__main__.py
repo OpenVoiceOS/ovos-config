@@ -164,7 +164,9 @@ ensures that only one of the mutually exclusive options (online/offline and male
 
 Notes:
 
-    - If neither `online` nor `offline` are provided, defaults to `online`.
+    - Hybrid mode will use offline TTS + online STT
+
+    - If neither `online` nor `offline` are provided, defaults to `hybrid`
 
     - If neither `male` nor `female` are provided, TTS configuration is skipped.
 
