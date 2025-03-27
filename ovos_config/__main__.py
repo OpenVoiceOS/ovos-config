@@ -149,11 +149,12 @@ def config():
 
 @config.command()
 @click.option("--lang", "-l", required=True, help="the language code")
-@click.option("--online", "-on", is_flag=True, help="set default online STT plugin")
-@click.option("--offline", "-off", is_flag=True, help="set default offline STT plugin")
+@click.option("--hybrid", "-hy", is_flag=True, help="set default offline TTS and online STT plugins")
+@click.option("--online", "-on", is_flag=True, help="set default online TTS and STT plugins")
+@click.option("--offline", "-off", is_flag=True, help="set default offline TTS and STT plugins")
 @click.option("--male", "-m", is_flag=True, help="set default male voice for TTS")
 @click.option("--female", "-f", is_flag=True, help="set default female voice for TTS")
-def autoconfigure(lang, online, offline, male, female):
+def autoconfigure(lang, hybrid, online, offline, male, female):
     """
 Automatically configures the language, STT, and TTS settings based on user input.
 
@@ -163,23 +164,25 @@ ensures that only one of the mutually exclusive options (online/offline and male
 
 Notes:
 
-    - If neither `online` nor `offline` are provided, defaults to `online`.
+    - Hybrid mode will use offline TTS + online STT
+
+    - If neither `online` nor `offline` are provided, defaults to `hybrid`
 
     - If neither `male` nor `female` are provided, TTS configuration is skipped.
 
     - The function merges configuration files based on the specified options and stores the final configuration in the user's config file.
 """
     if not online and not offline:
-        console.print("[red]Defaulting to online public servers[/red]")
-        online = True
+        console.print("[red]WARNING: Defaulting STT to online public servers[/red]")
+        hybrid = True
 
     if online and offline:
-        raise click.UsageError("Pass either --online or --offline, not both")
+        hybrid = True
+    if hybrid:
+        online = offline = False
+
     if male and female:
         raise click.UsageError("Pass either --male or --female, not both")
-
-    if not male and not female:
-        console.print("[red]Skipping TTS configuration, pass '--male' or '--female' to set language defaults[/red]")
 
     try:
         from ovos_utils.lang import standardize_lang_tag
@@ -212,24 +215,22 @@ Notes:
         console.print(f"Merged config: {c.path}")
 
     do_merge("base")
-    if offline:
-        do_merge("offline_stt")
-        if male:
-            do_merge("offline_male")
-        elif female:
-            do_merge("offline_female")
 
-    elif online:
-        config["tts"]["module"] = "ovos-tts-plugin-server"
-        config["stt"]["module"] = "ovos-stt-plugin-server"
+    # select STT
+    if hybrid or online:
         do_merge("online_stt")
-        if male:
-            do_merge("online_male")
-        elif female:
-            do_merge("online_female")
+    else:
+        do_merge("offline_stt")
+
+    # select TTS
+    if not male and not female:
+        console.print("[red]Skipping TTS configuration, pass '--male' or '--female' to set language defaults[/red]")
+    elif hybrid or offline:
+        do_merge("offline_male" if male else "offline_female")
+    else:
+        do_merge("online_male" if male else "online_female")
 
     config["lang"] = stdlang
-
     try:
         from ovos_plugin_manager.stt import find_stt_plugins
         from ovos_plugin_manager.tts import find_tts_plugins
@@ -245,9 +246,9 @@ Notes:
             console.print(f"  - '{plugin}'")
 
         missing_plugins = []
-        if config["stt"]["module"] not in available_stt:
+        if "module" in config["stt"] and config["stt"]["module"] not in available_stt:
             missing_plugins.append(f"STT plugin '{config['stt']['module']}'")
-        if config["tts"]["module"] not in available_tts:
+        if "module" in config["tts"] and config["tts"]["module"] not in available_tts:
             missing_plugins.append(f"TTS plugin '{config['tts']['module']}'")
 
         if missing_plugins:
