@@ -1,12 +1,12 @@
 # Changelog
 
-## [1.0.8a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.8a1) (2025-03-27)
+## [1.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.1.0a1) (2025-03-27)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.7...1.0.8a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.8...1.1.0a1)
 
 **Merged pull requests:**
 
-- Update langs autoconfigure [\#213](https://github.com/OpenVoiceOS/ovos-config/pull/213) ([JarbasAl](https://github.com/JarbasAl))
+- feat:autoconfigure\_hybrid [\#215](https://github.com/OpenVoiceOS/ovos-config/pull/215) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
