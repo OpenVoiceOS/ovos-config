@@ -171,6 +171,7 @@ def telemetry(enable, disable):
         config["open_data"]["intent_urls"].remove(url)
         console.print(f"Removed intent telemetry endpoint: {url}")
     console.print(f"Telemetry urls: {config['open_data']['intent_urls']}")
+    config.store()       
 
 
 @config.command()
