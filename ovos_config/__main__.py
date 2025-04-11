@@ -160,7 +160,7 @@ def telemetry(enable, disable):
         config["open_data"] = {"intent_urls": []}
     if "intent_urls" not in config["open_data"]:
         config["open_data"]["intent_urls"] = []
-    url = "https://metrics.tigregotico.pt"
+    url = "https://metrics.tigregotico.pt/intents"
     if enable:
         if url not in config["open_data"]["intent_urls"]:
             config["open_data"]["intent_urls"].append(url)
