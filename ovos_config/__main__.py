@@ -148,6 +148,33 @@ def config():
 
 
 @config.command()
+@click.option("--enable", "-e", is_flag=True, help="Enable intent telemetry upload (thank you!)")
+@click.option("--disable", "-d", is_flag=True, help="Disable intent telemetry upload :(")
+def telemetry(enable, disable):
+    """Enable intent telemetry upload for the opendata initiative.
+    OpenData can be seen live at https://opendata.tigregotico.pt"""
+    if enable and disable:
+        raise click.UsageError("Pass either --enable or --disable, not both")
+    config = LocalConf(USER_CONFIG)
+    if "open_data" not in config:
+        config["open_data"] = {"intent_urls": []}
+    if "intent_urls" not in config["open_data"]:
+        config["open_data"]["intent_urls"] = []
+    url = "https://metrics.tigregotico.pt"
+    if enable:
+        if url not in config["open_data"]["intent_urls"]:
+            config["open_data"]["intent_urls"].append(url)
+            console.print(f"Added intent telemetry endpoint: {url}")
+        else:
+            console.print(f"Telemetry endpoint already exists: {url}")
+    elif disable and url in config["open_data"]["intent_urls"]:
+        config["open_data"]["intent_urls"].remove(url)
+        console.print(f"Removed intent telemetry endpoint: {url}")
+    console.print(f"Telemetry urls: {config['open_data']['intent_urls']}")
+    config.store()       
+
+
+@config.command()
 @click.option("--lang", "-l", required=True, help="the language code")
 @click.option("--hybrid", "-hy", is_flag=True, help="set default offline TTS and online STT plugins")
 @click.option("--online", "-on", is_flag=True, help="set default online TTS and STT plugins")
