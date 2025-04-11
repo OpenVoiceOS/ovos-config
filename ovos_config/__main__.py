@@ -162,8 +162,11 @@ def telemetry(enable, disable):
         config["open_data"]["intent_urls"] = []
     url = "https://metrics.tigregotico.pt"
     if enable:
-        config["open_data"]["intent_urls"].append(url)
-        console.print(f"Added intent telemetry endpoint: {url}")
+        if url not in config["open_data"]["intent_urls"]:
+            config["open_data"]["intent_urls"].append(url)
+            console.print(f"Added intent telemetry endpoint: {url}")
+        else:
+            console.print(f"Telemetry endpoint already exists: {url}")
     elif disable and url in config["open_data"]["intent_urls"]:
         config["open_data"]["intent_urls"].remove(url)
         console.print(f"Removed intent telemetry endpoint: {url}")
