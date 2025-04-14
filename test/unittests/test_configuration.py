@@ -1,14 +1,13 @@
 import importlib
 import logging
 import shutil
-from time import sleep
 
 import yaml
 import os
 import json
 
-from unittest.mock import MagicMock, patch, Mock
-from unittest import TestCase, skip
+from unittest.mock import patch, Mock
+from unittest import TestCase
 from threading import Event, Thread
 from os.path import dirname, isfile, join
 from typing import OrderedDict
@@ -36,23 +35,10 @@ class TestConfiguration(TestCase):
 
     def tearDown(self):
         from ovos_config.config import Configuration
-        Configuration.load_config_stack([{}], True)
+        Configuration.load_config_stack([{}])
+        # Give file watcher time to initialize
+        time.sleep(0.1)
         Configuration._callbacks = []
-
-    @patch('mycroft.api.DeviceApi')
-    @skip("requires backend to be enabled, TODO refactor test!")
-    def test_remote(self, mock_api):
-        from ovos_config.models import RemoteConf
-        remote_conf = {'TestConfig': True, 'uuid': 1234}
-        remote_location = {'city': {'name': 'Stockholm'}}
-        dev_api = MagicMock()
-        dev_api.get_settings.return_value = remote_conf
-        dev_api.get_location.return_value = remote_location
-        mock_api.return_value = dev_api
-
-        rc = RemoteConf()
-        self.assertTrue(rc['test_config'])
-        self.assertEqual(rc['location']['city']['name'], 'Stockholm')
 
     @patch('json.dump')
     @patch('ovos_config.models.exists')
@@ -148,11 +134,9 @@ class TestConfiguration(TestCase):
         test_dir = join(dirname(__file__), "config_stack")
         default_config = LocalConf(join(test_dir, "default.yaml"))
         system_config = LocalConf(join(test_dir, "system.yaml"))
-        remote_config = LocalConf(join(test_dir, "remote.yaml"))
         user_config = LocalConf(join(test_dir, "user.yaml"))
         Configuration.default = default_config
         Configuration.system = system_config
-        Configuration.remote = remote_config
         Configuration.xdg_configs = [user_config]
         Configuration.__patch = LocalConf(None)
         Configuration._old_user = LocalConf(None)
@@ -166,18 +150,17 @@ class TestConfiguration(TestCase):
                                                  "from_usr": False})
         # Test default constraints (overridden)
         self.assertEqual(config["default_spec"], {"from_sys": True,
-                                                  "from_rem": True,
+                                                  "from_rem": False,
                                                   "from_usr": True})
         # Test nested constraints
         self.assertEqual(config["test"], {"default": True,
                                           "system": True,
                                           "user": True,
-                                          "remote": True})
+                                          "remote": False})
         # Test non-overridden default config
         self.assertEqual(config["default_only"], "default")
         # Test protected key is undefined
         self.assertFalse("user_only" in config)
-        self.assertEqual(config["remote_only"], "remote")
 
     def test_config_patches_filewatch(self):
         event = Event()
