@@ -38,6 +38,7 @@ def get_full_lang_code(lang):
                'hu': 'hu-hu',
                'it': 'it-it',
                'nl': 'nl-nl',
+               'no': 'no-no',
                'pl': 'pl-pl',
                'pt': 'pt-pt',
                'ru': 'ru-ru',
