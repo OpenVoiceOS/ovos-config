@@ -1,12 +1,15 @@
 # Changelog
 
-## [1.2.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.0a1) (2025-04-11)
+## [1.2.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.1a1) (2025-04-27)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.1.0...1.2.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.0...1.2.1a1)
 
 **Merged pull requests:**
 
-- feat: ovos-config telemetry [\#219](https://github.com/OpenVoiceOS/ovos-config/pull/219) ([JarbasAl](https://github.com/JarbasAl))
+- Update nl-nl.conf [\#224](https://github.com/OpenVoiceOS/ovos-config/pull/224) ([timonvanhasselt](https://github.com/timonvanhasselt))
+- Update nl-nl.conf [\#223](https://github.com/OpenVoiceOS/ovos-config/pull/223) ([timonvanhasselt](https://github.com/timonvanhasselt))
+- Update nl-nl.conf [\#222](https://github.com/OpenVoiceOS/ovos-config/pull/222) ([timonvanhasselt](https://github.com/timonvanhasselt))
+- Update nl-nl.conf [\#221](https://github.com/OpenVoiceOS/ovos-config/pull/221) ([timonvanhasselt](https://github.com/timonvanhasselt))
 
 
 
