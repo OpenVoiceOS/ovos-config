@@ -88,16 +88,14 @@ class TestLocations(TestCase):
 
         # Test all config paths respect environment overrides/configured values
         from ovos_config.locations import DEFAULT_CONFIG, DISTRIBUTION_CONFIG, \
-            SYSTEM_CONFIG, OLD_USER_CONFIG, USER_CONFIG, REMOTE_CONFIG, \
-            WEB_CONFIG_CACHE
+            SYSTEM_CONFIG, ASSISTANT_CONFIG, USER_CONFIG, WEB_CONFIG_CACHE
 
         self.assertEqual(DISTRIBUTION_CONFIG, "mycroft/distribution/config")
         self.assertEqual(SYSTEM_CONFIG, "mycroft/system/config")
-        self.assertEqual(OLD_USER_CONFIG,
-                         expanduser("~/.test/test.yaml"))
         self.assertEqual(USER_CONFIG, join(dirname(__file__), "test_config",
                                            "test/test.yaml"))
-        self.assertEqual(REMOTE_CONFIG, "mycroft.ai")
+        self.assertEqual(ASSISTANT_CONFIG,  join(dirname(__file__), "test_config",
+                                           "test/runtime.conf"))
         self.assertEqual(WEB_CONFIG_CACHE, "mycroft/web/config")
 
 
