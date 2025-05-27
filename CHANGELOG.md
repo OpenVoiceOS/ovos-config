@@ -1,15 +1,12 @@
 # Changelog
 
-## [1.2.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.1a1) (2025-04-27)
+## [1.2.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.2a1) (2025-05-27)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.0...1.2.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.1...1.2.2a1)
 
 **Merged pull requests:**
 
-- Update nl-nl.conf [\#224](https://github.com/OpenVoiceOS/ovos-config/pull/224) ([timonvanhasselt](https://github.com/timonvanhasselt))
-- Update nl-nl.conf [\#223](https://github.com/OpenVoiceOS/ovos-config/pull/223) ([timonvanhasselt](https://github.com/timonvanhasselt))
-- Update nl-nl.conf [\#222](https://github.com/OpenVoiceOS/ovos-config/pull/222) ([timonvanhasselt](https://github.com/timonvanhasselt))
-- Update nl-nl.conf [\#221](https://github.com/OpenVoiceOS/ovos-config/pull/221) ([timonvanhasselt](https://github.com/timonvanhasselt))
+- document intent transformers [\#226](https://github.com/OpenVoiceOS/ovos-config/pull/226) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
