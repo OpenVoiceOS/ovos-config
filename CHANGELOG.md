@@ -1,12 +1,12 @@
 # Changelog
 
-## [1.2.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.2a1) (2025-05-27)
+## [2.0.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.0.0a1) (2025-06-16)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.1...1.2.2a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.2...2.0.0a1)
 
-**Merged pull requests:**
+**Breaking changes:**
 
-- document intent transformers [\#226](https://github.com/OpenVoiceOS/ovos-config/pull/226) ([JarbasAl](https://github.com/JarbasAl))
+- Update mycroft.conf [\#228](https://github.com/OpenVoiceOS/ovos-config/pull/228) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
