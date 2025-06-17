@@ -202,9 +202,12 @@ Notes:
 
     - The function merges configuration files based on the specified options and stores the final configuration in the user's config file.
 """
-    if not gpu and not offline:
-        console.print("[red]ERROR: --gpu can only be used together with --offline[/red]")
-        raise ValueError
+    if gpu:
+        if online or hybrid:
+            raise click.UsageError("--gpu can not be used together with --online or --hybrid")
+        if platform.startswith("rpi"):
+            raise click.UsageError("--gpu can not be used with raspberry pi platforms")
+        offline = True
 
     if not online and not offline:
         console.print("[red]WARNING: Defaulting STT to online public servers[/red]")
