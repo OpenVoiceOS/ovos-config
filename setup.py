@@ -19,8 +19,6 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_version():
-    """ Find the version of ovos-core"""
-    version = None
     version_file = os.path.join(BASEDIR, 'ovos_config', 'version.py')
     major, minor, build, alpha = (None, None, None, None)
     with open(version_file) as f:
