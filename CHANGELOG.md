@@ -1,12 +1,20 @@
 # Changelog
 
-## [2.0.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.0.0a1) (2025-06-16)
+## [2.1.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.1a1) (2025-06-18)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.2...2.0.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.0a1...2.1.1a1)
 
-**Breaking changes:**
+**Merged pull requests:**
 
-- Update mycroft.conf [\#228](https://github.com/OpenVoiceOS/ovos-config/pull/228) ([JarbasAl](https://github.com/JarbasAl))
+- fix: error handling [\#232](https://github.com/OpenVoiceOS/ovos-config/pull/232) ([JarbasAl](https://github.com/JarbasAl))
+
+## [2.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.0a1) (2025-06-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.0.0...2.1.0a1)
+
+**Merged pull requests:**
+
+- feat:update recommended configs [\#230](https://github.com/OpenVoiceOS/ovos-config/pull/230) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
