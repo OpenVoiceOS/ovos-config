@@ -202,6 +202,10 @@ Notes:
 
     - The function merges configuration files based on the specified options and stores the final configuration in the user's config file.
 """
+    if not gpu and not offline:
+        console.print("[red]ERROR: --gpu can only be used together with --offline[/red]")
+        raise ValueError
+
     if not online and not offline:
         console.print("[red]WARNING: Defaulting STT to online public servers[/red]")
         hybrid = True
@@ -266,8 +270,9 @@ Notes:
     else:
         do_merge("online_male" if male else "online_female")
 
-    if offline and gpu:
+    if gpu:
         do_merge("gpu")
+        console.print(f"[blue]STT configured to use GPU[/blue]")
 
     config["lang"] = stdlang
     try:
