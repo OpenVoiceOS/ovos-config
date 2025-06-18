@@ -180,9 +180,10 @@ def telemetry(enable, disable):
 @click.option("--hybrid", "-hy", is_flag=True, help="set default offline TTS and online STT plugins")
 @click.option("--online", "-on", is_flag=True, help="set default online TTS and STT plugins")
 @click.option("--offline", "-off", is_flag=True, help="set default offline TTS and STT plugins")
+@click.option("--gpu", "-g", is_flag=True, help="optimize for GPU (only works together with --offline)")
 @click.option("--male", "-m", is_flag=True, help="set default male voice for TTS")
 @click.option("--female", "-f", is_flag=True, help="set default female voice for TTS")
-def autoconfigure(lang, platform, hybrid, online, offline, male, female):
+def autoconfigure(lang, platform, hybrid, online, offline, gpu, male, female):
     """
 Automatically configures the language, STT, and TTS settings based on user input.
 
@@ -263,6 +264,9 @@ Notes:
         do_merge("offline_male" if male else "offline_female")
     else:
         do_merge("online_male" if male else "online_female")
+
+    if offline and gpu:
+        do_merge("gpu")
 
     config["lang"] = stdlang
     try:
