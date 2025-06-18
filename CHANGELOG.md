@@ -1,20 +1,20 @@
 # Changelog
 
-## [2.1.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.1a1) (2025-06-18)
+## [2.1.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a2) (2025-06-18)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.0a1...2.1.1a1)
-
-**Merged pull requests:**
-
-- fix: error handling [\#232](https://github.com/OpenVoiceOS/ovos-config/pull/232) ([JarbasAl](https://github.com/JarbasAl))
-
-## [2.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.0a1) (2025-06-18)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.0.0...2.1.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a1...2.1.2a2)
 
 **Merged pull requests:**
 
-- feat:update recommended configs [\#230](https://github.com/OpenVoiceOS/ovos-config/pull/230) ([JarbasAl](https://github.com/JarbasAl))
+- finetune\_lang\_configs [\#236](https://github.com/OpenVoiceOS/ovos-config/pull/236) ([JarbasAl](https://github.com/JarbasAl))
+
+## [2.1.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a1) (2025-06-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.1...2.1.2a1)
+
+**Merged pull requests:**
+
+- fix:default\_pipeline\_recommendations [\#234](https://github.com/OpenVoiceOS/ovos-config/pull/234) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
