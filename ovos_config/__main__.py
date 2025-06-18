@@ -176,11 +176,12 @@ def telemetry(enable, disable):
 
 @config.command()
 @click.option("--lang", "-l", required=True, help="the language code")
-@click.option("--platform", "-p", required=False, help="optimize for one of (rpi3, rpi4, rpi5, linux, mac)")
+@click.option("--platform", "-p", required=False, type=click.Choice(["rpi3", "rpi4", "rpi5", "linux", "mac"]),
+              help="optimize configuration for the selected platform")
 @click.option("--hybrid", "-hy", is_flag=True, help="set default offline TTS and online STT plugins")
 @click.option("--online", "-on", is_flag=True, help="set default online TTS and STT plugins")
 @click.option("--offline", "-off", is_flag=True, help="set default offline TTS and STT plugins")
-@click.option("--gpu", "-g", is_flag=True, help="optimize for GPU (only works together with --offline)")
+@click.option("--gpu", "-g", is_flag=True, help="configure plugins for GPU (only works together with --offline)")
 @click.option("--male", "-m", is_flag=True, help="set default male voice for TTS")
 @click.option("--female", "-f", is_flag=True, help="set default female voice for TTS")
 def autoconfigure(lang, platform, hybrid, online, offline, gpu, male, female):
