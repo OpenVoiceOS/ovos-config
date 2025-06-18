@@ -205,7 +205,7 @@ Notes:
     if gpu:
         if online or hybrid:
             raise click.UsageError("--gpu can not be used together with --online or --hybrid")
-        if platform.startswith("rpi"):
+        if platform and platform.startswith("rpi"):
             raise click.UsageError("--gpu can not be used with raspberry pi platforms")
         offline = True
 
