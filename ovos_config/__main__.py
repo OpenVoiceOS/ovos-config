@@ -176,7 +176,7 @@ def telemetry(enable, disable):
 
 @config.command()
 @click.option("--lang", "-l", required=True, help="the language code")
-@click.option("--platform", "-p", required=False, help="optimize for one of (rpi3, rpi4, rpi5, 32bit, linux, mac, windows)")
+@click.option("--platform", "-p", required=False, help="optimize for one of (rpi3, rpi4, rpi5, linux, mac)")
 @click.option("--hybrid", "-hy", is_flag=True, help="set default offline TTS and online STT plugins")
 @click.option("--online", "-on", is_flag=True, help="set default online TTS and STT plugins")
 @click.option("--offline", "-off", is_flag=True, help="set default offline TTS and STT plugins")
