@@ -176,12 +176,13 @@ def telemetry(enable, disable):
 
 @config.command()
 @click.option("--lang", "-l", required=True, help="the language code")
+@click.option("--platform", "-p", required=False, help="optimize for one of (rpi3, rpi4, rpi5, 32bit, linux, mac, windows)")
 @click.option("--hybrid", "-hy", is_flag=True, help="set default offline TTS and online STT plugins")
 @click.option("--online", "-on", is_flag=True, help="set default online TTS and STT plugins")
 @click.option("--offline", "-off", is_flag=True, help="set default offline TTS and STT plugins")
 @click.option("--male", "-m", is_flag=True, help="set default male voice for TTS")
 @click.option("--female", "-f", is_flag=True, help="set default female voice for TTS")
-def autoconfigure(lang, hybrid, online, offline, male, female):
+def autoconfigure(lang, platform, hybrid, online, offline, male, female):
     """
 Automatically configures the language, STT, and TTS settings based on user input.
 
@@ -223,15 +224,18 @@ Notes:
     config["tts"] = {"ovos-tts-plugin-server": {}}
     config["stt"] = {"ovos-stt-plugin-server": {}}
 
-    def do_merge(folder):
+    def do_merge(folder, fname=""):
         l2 = stdlang.split("-")[0]
         recs_path = f"{os.path.dirname(__file__)}/recommends"
-        path = f"{recs_path}/{folder}/{lang.lower()}.conf"
-        if not os.path.isfile(path):
-            paths = [f"{recs_path}/{folder}/{f}"
-                     for f in os.listdir(f"{recs_path}/{folder}") if f.startswith(l2)]
-            if paths:
-                path = paths[0]
+        if fname:
+            path = f"{recs_path}/{folder}/{fname}"
+        else:
+            path = f"{recs_path}/{folder}/{lang.lower()}.conf"
+            if not os.path.isfile(path):
+                paths = [f"{recs_path}/{folder}/{f}"
+                         for f in os.listdir(f"{recs_path}/{folder}") if f.startswith(l2)]
+                if paths:
+                    path = paths[0]
 
         if not os.path.isfile(path):
             console.print(f"[red]ERROR: {folder} not available for {stdlang}[/red]")
@@ -242,6 +246,9 @@ Notes:
         console.print(f"Merged config: {c.path}")
 
     do_merge("base")
+
+    if platform:
+        do_merge(f"platform", f"{platform}.conf")
 
     # select STT
     if hybrid or online:
