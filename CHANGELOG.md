@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.1a1) (2025-06-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.0a1...2.1.1a1)
+
+**Merged pull requests:**
+
+- fix: error handling [\#232](https://github.com/OpenVoiceOS/ovos-config/pull/232) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.0a1) (2025-06-18)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.0.0...2.1.0a1)
