@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.2a4](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a4) (2025-09-08)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a3...2.1.2a4)
+
+**Merged pull requests:**
+
+- Termux config [\#243](https://github.com/OpenVoiceOS/ovos-config/pull/243) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.1.2a3](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a3) (2025-07-22)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a2...2.1.2a3)
