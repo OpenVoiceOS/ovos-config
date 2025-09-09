@@ -1,4 +1,4 @@
-ovos-config==2.1.2a3
+ovos-config==2.1.2a4
 ├── ovos-bus-client==1.3.6a1 [requires: ovos-config>=0.0.12,<3.0.0]
 │   ├── ovos-skill-pyradios==0.1.5 [requires: ovos-bus-client>=0.0.9]
 │   ├── ovos-skill-homescreen==3.0.3 [requires: ovos-bus-client>=1.0.0,<2.0.0]
