@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.3a1) (2025-10-09)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a5...2.1.3a1)
+
+**Merged pull requests:**
+
+- fix: en-us female voice [\#247](https://github.com/OpenVoiceOS/ovos-config/pull/247) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.1.2a5](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a5) (2025-10-09)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a4...2.1.2a5)
