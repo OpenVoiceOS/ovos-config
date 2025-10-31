@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a1) (2025-10-31)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.3a1...2.1.4a1)
+
+**Merged pull requests:**
+
+- fix: prefer precise onnx [\#249](https://github.com/OpenVoiceOS/ovos-config/pull/249) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.1.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.3a1) (2025-10-09)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a5...2.1.3a1)
