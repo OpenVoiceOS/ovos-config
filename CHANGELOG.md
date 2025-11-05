@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a2) (2025-11-05)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a1...2.1.4a2)
+
+**Merged pull requests:**
+
+- enable pre-wake-vad by default [\#251](https://github.com/OpenVoiceOS/ovos-config/pull/251) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.1.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a1) (2025-10-31)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.3a1...2.1.4a1)
