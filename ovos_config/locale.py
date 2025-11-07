@@ -6,6 +6,18 @@ from ovos_utils.log import deprecated
 import ovos_config
 
 
+def get_config_tz():
+    code = ovos_config.Configuration()["location"]["timezone"]["code"]
+    return gettz(code)
+
+
+def get_valid_languages():
+    """ return all valid runtime languages according to mycroft.conf """
+    lang_code = ovos_config.Configuration().get("lang", "en-us")
+    extra_lang_codes = ovos_config.Configuration().get("secondary_langs", [])
+    return set([lang_code] + extra_lang_codes)
+
+
 @deprecated("deprecated without replacement", "1.0.0")
 def get_full_lang_code(lang):
     """ given a 2-letter lang code, return the full default 4-letter code"""
@@ -79,17 +91,6 @@ def set_default_lang(lang):
 
 
 @deprecated("deprecated, use ovos_config.Configuration() object directly", "1.0.0")
-def get_config_tz():
-    warnings.warn(
-        "deprecated, use ovos_config.Configuration() object directly",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    code = ovos_config.Configuration()["location"]["timezone"]["code"]
-    return gettz(code)
-
-
-@deprecated("deprecated, use ovos_config.Configuration() object directly", "1.0.0")
 def get_default_tz():
     # if default was set at runtime use it else use the timezone from .conf
     warnings.warn(
@@ -133,19 +134,6 @@ def load_language(lang):
         DeprecationWarning,
         stacklevel=2,
     )
-
-
-@deprecated("deprecated, use ovos_config.Configuration() object directly", "1.0.0")
-def get_valid_languages():
-    """ return all valid runtime languages according to mycroft.conf """
-    warnings.warn(
-        "deprecated, use ovos_config.Configuration() object directly",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    lang_code = ovos_config.Configuration().get("lang", "en-us")
-    extra_lang_codes = ovos_config.Configuration().get("secondary_langs", [])
-    return set([lang_code] + extra_lang_codes)
 
 
 @deprecated("deprecated without replacement", "1.0.0")
