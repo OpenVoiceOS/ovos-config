@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.4a3](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a3) (2025-12-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a2...2.1.4a3)
+
+**Merged pull requests:**
+
+- chore: Configure Renovate [\#254](https://github.com/OpenVoiceOS/ovos-config/pull/254) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [2.1.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a2) (2025-11-05)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a1...2.1.4a2)
