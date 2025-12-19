@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.4a7](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a7) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a6...2.1.4a7)
+
+**Merged pull requests:**
+
+- chore\(deps\): update pilosus/action-pip-license-checker action to v3 [\#263](https://github.com/OpenVoiceOS/ovos-config/pull/263) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [2.1.4a6](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a6) (2025-12-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a5...2.1.4a6)
