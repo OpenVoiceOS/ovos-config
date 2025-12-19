@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.4a4](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a4) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a3...2.1.4a4)
+
+**Merged pull requests:**
+
+- chore\(deps\): update actions/setup-python action to v6 [\#260](https://github.com/OpenVoiceOS/ovos-config/pull/260) ([renovate[bot]](https://github.com/apps/renovate))
+- chore\(deps\): update actions/checkout action to v6 [\#259](https://github.com/OpenVoiceOS/ovos-config/pull/259) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [2.1.4a3](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a3) (2025-12-18)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a2...2.1.4a3)
