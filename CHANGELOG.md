@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.4a6](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a6) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a5...2.1.4a6)
+
+**Merged pull requests:**
+
+- chore\(deps\): update dependency python to 3.14 [\#255](https://github.com/OpenVoiceOS/ovos-config/pull/255) ([renovate[bot]](https://github.com/apps/renovate))
+
+## [2.1.4a5](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a5) (2025-12-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a4...2.1.4a5)
+
 ## [2.1.4a4](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a4) (2025-12-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a3...2.1.4a4)
