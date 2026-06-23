@@ -14,6 +14,7 @@
 #
 import json
 import warnings
+from os.path import isfile, dirname
 from typing import Optional
 
 from ovos_config.locations import get_xdg_config_locations, ASSISTANT_CONFIG, USER_CONFIG
@@ -336,6 +337,20 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
             Configuration.assistant.store()
         paths = [Configuration.distribution.path, Configuration.system.path, Configuration.assistant.path] + \
                 [c.path for c in Configuration.xdg_configs]
+        # FileWatcher fires the callback for any file in a watched file's
+        # directory, so one path per directory is enough. Watching several
+        # files that share a directory (e.g. mycroft.conf + runtime.conf, both
+        # under the XDG config dir) would schedule duplicate handlers and fire
+        # the change callback once per file, so deduplicate by directory.
+        watched, seen_dirs = [], set()
+        for p in paths:
+            if not isfile(p):
+                continue
+            directory = dirname(p)
+            if directory in seen_dirs:
+                continue
+            seen_dirs.add(directory)
+            watched.append(p)
         if not Configuration._watchdog:
             # Watch every configuration path, including the ones that do not
             # exist yet: a device that has never been configured has no user
@@ -343,7 +358,8 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
             # to make. FileWatcher watches the parent directory and filters by
             # name, and declines on its own when that directory is missing.
             Configuration._watchdog = FileWatcher(
-                paths, Configuration._on_file_change
+                watched,
+                Configuration._on_file_change
             )
 
     @staticmethod
