@@ -326,10 +326,16 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         Setup filewatcher to monitor for config file changes
         @param callback: optional method to call when configuration is changed
         """
-        paths = [Configuration.distribution.path, Configuration.system.path, Configuration.assistant.path] + \
-                [c.path for c in Configuration.xdg_configs]
+        # register the callback before any filesystem I/O so other threads
+        # observing Configuration._callbacks see it without racing
         if callback and callback not in Configuration._callbacks:
             Configuration._callbacks.append(callback)
+        # ensure the runtime/assistant config exists so the watcher can track it
+        # (OVOS writes runtime changes here via update_assistant_config)
+        if not isfile(Configuration.assistant.path):
+            Configuration.assistant.store()
+        paths = [Configuration.distribution.path, Configuration.system.path, Configuration.assistant.path] + \
+                [c.path for c in Configuration.xdg_configs]
         if not Configuration._watchdog:
             # Watch every configuration path, including the ones that do not
             # exist yet: a device that has never been configured has no user
@@ -348,7 +354,8 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         """
         # reload updated config
         for cfg in Configuration.xdg_configs + [Configuration.distribution,
-                                                Configuration.system]:
+                                                Configuration.system,
+                                                Configuration.assistant]:
             if cfg.path == path:
                 old_cfg = hash(cfg)
                 try:

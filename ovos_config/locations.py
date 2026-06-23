@@ -128,8 +128,10 @@ SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
                                f'{_ovos_config.get_config_filename()}')
 USER_CONFIG = join(get_xdg_config_save_path(), _ovos_config.get_config_filename())
 ASSISTANT_CONFIG = join(get_xdg_config_save_path(), "runtime.conf") # for plugins/skills to store changes
+# kept for backwards compat with the deprecated RemoteConf, computed inline to
+# avoid emitting the get_webcache_location deprecation warning on import
 WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE') or \
-                   get_webcache_location()
+                   join(get_xdg_config_save_path(), 'web_cache.json')
 
 
 def __ensure_folder_exists(path):
