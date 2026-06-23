@@ -455,9 +455,8 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
 
 
 def update_assistant_config(config, bus=None):
-    f""" updates assistant config file with the contents of provided dict 
-    path: {ASSISTANT_CONFIG}
-    """
+    """updates the assistant config file (ASSISTANT_CONFIG / runtime.conf)
+    with the contents of the provided dict"""
     conf = AssistantConfig()
     conf.merge(config)
     conf.store()
