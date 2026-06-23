@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.1a1) (2026-06-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.0a1...2.3.1a1)
+
+**Merged pull requests:**
+
+- fix:pipeline\_config [\#264](https://github.com/OpenVoiceOS/ovos-config/pull/264) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.0a1) (2026-06-23)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.2.0a1...2.3.0a1)
