@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.0a1) (2026-06-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.2.0a1...2.3.0a1)
+
+**Merged pull requests:**
+
+- feat: onnx-asr offline STT tier \(parakeet + OVOS collection models\) [\#273](https://github.com/OpenVoiceOS/ovos-config/pull/273) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.2.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.2.0a1) (2026-06-23)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a7...2.2.0a1)
