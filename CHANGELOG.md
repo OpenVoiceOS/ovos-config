@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.2.0a1) (2026-06-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a7...2.2.0a1)
+
+**Closed issues:**
+
+- Autoconfig local with gpu offline fails to load whisper model [\#266](https://github.com/OpenVoiceOS/ovos-config/issues/266)
+
+**Merged pull requests:**
+
+- feat: phoonnx as the default offline TTS in autoconfigure recommends [\#272](https://github.com/OpenVoiceOS/ovos-config/pull/272) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.1.4a7](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.4a7) (2025-12-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.4a6...2.1.4a7)
