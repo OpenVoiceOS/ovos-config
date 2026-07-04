@@ -65,7 +65,7 @@ def get_primary_lang_code(config=None):
         DeprecationWarning,
         stacklevel=2,
     )
-    return get_default_lang()
+    return get_default_lang(config).split("-")[0]
 
 
 @deprecated("deprecated, use ovos_config.Configuration() object directly", "1.0.0")
@@ -76,7 +76,8 @@ def get_default_lang(config=None):
         DeprecationWarning,
         stacklevel=2,
     )
-    return ovos_config.Configuration().get("lang", "en-us")
+    config = config or ovos_config.Configuration()
+    return config.get("lang", "en-us")
 
 
 @deprecated("deprecated without replacement", "1.0.0")
