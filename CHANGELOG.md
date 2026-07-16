@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.2a1) (2026-07-16)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.1a1...2.3.2a1)
+
+**Merged pull requests:**
+
+- fix: include padacioso in the default intent pipeline [\#275](https://github.com/OpenVoiceOS/ovos-config/pull/275) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.1a1) (2026-06-23)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.0a1...2.3.1a1)
