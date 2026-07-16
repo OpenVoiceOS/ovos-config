@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.2a2) (2026-07-16)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.2a1...2.3.2a2)
+
+**Merged pull requests:**
+
+- revert: restore padatious-only default pipeline [\#276](https://github.com/OpenVoiceOS/ovos-config/pull/276) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.2a1) (2026-07-16)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.1a1...2.3.2a1)
