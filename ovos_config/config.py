@@ -21,6 +21,9 @@ from ovos_config.locations import get_xdg_config_locations
 from ovos_config.models import LocalConf, DefaultConfig, DistributionConfig, SystemConfig, AssistantConfig, \
     UserConfig, MycroftDefaultConfig, OvosDistributionConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
 
+# sentinel to distinguish "not passed" from an explicit falsy value
+_unset = object()
+
 from ovos_utils.file_utils import FileWatcher
 from ovos_utils.json_helper import flattened_delete, merge_dict
 from ovos_utils.log import LOG
@@ -28,7 +31,9 @@ from ovos_utils.log import LOG
 
 
 class _ConfigurationMeta(type):
-    """Invalidate the merged-config memo when a layer is swapped.
+    """Invalidate the merged-config memo when a layer is swapped, and
+    provide a lazily-constructed, deprecated ``Configuration.remote``
+    class attribute.
 
     Tests and embedders replace config layers by direct class-attribute
     assignment (``Configuration.default = LocalConf(...)``,
@@ -36,7 +41,16 @@ class _ConfigurationMeta(type):
     hooks cannot observe. Any class attribute assignment except the memo
     itself drops the memo; spurious invalidations (e.g. assigning ``bus``)
     just cost one rebuild on the next read.
+
+    ``remote`` was removed from the merge stack (OVOS no longer supports
+    remote config), but some downstream code still reads
+    ``Configuration.remote`` directly. A plain class attribute can't emit a
+    DeprecationWarning on access, and constructing ``RemoteConf()`` eagerly
+    at class-definition time would warn on every import of this module even
+    for callers who never touch ``.remote``. This property defers
+    construction (and its warning) until first access.
     """
+    _remote_instance = None
 
     def __setattr__(cls, name, value):
         super().__setattr__(name, value)
@@ -44,6 +58,12 @@ class _ConfigurationMeta(type):
             super().__setattr__("_merged_cache", None)
             super().__setattr__("_cache_generation",
                                 cls.__dict__.get("_cache_generation", 0) + 1)
+
+    @property
+    def remote(cls):
+        if cls._remote_instance is None:
+            cls._remote_instance = RemoteConf()
+        return cls._remote_instance
 
 
 class Configuration(dict, metaclass=_ConfigurationMeta):
@@ -171,19 +191,50 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
 
     # config methods
     @staticmethod
-    def load_config_stack(configs=None):
+    def load_config_stack(configs=None, cache=_unset, remote=_unset):
         """Load a stack of config dicts into a single dict
 
         Args:
             configs (list): list of dicts to load
+            cache (bool): DEPRECATED and ignored, kept for backwards compatibility
+            remote (bool): DEPRECATED and ignored, kept for backwards compatibility.
+                OVOS no longer supports remote config, so this is a no-op.
         Returns:
             (dict) merged dict of all configuration files
         """
         LOG.warning("load_config_stack has been deprecated, use load_all_configs instead")
+        if cache is not _unset:
+            warnings.warn(
+                "the 'cache' argument is deprecated and ignored",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        if remote is not _unset:
+            warnings.warn(
+                "the 'remote' argument is deprecated and ignored, "
+                "OVOS no longer supports remote config",
+                DeprecationWarning,
+                stacklevel=2,
+            )
         if configs:
             return Configuration.filter_and_merge(configs)
         system_constraints = Configuration.get_system_constraints()
         return Configuration.load_all_configs(system_constraints)
+
+    @staticmethod
+    def handle_remote_update(message):
+        """DEPRECATED: Handler for paired/internet connect.
+
+        OVOS no longer supports remote config, so reloading it has no
+        effect on the merged configuration. Kept as a callable no-op shim
+        for backwards compatibility; it is not registered as a bus handler.
+        """
+        warnings.warn(
+            "remote config no longer exists, this is a no-op",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        Configuration.remote.reload()
 
     @staticmethod
     def reset():

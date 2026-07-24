@@ -465,3 +465,86 @@ class TestMycroftConfigUpdateRegression(TestCase):
         from ovos_config.locations import get_config_locations, ASSISTANT_CONFIG
         locs = get_config_locations()
         self.assertIn(ASSISTANT_CONFIG, locs)
+
+
+class TestPR194BackwardsCompat(TestCase):
+    """
+    Regression tests for the four API removals restored in PR #194
+    (feat/assistant_config): a breaking change must ship in two releases,
+    the first of which keeps every existing API working (with a
+    DeprecationWarning) and only a later `chore!: remove deprecated code`
+    release may delete anything. These tests pin the five call shapes that
+    must keep working so a future removal is caught by CI.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._orig_environ = dict(os.environ)
+        cls.tmp_dir = join(dirname(__file__), "test_config", "pr194_backcompat")
+        os.makedirs(cls.tmp_dir, exist_ok=True)
+        for var in ("XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
+            os.environ[var] = cls.tmp_dir
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        os.environ.clear()
+        os.environ.update(cls._orig_environ)
+        shutil.rmtree(cls.tmp_dir, ignore_errors=True)
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    def test_configuration_remote_attribute(self):
+        from ovos_config.config import Configuration
+        from ovos_config.models import RemoteConf
+
+        with self.assertWarns(DeprecationWarning):
+            remote = Configuration.remote
+        self.assertIsInstance(remote, RemoteConf)
+        # must not be re-added to the merge stack
+        merged = Configuration.load_all_configs()
+        self.assertIsInstance(merged, dict)
+
+    def test_handle_remote_update_is_a_deprecated_noop(self):
+        from ovos_config.config import Configuration
+
+        with self.assertWarns(DeprecationWarning):
+            # must not raise, even though remote config isn't part of the
+            # merge stack anymore
+            self.assertIsNone(Configuration.handle_remote_update(None))
+
+    def test_load_config_stack_accepts_cache_and_remote_kwargs(self):
+        from ovos_config.config import Configuration
+
+        # must not raise TypeError for callers still passing the old kwargs
+        result = Configuration.load_config_stack(cache=True, remote=False)
+        self.assertIsInstance(result, dict)
+
+        # defaulted (not explicitly passed) call must still work too
+        result = Configuration.load_config_stack()
+        self.assertIsInstance(result, dict)
+
+    def test_mycroft_system_config_forwards_allow_overwrite(self):
+        from ovos_config.models import MycroftSystemConfig
+
+        with self.assertWarns(DeprecationWarning):
+            cfg = MycroftSystemConfig(allow_overwrite=True)
+        self.assertTrue(cfg.allow_overwrite)
+
+    def test_ovos_distribution_config_forwards_allow_overwrite(self):
+        from ovos_config.models import OvosDistributionConfig
+
+        with self.assertWarns(DeprecationWarning):
+            cfg = OvosDistributionConfig(allow_overwrite=True)
+        self.assertTrue(cfg.allow_overwrite)

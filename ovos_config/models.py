@@ -205,23 +205,23 @@ class MycroftDefaultConfig(DefaultConfig):
 
 
 class OvosDistributionConfig(DistributionConfig):
-    def __init__(self):
+    def __init__(self, allow_overwrite=False):
         warnings.warn(
             "renamed to 'DistributionConfig'",
             DeprecationWarning,
             stacklevel=2,
         )
-        super().__init__()
+        super().__init__(allow_overwrite)
 
 
 class MycroftSystemConfig(SystemConfig):
-    def __init__(self):
+    def __init__(self, allow_overwrite=False):
         warnings.warn(
             "renamed to 'SystemConfig'",
             DeprecationWarning,
             stacklevel=2,
         )
-        super().__init__()
+        super().__init__(allow_overwrite)
 
 
 class MycroftUserConfig(UserConfig):
