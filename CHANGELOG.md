@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.5a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.5a1) (2026-07-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.3a1...2.3.5a1)
+
+**Merged pull requests:**
+
+- fix: mark deprecated code for removal [\#253](https://github.com/OpenVoiceOS/ovos-config/pull/253) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.3a1) (2026-07-24)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.2a2...2.3.3a1)
