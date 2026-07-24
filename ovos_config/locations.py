@@ -13,7 +13,7 @@
 # limitations under the License.
 import os
 import warnings
-from os.path import join, dirname, exists, isfile
+from os.path import join, dirname, expanduser, exists, isfile
 from time import sleep
 import ovos_config.meta as _ovos_config
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
@@ -132,6 +132,12 @@ ASSISTANT_CONFIG = join(get_xdg_config_save_path(), "runtime.conf") # for plugin
 # avoid emitting the get_webcache_location deprecation warning on import
 WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE') or \
                    join(get_xdg_config_save_path(), 'web_cache.json')
+# kept for backwards compat only, not part of the config stack, not read by
+# get_config_locations()/load_all_configs() anymore
+OLD_USER_CONFIG = join(expanduser('~'), '.' + _ovos_config.get_xdg_base(),
+                       _ovos_config.get_config_filename())
+# kept for backwards compat only, remote config support has been removed
+REMOTE_CONFIG = "mycroft.ai"
 
 
 def __ensure_folder_exists(path):
