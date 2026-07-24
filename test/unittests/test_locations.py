@@ -58,9 +58,45 @@ class TestLocations(TestCase):
                                               False, False, False
                                               ), list())
         self.assertEqual(get_config_locations(),
-                         ['/test/default.yml', '/usr/share/test/test.yaml',
-                          '/etc/test/test.yaml', 'webcache',
+                         ['/test/default.yml', 'webcache',
+                          '/usr/share/test/test.yaml',
+                          '/etc/test/test.yaml',
                           '~/.test/test.yaml', 'config/test.yaml'])
+
+    @mock.patch("ovos_config.meta.get_ovos_config")
+    @mock.patch("ovos_config.locations.get_webcache_location")
+    @mock.patch("ovos_config.locations.get_xdg_config_save_path")
+    def test_get_config_locations_matches_load_all_configs_priority(
+            self, config_path, webcache_loc, ovos_config):
+        """
+        get_config_locations() is documented as returning paths "sorted by
+        priority". The actual merge precedence is defined in
+        Configuration.load_all_configs() (ovos_config/config.py), where the
+        remote/web_cache config is inserted right after the default config,
+        i.e. below distribution/system/user - not above them. This test
+        pins get_config_locations() to that same order.
+        """
+        ovos_config.return_value = {
+            "test": True,
+            "base_folder": "test",
+            "config_filename": "test.yaml",
+            "default_config_path": "/test/default.yml"
+        }
+        config_path.return_value = "config"
+        webcache_loc.return_value = "webcache"
+        from ovos_config.locations import get_config_locations
+        locs = get_config_locations()
+        expected_order = ['/test/default.yml', 'webcache',
+                          '/usr/share/test/test.yaml',
+                          '/etc/test/test.yaml',
+                          '~/.test/test.yaml', 'config/test.yaml']
+        self.assertEqual(locs, expected_order)
+        # web_cache (remote) must rank below distribution and system,
+        # matching Configuration.load_all_configs() precedence
+        self.assertLess(locs.index('webcache'),
+                        locs.index('/usr/share/test/test.yaml'))
+        self.assertLess(locs.index('/usr/share/test/test.yaml'),
+                        locs.index('/etc/test/test.yaml'))
 
 
     @mock.patch("ovos_config.meta.get_config_filename")

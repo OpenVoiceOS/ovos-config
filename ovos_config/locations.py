@@ -71,12 +71,12 @@ def get_config_locations(default=True, web_cache=True, distribution=True,
     ovos_cfg = _ovos_config.get_ovos_config()
     if default:
         locs.append(ovos_cfg["default_config_path"])
+    if web_cache:
+        locs.append(get_webcache_location())
     if distribution:
         locs.append(f"/usr/share/{ovos_cfg['base_folder']}/{ovos_cfg['config_filename']}")
     if system:
         locs.append(f"/etc/{ovos_cfg['base_folder']}/{ovos_cfg['config_filename']}")
-    if web_cache:
-        locs.append(get_webcache_location())
     if old_user:
         locs.append(f"~/.{ovos_cfg['base_folder']}/{ovos_cfg['config_filename']}")
     if user:
