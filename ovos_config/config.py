@@ -17,9 +17,9 @@ import warnings
 from os.path import isfile
 from typing import Optional
 
-from ovos_config.locations import get_xdg_config_locations, ASSISTANT_CONFIG, USER_CONFIG
+from ovos_config.locations import get_xdg_config_locations
 from ovos_config.models import LocalConf, DefaultConfig, DistributionConfig, SystemConfig, AssistantConfig, \
-    MycroftDefaultConfig, OvosDistributionConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
+    UserConfig, MycroftDefaultConfig, OvosDistributionConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
 
 from ovos_utils.file_utils import FileWatcher
 from ovos_utils.json_helper import flattened_delete, merge_dict
@@ -444,7 +444,7 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
 def update_assistant_config(config, bus=None):
     """updates the assistant config file (ASSISTANT_CONFIG / runtime.conf)
     with the contents of the provided dict"""
-    conf = AssistantConfig()
+    conf = Configuration.assistant
     conf.merge(config)
     conf.store()
     if bus:  # inform all Configuration objects connected to the bus
@@ -466,11 +466,20 @@ def read_mycroft_config():
 
 def update_mycroft_config(config, path=None, bus=None):
     """ updates user config file with the contents of provided dict
-    if a path is provided that location will be used instead of AssistantConfig"""
+    if a path is provided that location will be used instead of UserConfig"""
     warnings.warn(
         "use 'update_assistant_config' instead",
         DeprecationWarning,
         stacklevel=2,
     )
-    LOG.warning(f"Updating '{ASSISTANT_CONFIG}' NOT '{path or USER_CONFIG}'")
-    return update_assistant_config(config, bus)
+    if path is None:
+        conf = UserConfig()
+    else:
+        conf = LocalConf(path)
+    conf.merge(config)
+    conf.store()
+    if bus:  # inform all Configuration objects connected to the bus
+        # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
+        from ovos_utils.fakebus import Message
+        bus.emit(Message("configuration.patch", {"config": config}))
+    return conf

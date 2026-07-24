@@ -354,3 +354,114 @@ class TestConfiguration(TestCase):
         self.assertEqual(len(config._callbacks), 1)
         config.set_config_watcher(callback)
         self.assertEqual(len(config._callbacks), 1)
+
+
+class TestMycroftConfigUpdateRegression(TestCase):
+    """
+    Regression tests for the update_mycroft_config / update_assistant_config
+    layering bug: update_mycroft_config must keep writing to USER_CONFIG (or
+    an explicit path), NEVER to the assistant/runtime layer, since USER
+    outranks ASSISTANT in the merge order and a silent redirect makes every
+    existing caller a no-op whenever the key is already set by the user.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._orig_environ = dict(os.environ)
+        cls.tmp_dir = join(dirname(__file__), "test_config", "mycroft_update_regression")
+        os.makedirs(cls.tmp_dir, exist_ok=True)
+        for var in ("XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
+            os.environ[var] = cls.tmp_dir
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        os.environ.clear()
+        os.environ.update(cls._orig_environ)
+        shutil.rmtree(cls.tmp_dir, ignore_errors=True)
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    def test_update_mycroft_config_writes_user_not_runtime(self):
+        from ovos_config.config import Configuration, update_mycroft_config
+        from ovos_config.locations import USER_CONFIG, ASSISTANT_CONFIG
+
+        # tests in this class run in alphabetical order (unittest/pytest
+        # default), so runtime.conf may already exist from another test;
+        # what matters is that THIS call does not add/modify a "lang" key
+        # in the assistant layer
+        runtime_before = {}
+        if isfile(ASSISTANT_CONFIG):
+            with open(ASSISTANT_CONFIG) as f:
+                runtime_before = json.load(f) or {}
+        self.assertNotIn("lang", runtime_before)
+
+        with self.assertWarns(DeprecationWarning):
+            update_mycroft_config({"lang": "de-de"})
+
+        self.assertTrue(isfile(USER_CONFIG))
+        if isfile(ASSISTANT_CONFIG):
+            with open(ASSISTANT_CONFIG) as f:
+                runtime_after = json.load(f) or {}
+            self.assertNotIn("lang", runtime_after,
+                             "update_mycroft_config must not write to runtime.conf")
+
+        with open(USER_CONFIG) as f:
+            self.assertEqual(json.load(f).get("lang"), "de-de")
+
+        # merged Configuration() must reflect the change once the (in-memory)
+        # user config layer is reloaded from disk -- this is what the real
+        # FileWatcher does when USER_CONFIG changes on disk
+        Configuration.reload()
+        self.assertEqual(Configuration()["lang"], "de-de")
+
+    def test_update_mycroft_config_with_explicit_path(self):
+        from ovos_config.config import update_mycroft_config
+        from ovos_config.locations import USER_CONFIG
+
+        explicit_path = join(self.tmp_dir, "explicit.conf")
+        with self.assertWarns(DeprecationWarning):
+            conf = update_mycroft_config({"foo": "bar"}, path=explicit_path)
+
+        self.assertEqual(conf.path, explicit_path)
+        self.assertTrue(isfile(explicit_path))
+        with open(explicit_path) as f:
+            self.assertEqual(json.load(f).get("foo"), "bar")
+        # must not have touched the user config for this call
+        if isfile(USER_CONFIG):
+            with open(USER_CONFIG) as f:
+                self.assertNotIn("foo", json.load(f))
+
+    def test_update_assistant_config_writes_runtime_not_user(self):
+        from ovos_config.config import Configuration, update_assistant_config
+        from ovos_config.locations import USER_CONFIG, ASSISTANT_CONFIG
+
+        update_assistant_config({"secondary_lang": "pt-pt"})
+
+        self.assertTrue(isfile(ASSISTANT_CONFIG))
+        with open(ASSISTANT_CONFIG) as f:
+            self.assertEqual(json.load(f).get("secondary_lang"), "pt-pt")
+        if isfile(USER_CONFIG):
+            with open(USER_CONFIG) as f:
+                self.assertNotIn("secondary_lang", json.load(f))
+
+        # in-process read must reflect the change immediately, without
+        # needing a bus patch or the file watcher to intervene
+        self.assertEqual(Configuration.assistant.get("secondary_lang"), "pt-pt")
+        self.assertEqual(Configuration()["secondary_lang"], "pt-pt")
+
+    def test_get_config_locations_includes_assistant(self):
+        from ovos_config.locations import get_config_locations, ASSISTANT_CONFIG
+        locs = get_config_locations()
+        self.assertIn(ASSISTANT_CONFIG, locs)

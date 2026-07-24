@@ -93,12 +93,13 @@ class TestLocations(TestCase):
         webcache_loc.return_value = "webcache"
         from ovos_config.locations import get_config_locations
         self.assertEqual(get_config_locations(False, False, False,
-                                              False, False, False
+                                              False, False, False, False
                                               ), list())
         self.assertEqual(get_config_locations(),
                          ['/test/default.yml', '/usr/share/test/test.yaml',
                           '/etc/test/test.yaml', 'webcache',
-                          '~/.test/test.yaml', 'config/test.yaml'])
+                          '~/.test/test.yaml', 'config/runtime.conf',
+                          'config/test.yaml'])
 
 
     @mock.patch("ovos_config.meta.get_config_filename")

@@ -57,6 +57,7 @@ def find_user_config():
         return path
     old, path = get_config_locations(default=False, web_cache=False,
                                      distribution=False, system=False,
+                                     assistant=False,
                                      old_user=True, user=True)
     if isfile(path):
         return path
@@ -66,7 +67,7 @@ def find_user_config():
 
 
 def get_config_locations(default=True, web_cache=True, distribution=True,
-                         system=True, old_user=True, user=True):
+                         system=True, assistant=True, old_user=True, user=True):
     """return list of all possible config files paths sorted by priority taking into account ovos.conf"""
     locs = []
     ovos_cfg = _ovos_config.get_ovos_config()
@@ -80,6 +81,8 @@ def get_config_locations(default=True, web_cache=True, distribution=True,
         locs.append(get_webcache_location())
     if old_user:
         locs.append(f"~/.{ovos_cfg['base_folder']}/{ovos_cfg['config_filename']}")
+    if assistant:
+        locs.append(join(get_xdg_config_save_path(), "runtime.conf"))
     if user:
         locs.append(f"{get_xdg_config_save_path()}/{ovos_cfg['config_filename']}")
     return locs
@@ -132,8 +135,9 @@ ASSISTANT_CONFIG = join(get_xdg_config_save_path(), "runtime.conf") # for plugin
 # avoid emitting the get_webcache_location deprecation warning on import
 WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE') or \
                    join(get_xdg_config_save_path(), 'web_cache.json')
-# kept for backwards compat only, not part of the config stack, not read by
-# get_config_locations()/load_all_configs() anymore
+# kept for backwards compat only; still returned by get_config_locations()
+# (default old_user=True) but no longer part of the merge stack in
+# load_all_configs()
 OLD_USER_CONFIG = join(expanduser('~'), '.' + _ovos_config.get_xdg_base(),
                        _ovos_config.get_config_filename())
 # kept for backwards compat only, remote config support has been removed
