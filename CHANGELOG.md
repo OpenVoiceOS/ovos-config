@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.3a1) (2026-07-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.2a2...2.3.3a1)
+
+**Merged pull requests:**
+
+- fix: bind gui\_websocket to loopback by default, matching the messagebus [\#280](https://github.com/OpenVoiceOS/ovos-config/pull/280) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.2a2) (2026-07-16)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.2a1...2.3.2a2)
