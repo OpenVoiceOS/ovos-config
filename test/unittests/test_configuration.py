@@ -516,6 +516,22 @@ class TestPR194BackwardsCompat(TestCase):
         merged = Configuration.load_all_configs()
         self.assertIsInstance(merged, dict)
 
+    def test_configuration_remote_attribute_from_instance(self):
+        # on dev, `remote` was a plain class attribute, so it was reachable
+        # both as Configuration.remote AND Configuration().remote -- a
+        # metaclass property alone only restores the class-level form, so
+        # this pins the instance-level form too
+        from ovos_config.config import Configuration
+        from ovos_config.models import RemoteConf
+
+        instance = Configuration()
+        remote = instance.remote
+        self.assertIsInstance(remote, RemoteConf)
+        # both accessors must share the single cached RemoteConf instance,
+        # since RemoteConf() warns on every construction and dev only ever
+        # had one shared object
+        self.assertIs(Configuration.remote, instance.remote)
+
     def test_handle_remote_update_is_a_deprecated_noop(self):
         from ovos_config.config import Configuration
 
