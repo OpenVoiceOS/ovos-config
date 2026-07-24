@@ -40,6 +40,19 @@ class TestConfiguration(TestCase):
         # Give file watcher time to initialize
         time.sleep(0.1)
         Configuration._callbacks = []
+        # Some tests (eg. test_config_patches_filewatch,
+        # test_on_file_change) start a FileWatcher/Observer that is never
+        # otherwise stopped. Because ``importlib.reload(ovos_config.config)``
+        # re-executes the module in place, any leaked watcher's
+        # ``_on_file_change`` staticmethod resolves the module-global name
+        # ``Configuration`` at call time -- meaning a stale watcher from a
+        # previous test ends up dispatching against the *current* (possibly
+        # reloaded) ``Configuration`` state, double-firing callbacks
+        # registered by later tests. Shut the watchdog down and clear it so
+        # it can't outlive this test.
+        if Configuration._watchdog:
+            Configuration._watchdog.shutdown()
+            Configuration._watchdog = None
 
     @patch('json.dump')
     @patch('ovos_config.models.exists')
