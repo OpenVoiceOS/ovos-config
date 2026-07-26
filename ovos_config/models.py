@@ -20,6 +20,7 @@ from time import time
 import yaml
 from combo_lock import NamedLock
 from ovos_config.locations import USER_CONFIG, DISTRIBUTION_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG, ASSISTANT_CONFIG
+from ovos_config.version import NEXT_MAJOR_VERSION
 
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
@@ -187,7 +188,8 @@ class RemoteConf(LocalConf):
 
     def __init__(self, cache=WEB_CONFIG_CACHE):
         warnings.warn(
-            "deprecated without replacement, OVOS no longer supports remote config",
+            f"RemoteConf is deprecated without replacement, OVOS no longer "
+            f"supports remote config. will be removed in version {NEXT_MAJOR_VERSION}",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -197,7 +199,8 @@ class RemoteConf(LocalConf):
 class MycroftDefaultConfig(DefaultConfig):
     def __init__(self):
         warnings.warn(
-            "renamed to 'DefaultConfig'",
+            f"MycroftDefaultConfig has been renamed to 'DefaultConfig'. "
+            f"will be removed in version {NEXT_MAJOR_VERSION}",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -207,7 +210,8 @@ class MycroftDefaultConfig(DefaultConfig):
 class OvosDistributionConfig(DistributionConfig):
     def __init__(self, allow_overwrite=False):
         warnings.warn(
-            "renamed to 'DistributionConfig'",
+            f"OvosDistributionConfig has been renamed to 'DistributionConfig'. "
+            f"will be removed in version {NEXT_MAJOR_VERSION}",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -217,7 +221,8 @@ class OvosDistributionConfig(DistributionConfig):
 class MycroftSystemConfig(SystemConfig):
     def __init__(self, allow_overwrite=False):
         warnings.warn(
-            "renamed to 'SystemConfig'",
+            f"MycroftSystemConfig has been renamed to 'SystemConfig'. "
+            f"will be removed in version {NEXT_MAJOR_VERSION}",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -227,7 +232,8 @@ class MycroftSystemConfig(SystemConfig):
 class MycroftUserConfig(UserConfig):
     def __init__(self):
         warnings.warn(
-            "renamed to 'UserConfig'",
+            f"MycroftUserConfig has been renamed to 'UserConfig'. "
+            f"will be removed in version {NEXT_MAJOR_VERSION}",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -237,7 +243,8 @@ class MycroftUserConfig(UserConfig):
 class MycroftXDGConfig(UserConfig):
     def __init__(self):
         warnings.warn(
-            "renamed to 'UserConfig'",
+            f"MycroftXDGConfig has been renamed to 'UserConfig'. "
+            f"will be removed in version {NEXT_MAJOR_VERSION}",
             DeprecationWarning,
             stacklevel=2,
         )

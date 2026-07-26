@@ -16,6 +16,7 @@ import warnings
 from os.path import join, dirname, expanduser, exists, isfile
 from time import sleep
 import ovos_config.meta as _ovos_config
+from ovos_config.version import NEXT_MAJOR_VERSION
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
 
 
@@ -91,7 +92,8 @@ def get_config_locations(default=True, web_cache=True, distribution=True,
 def get_webcache_location():
     """ return remote config cache full file path taking into account ovos.conf """
     warnings.warn(
-        "deprecated without replacement, OVOS no longer supports remote config",
+        f"get_webcache_location is deprecated without replacement, OVOS no "
+        f"longer supports remote config. will be removed in version {NEXT_MAJOR_VERSION}",
         DeprecationWarning,
         stacklevel=2,
     )
@@ -115,7 +117,9 @@ def get_xdg_config_locations():
 def find_default_config():
     """return the bundled file in ovos_config package"""
     warnings.warn(
-        "use 'from ovos_config.locations import USER_CONFIG'",
+        f"find_default_config is deprecated, use "
+        f"'from ovos_config.locations import USER_CONFIG'. "
+        f"will be removed in version {NEXT_MAJOR_VERSION}",
         DeprecationWarning,
         stacklevel=2,
     )

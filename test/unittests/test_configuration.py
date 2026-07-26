@@ -577,3 +577,120 @@ class TestPR194BackwardsCompat(TestCase):
         with self.assertWarns(DeprecationWarning):
             cfg = OvosDistributionConfig(allow_overwrite=True)
         self.assertTrue(cfg.allow_overwrite)
+
+
+class TestDeprecationRemovalVersion(TestCase):
+    """
+    Every deprecated code path must state the version in which it will be
+    REMOVED, computed dynamically from ovos_config.version.VERSION_MAJOR
+    (never hardcoded), so the message can't drift out of sync with a real
+    version bump.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._orig_environ = dict(os.environ)
+        cls.tmp_dir = join(dirname(__file__), "test_config", "deprecation_version")
+        os.makedirs(cls.tmp_dir, exist_ok=True)
+        for var in ("XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
+            os.environ[var] = cls.tmp_dir
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        os.environ.clear()
+        os.environ.update(cls._orig_environ)
+        shutil.rmtree(cls.tmp_dir, ignore_errors=True)
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    def _expected_version(self):
+        from ovos_config.version import VERSION_MAJOR, NEXT_MAJOR_VERSION
+        self.assertEqual(NEXT_MAJOR_VERSION, f"{VERSION_MAJOR + 1}.0.0")
+        return NEXT_MAJOR_VERSION
+
+    def _assert_message_has_version(self, warning_ctx):
+        expected = self._expected_version()
+        messages = [str(w.message) for w in warning_ctx.warnings]
+        self.assertTrue(any(expected in m for m in messages),
+                        f"expected '{expected}' in one of {messages}")
+
+    def test_remote_conf_states_removal_version(self):
+        from ovos_config.models import RemoteConf
+        with self.assertWarns(DeprecationWarning) as ctx:
+            RemoteConf()
+        self._assert_message_has_version(ctx)
+
+    def test_renamed_config_classes_state_removal_version(self):
+        from ovos_config.models import (MycroftDefaultConfig,
+                                        OvosDistributionConfig,
+                                        MycroftSystemConfig,
+                                        MycroftUserConfig,
+                                        MycroftXDGConfig)
+        for cls in (MycroftDefaultConfig, MycroftUserConfig, MycroftXDGConfig):
+            with self.assertWarns(DeprecationWarning) as ctx:
+                cls()
+            self._assert_message_has_version(ctx)
+        for cls in (OvosDistributionConfig, MycroftSystemConfig):
+            with self.assertWarns(DeprecationWarning) as ctx:
+                cls()
+            self._assert_message_has_version(ctx)
+
+    def test_configuration_remote_accessor_states_removal_version(self):
+        from ovos_config.config import Configuration
+        with self.assertWarns(DeprecationWarning) as ctx:
+            Configuration.remote
+        self._assert_message_has_version(ctx)
+
+    def test_handle_remote_update_states_removal_version(self):
+        from ovos_config.config import Configuration
+        with self.assertWarns(DeprecationWarning) as ctx:
+            Configuration.handle_remote_update(None)
+        self._assert_message_has_version(ctx)
+
+    def test_load_config_stack_states_removal_version(self):
+        from ovos_config.config import Configuration
+        with self.assertWarns(DeprecationWarning) as ctx:
+            Configuration.load_config_stack()
+        self._assert_message_has_version(ctx)
+
+    def test_load_config_stack_kwargs_state_removal_version(self):
+        from ovos_config.config import Configuration
+        with self.assertWarns(DeprecationWarning) as ctx:
+            Configuration.load_config_stack(cache=True, remote=False)
+        self._assert_message_has_version(ctx)
+
+    def test_read_mycroft_config_states_removal_version(self):
+        from ovos_config.config import read_mycroft_config
+        with self.assertWarns(DeprecationWarning) as ctx:
+            read_mycroft_config()
+        self._assert_message_has_version(ctx)
+
+    def test_update_mycroft_config_states_removal_version(self):
+        from ovos_config.config import update_mycroft_config
+        with self.assertWarns(DeprecationWarning) as ctx:
+            update_mycroft_config({"foo": "bar"})
+        self._assert_message_has_version(ctx)
+
+    def test_get_webcache_location_states_removal_version(self):
+        from ovos_config.locations import get_webcache_location
+        with self.assertWarns(DeprecationWarning) as ctx:
+            get_webcache_location()
+        self._assert_message_has_version(ctx)
+
+    def test_find_default_config_states_removal_version(self):
+        from ovos_config.locations import find_default_config
+        with self.assertWarns(DeprecationWarning) as ctx:
+            find_default_config()
+        self._assert_message_has_version(ctx)

@@ -20,6 +20,7 @@ from typing import Optional
 from ovos_config.locations import get_xdg_config_locations
 from ovos_config.models import LocalConf, DefaultConfig, DistributionConfig, SystemConfig, AssistantConfig, \
     UserConfig, MycroftDefaultConfig, OvosDistributionConfig, MycroftSystemConfig, MycroftUserConfig, RemoteConf
+from ovos_config.version import NEXT_MAJOR_VERSION
 
 # sentinel to distinguish "not passed" from an explicit falsy value
 _unset = object()
@@ -229,17 +230,24 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         Returns:
             (dict) merged dict of all configuration files
         """
-        LOG.warning("load_config_stack has been deprecated, use load_all_configs instead")
+        warnings.warn(
+            f"load_config_stack has been deprecated, use load_all_configs instead. "
+            f"will be removed in version {NEXT_MAJOR_VERSION}",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         if cache is not _unset:
             warnings.warn(
-                "the 'cache' argument is deprecated and ignored",
+                f"the 'cache' argument is deprecated and ignored. "
+                f"will be removed in version {NEXT_MAJOR_VERSION}",
                 DeprecationWarning,
                 stacklevel=2,
             )
         if remote is not _unset:
             warnings.warn(
-                "the 'remote' argument is deprecated and ignored, "
-                "OVOS no longer supports remote config",
+                f"the 'remote' argument is deprecated and ignored, "
+                f"OVOS no longer supports remote config. "
+                f"will be removed in version {NEXT_MAJOR_VERSION}",
                 DeprecationWarning,
                 stacklevel=2,
             )
@@ -257,7 +265,8 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         for backwards compatibility; it is not registered as a bus handler.
         """
         warnings.warn(
-            "remote config no longer exists, this is a no-op",
+            f"remote config no longer exists, this is a no-op. "
+            f"will be removed in version {NEXT_MAJOR_VERSION}",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -535,7 +544,8 @@ def update_assistant_config(config, bus=None):
 def read_mycroft_config():
     """ returns a stateless dict with the loaded configuration """
     warnings.warn(
-        "use 'Configuration()' directly",
+        f"read_mycroft_config has been deprecated, use 'Configuration()' directly. "
+        f"will be removed in version {NEXT_MAJOR_VERSION}",
         DeprecationWarning,
         stacklevel=2,
     )
@@ -546,7 +556,8 @@ def update_mycroft_config(config, path=None, bus=None):
     """ updates user config file with the contents of provided dict
     if a path is provided that location will be used instead of UserConfig"""
     warnings.warn(
-        "use 'update_assistant_config' instead",
+        f"update_mycroft_config has been deprecated, use 'update_assistant_config' instead. "
+        f"will be removed in version {NEXT_MAJOR_VERSION}",
         DeprecationWarning,
         stacklevel=2,
     )
