@@ -137,6 +137,7 @@ class Configuration(dict):
         Reload all configuration files
         """
         Configuration.default.reload()
+        Configuration.distribution.reload()
         Configuration.system.reload()
         Configuration.remote.reload()
         for cfg in Configuration.xdg_configs:
