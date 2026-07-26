@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.6a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.6a1) (2026-07-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.5a1...2.3.6a1)
+
+**Merged pull requests:**
+
+- fix: reload the distribution config layer in Configuration.reload\(\) [\#281](https://github.com/OpenVoiceOS/ovos-config/pull/281) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.5a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.5a1) (2026-07-24)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.3a1...2.3.5a1)
