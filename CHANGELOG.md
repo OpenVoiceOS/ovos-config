@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.7a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.7a1) (2026-08-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.6a1...2.3.7a1)
+
+**Merged pull requests:**
+
+- fix: user config must win over /etc/xdg, not lose to it [\#284](https://github.com/OpenVoiceOS/ovos-config/pull/284) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.6a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.6a1) (2026-07-26)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.5a1...2.3.6a1)
