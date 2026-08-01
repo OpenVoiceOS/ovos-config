@@ -90,14 +90,17 @@ def get_webcache_location():
 
 
 def get_xdg_config_locations():
-    """ return list of possible XDG config full file paths taking into account ovos.conf """
-    # This includes both the user config and
-    # /etc/xdg/mycroft/mycroft.conf
-    xdg_paths = list(reversed(
-        [join(p, _ovos_config.get_config_filename())
-         for p in get_xdg_config_dirs()]
-    ))
-    return xdg_paths
+    """Return the XDG config file paths, in merge order.
+
+    The list runs from lowest to highest precedence, ie the way
+    ``Configuration`` merges them: system-wide XDG dirs first, then
+    ``$XDG_CONFIG_HOME`` last. The user's own file is therefore the last
+    entry, and it wins.
+
+    This includes both the user config and /etc/xdg/mycroft/mycroft.conf.
+    """
+    return [join(p, _ovos_config.get_config_filename())
+            for p in get_xdg_config_dirs()]
 
 
 def find_default_config():

@@ -37,7 +37,8 @@ class Configuration(dict):
     system = MycroftSystemConfig()
     remote = RemoteConf()
     # This includes both the user config and
-    # /etc/xdg/mycroft/mycroft.conf
+    # /etc/xdg/mycroft/mycroft.conf, in merge order: the user's own file is
+    # last, so it wins over the system-wide XDG dirs
     xdg_configs = [LocalConf(p) for p in get_xdg_config_locations()]
     _watchdog = None
     _callbacks = []
