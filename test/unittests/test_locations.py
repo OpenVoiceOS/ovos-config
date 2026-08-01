@@ -11,6 +11,44 @@ class TestLocations(TestCase):
         directories = get_xdg_config_dirs("test")
         self.assertIn(expanduser("~/.config/test"), directories)
 
+    def test_xdg_config_locations_are_in_merge_order(self):
+        # Configuration merges this list left to right, so the last entry
+        # wins. Per the XDG base directory spec that must be the user's own
+        # $XDG_CONFIG_HOME file, not a system-wide dir such as /etc/xdg.
+        from ovos_config.locations import get_xdg_config_locations, \
+            get_xdg_config_save_path
+        from ovos_config.meta import get_config_filename
+        locations = get_xdg_config_locations()
+        user_config = join(get_xdg_config_save_path(), get_config_filename())
+        self.assertEqual(locations[-1], user_config)
+
+    def test_user_config_overrides_etc_xdg(self):
+        # regression: get_xdg_config_locations() used to return the user file
+        # first, which meant /etc/xdg/mycroft/mycroft.conf silently won.
+        import json
+        import tempfile
+        from ovos_config.config import Configuration
+        from ovos_config.models import LocalConf
+
+        with tempfile.TemporaryDirectory() as tmp:
+            etc_xdg = join(tmp, "etc-xdg.conf")
+            user = join(tmp, "user.conf")
+            with open(etc_xdg, "w") as f:
+                json.dump({"lang": "de-DE"}, f)
+            with open(user, "w") as f:
+                json.dump({"lang": "pt-PT"}, f)
+
+            old = Configuration.xdg_configs
+            try:
+                # merge order: system-wide XDG dirs first, user's own last
+                Configuration.xdg_configs = [LocalConf(etc_xdg),
+                                             LocalConf(user)]
+                Configuration.clear_cache()
+                self.assertEqual(Configuration()["lang"], "pt-PT")
+            finally:
+                Configuration.xdg_configs = old
+                Configuration.clear_cache()
+
     def test_get_data_dirs(self):
         from ovos_config.locations import get_xdg_data_dirs
         directories = get_xdg_data_dirs("test")
