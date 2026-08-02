@@ -1,6 +1,0 @@
-coveralls
-flake8
-pytest
-pytest-cov
-cov-core
-ovos-bus-client

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ovos-config"
+dynamic = ["version"]
+description = "ovos-core configuration module"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [{name = "jarbasAI", email = "jarbas@openvoiceos.com"}]
+requires-python = ">=3.9"
+dependencies = [
+    "PyYAML>=5.4.0,<7.0.0",
+    "combo_lock~=0.3",
+    "python-dateutil~=2.9",
+    "ovos-utils>=0.0.37,<1.0.0",
+    "rich-click~=1.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/OpenVoiceOS/ovos-config"
+Repository = "https://github.com/OpenVoiceOS/ovos-config"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+    "ovos-bus-client",
+]
+
+[project.scripts]
+ovos-config = "ovos_config.__main__:config"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["ovos_config*"]
+
+[tool.setuptools.package-data]
+ovos_config = ["*.conf", "recommends/**/*.conf"]
+
+[tool.setuptools.dynamic]
+version = {attr = "ovos_config.version.__version__"}
