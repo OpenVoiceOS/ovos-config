@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.8a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.8a2) (2026-08-02)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.7a1...2.3.8a2)
+
+**Merged pull requests:**
+
+- chore: pyproject-only packaging and the shared workflows [\#286](https://github.com/OpenVoiceOS/ovos-config/pull/286) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.7a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.7a1) (2026-08-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.6a1...2.3.7a1)
