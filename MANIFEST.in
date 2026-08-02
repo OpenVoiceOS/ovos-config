@@ -1,0 +1,6 @@
+# setup.py reads the requirements files at build time, so an sdist without
+# them cannot be built into a wheel, and a source install fails.
+include requirements/*.txt
+include README.md
+include LICENSE
+recursive-include ovos_config *.conf *.json *.yml *.yaml
