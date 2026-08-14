@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.9a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.9a1) (2026-08-14)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.8a2...2.3.9a1)
+
+**Merged pull requests:**
+
+- fix: add padatious medium stage to shipped pipelines [\#289](https://github.com/OpenVoiceOS/ovos-config/pull/289) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.8a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.8a2) (2026-08-02)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.7a1...2.3.8a2)
