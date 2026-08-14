@@ -41,8 +41,10 @@ class _ConfigurationMeta(type):
 
     def __setattr__(cls, name, value):
         super().__setattr__(name, value)
-        if name != "_merged_cache":
+        if name not in ("_merged_cache", "_cache_generation"):
             super().__setattr__("_merged_cache", None)
+            super().__setattr__("_cache_generation",
+                                cls.__dict__.get("_cache_generation", 0) + 1)
 
 
 class Configuration(dict, metaclass=_ConfigurationMeta):
@@ -70,6 +72,11 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
     # outside the patch mechanisms (see pop()), which is what makes the
     # shared cached dict safe.
     _merged_cache = None
+    # Bumped on every invalidation. An in-flight merge records the generation
+    # BEFORE it reads the layers and publishes only if the generation is
+    # unchanged -- a mutation that lands mid-merge would otherwise let the
+    # finished (stale) merge repopulate the memo.
+    _cache_generation = 0
 
     def __init__(self):
         super().__init__(**self.load_all_configs())
@@ -78,6 +85,24 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
     def _invalidate_cache():
         """Drop the memoized merge; the next access rebuilds it."""
         Configuration._merged_cache = None
+        Configuration._cache_generation += 1
+
+    @staticmethod
+    def _merged():
+        """Identity accessor for the memo (internal dict-method fast path)."""
+        return Configuration._merged_cache
+
+    @staticmethod
+    def _publish_cache(merged, generation):
+        """Store a finished merge unless an invalidation landed mid-merge.
+
+        A thread that merged against pre-mutation layer state must not
+        repopulate the memo after the mutation cleared it: publish only if
+        the generation recorded before the merge is still current. Refusing
+        publication just costs the next reader one rebuild.
+        """
+        if generation == Configuration._cache_generation:
+            Configuration._merged_cache = merged
 
     # dict methods
     def __setitem__(self, key, value):
@@ -92,25 +117,29 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
                                            {"config": {key: value}}))
 
     def __getitem__(self, item):
-        super().update(Configuration.load_all_configs())
+        super().update(Configuration._merged()
+                       or Configuration.load_all_configs())
         return super().get(item)
 
     def __str__(self):
-        super().update(Configuration.load_all_configs())
+        super().update(Configuration._merged()
+                       or Configuration.load_all_configs())
         try:
             return json.dumps(self, sort_keys=True)
         except:
             return super().__str__()
 
     def __dict__(self):
-        super().update(Configuration.load_all_configs())
+        super().update(Configuration._merged()
+                       or Configuration.load_all_configs())
         return self
 
     def __repr__(self):
         return self.__str__()
 
     def __iter__(self):
-        super().update(Configuration.load_all_configs())
+        super().update(Configuration._merged()
+                       or Configuration.load_all_configs())
         for k in super().__iter__():
             yield k
 
@@ -127,15 +156,18 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         self.__setitem__(key, None)
 
     def items(self):
-        super().update(Configuration.load_all_configs())
+        super().update(Configuration._merged()
+                       or Configuration.load_all_configs())
         return super().items()
 
     def keys(self):
-        super().update(Configuration.load_all_configs())
+        super().update(Configuration._merged()
+                       or Configuration.load_all_configs())
         return super().keys()
 
     def values(self):
-        super().update(Configuration.load_all_configs())
+        super().update(Configuration._merged()
+                       or Configuration.load_all_configs())
         return super().values()
 
     # config methods
@@ -173,6 +205,10 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         """
         Reload all configuration files
         """
+        # invalidate FIRST: if any layer reload below raises after another
+        # already succeeded, a memo invalidated only afterwards would keep
+        # describing the pre-reload layer state
+        Configuration._invalidate_cache()
         Configuration.default.reload()
         Configuration.distribution.reload()
         Configuration.system.reload()
@@ -204,9 +240,16 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         """
         # Custom constraints bypass the cache entirely (both read and
         # write): the memo is only valid for the default-constraints stack.
+        # The public API returns a top-level copy so a caller mutating the
+        # result cannot poison the memo (nested values remain shared under
+        # the documented read-only contract); the dict methods above use the
+        # identity-returning _merged() internally.
         custom_constraints = system_constraints is not None
-        if not custom_constraints and Configuration._merged_cache is not None:
-            return Configuration._merged_cache
+        generation = Configuration._cache_generation
+        if not custom_constraints:
+            cached = Configuration._merged()
+            if cached is not None:
+                return dict(cached)
 
         # system administrators can define different constraints in how
         # configurations are loaded
@@ -227,9 +270,10 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         # Merge all configs into one
         merged = Configuration.filter_and_merge(configs)
         if not custom_constraints:
-            # Benign race: two threads may rebuild concurrently; both results
-            # are correct and the last assignment wins.
-            Configuration._merged_cache = merged
+            Configuration._publish_cache(merged, generation)
+            # same copy-on-return as the hit path: the published memo must
+            # never be handed to a caller that could mutate it
+            return dict(merged)
         return merged
 
     @staticmethod

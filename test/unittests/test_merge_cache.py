@@ -33,21 +33,35 @@ class TestMergeCache(unittest.TestCase):
 
     def test_repeat_reads_serve_the_memo(self):
         Configuration = _config_cls()
-        first = Configuration.load_all_configs()
+        Configuration.load_all_configs()  # prime
+        memo = Configuration._merged()
+        self.assertIsNotNone(memo)
         for _ in range(10):
-            self.assertIs(Configuration.load_all_configs(), first,
-                          "clean memo must serve the same object")
+            self.assertEqual(Configuration.load_all_configs(), memo)
+            self.assertIs(Configuration._merged(), memo,
+                          "clean memo must survive repeat reads")
         cfg = Configuration()
         cfg["lang"]
-        self.assertIs(Configuration.load_all_configs(), first,
+        self.assertIs(Configuration._merged(), memo,
                       "getitem reads must not rebuild a clean memo")
+
+    def test_public_api_returns_a_safe_copy(self):
+        Configuration = _config_cls()
+        out = Configuration.load_all_configs()
+        memo = Configuration._merged()
+        self.assertIsNot(out, memo, "public API must not hand out the memo")
+        out["poisoned_key"] = True   # caller mutates the returned dict
+        self.assertNotIn("poisoned_key", Configuration.load_all_configs(),
+                         "caller mutation must not poison the memo")
 
     def test_setitem_invalidates_and_wins(self):
         Configuration = _config_cls()
         cfg = Configuration()
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
         cfg["unittest_marker"] = "before"
-        self.assertIsNot(Configuration.load_all_configs(), before,
+        Configuration.load_all_configs()
+        self.assertIsNot(Configuration._merged(), before,
                          "__setitem__ must invalidate the memo")
         self.assertEqual(cfg["unittest_marker"], "before")
         cfg["unittest_marker"] = "after"
@@ -56,21 +70,25 @@ class TestMergeCache(unittest.TestCase):
     def test_update_invalidates(self):
         Configuration = _config_cls()
         cfg = Configuration()
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
         cfg.update({"unittest_marker2": 1})
-        self.assertIsNot(Configuration.load_all_configs(), before)
+        Configuration.load_all_configs()
+        self.assertIsNot(Configuration._merged(), before)
         self.assertEqual(Configuration()["unittest_marker2"], 1)
 
     def test_patch_message_invalidates(self):
         Configuration = _config_cls()
         cfg = Configuration()
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
 
         class Msg:
             data = {"config": {"unittest_marker3": 42}}
 
         Configuration.patch(Msg())
-        self.assertIsNot(Configuration.load_all_configs(), before)
+        Configuration.load_all_configs()
+        self.assertIsNot(Configuration._merged(), before)
         self.assertEqual(cfg["unittest_marker3"], 42)
 
     def test_patch_clear_invalidates(self):
@@ -78,71 +96,112 @@ class TestMergeCache(unittest.TestCase):
         cfg = Configuration()
         cfg["unittest_marker4"] = "x"
         self.assertEqual(cfg["unittest_marker4"], "x")
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
 
         class Msg:
             data = {}
 
         Configuration.patch_clear(Msg())
-        self.assertIsNot(Configuration.load_all_configs(), before)
+        Configuration.load_all_configs()
+        self.assertIsNot(Configuration._merged(), before)
         self.assertIsNone(Configuration()["unittest_marker4"])
 
     def test_layer_swap_invalidates(self):
         """Direct class-attribute layer replacement (the test_locations /
         embedder pattern) must invalidate via the metaclass."""
         Configuration = _config_cls()
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
         old = Configuration.xdg_configs
         try:
             Configuration.xdg_configs = list(old)
-            self.assertIsNot(Configuration.load_all_configs(), before,
+            Configuration.load_all_configs()
+            self.assertIsNot(Configuration._merged(), before,
                              "layer swap must invalidate the memo")
         finally:
             Configuration.xdg_configs = old
 
     def test_reload_invalidates(self):
         Configuration = _config_cls()
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
         Configuration.reload()
-        self.assertIsNot(Configuration.load_all_configs(), before)
+        Configuration.load_all_configs()
+        self.assertIsNot(Configuration._merged(), before)
 
     def test_clear_cache_invalidates(self):
         Configuration = _config_cls()
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
         Configuration.clear_cache()
-        self.assertIsNot(Configuration.load_all_configs(), before)
+        Configuration.load_all_configs()
+        self.assertIsNot(Configuration._merged(), before)
 
     def test_file_change_invalidates(self):
         Configuration = _config_cls()
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
         # simulate the watchdog reporting a change on a real layer: force the
         # hash comparison to differ so the changed-file branch runs
         layer = Configuration.xdg_configs[-1]
         with patch.object(type(layer), "reload"), \
              patch("ovos_config.config.hash", side_effect=[1, 2], create=True):
             Configuration._on_file_change(layer.path)
-        self.assertIsNot(Configuration.load_all_configs(), before,
+        Configuration.load_all_configs()
+        self.assertIsNot(Configuration._merged(), before,
                          "a changed config file must invalidate the memo")
 
     def test_unchanged_file_keeps_memo(self):
         Configuration = _config_cls()
-        before = Configuration.load_all_configs()
+        Configuration.load_all_configs()
+        before = Configuration._merged()
         layer = Configuration.xdg_configs[-1]
         with patch.object(type(layer), "reload"), \
              patch("ovos_config.config.hash", side_effect=[7, 7], create=True):
             Configuration._on_file_change(layer.path)
-        self.assertIs(Configuration.load_all_configs(), before,
+        self.assertIs(Configuration._merged(), before,
                       "an unchanged file must not drop the memo")
 
     def test_custom_constraints_bypass_cache(self):
         Configuration = _config_cls()
-        cached = Configuration.load_all_configs()  # prime
+        Configuration.load_all_configs()  # prime
+        memo = Configuration._merged()
         bypass = Configuration.load_all_configs(
             {"disable_user_config": True, "disable_remote_config": True})
-        self.assertIsNot(bypass, cached,
+        self.assertIsNot(bypass, memo,
                          "constrained loads must not serve the default memo")
         # and must not poison it either
-        self.assertIs(Configuration.load_all_configs(), cached)
+        self.assertIs(Configuration._merged(), memo)
+
+    def test_partial_reload_failure_still_invalidates(self):
+        """reload() must invalidate even when a later layer reload raises
+        after an earlier one already succeeded."""
+        Configuration = _config_cls()
+        Configuration.load_all_configs()
+        self.assertIsNotNone(Configuration._merged())
+        with patch.object(type(Configuration.system), "reload",
+                          side_effect=RuntimeError("disk gone")):
+            with self.assertRaises(RuntimeError):
+                Configuration.reload()
+        self.assertIsNone(Configuration._merged(),
+                          "a failed reload must not leave a stale memo")
+
+    def test_stale_inflight_merge_is_not_published(self):
+        """A merge that started before an invalidation must not repopulate
+        the memo after it (generation guard)."""
+        Configuration = _config_cls()
+        generation = Configuration._cache_generation
+        stale = {"stale": True}
+        Configuration._invalidate_cache()          # lands mid-merge
+        Configuration._publish_cache(stale, generation)
+        self.assertIsNone(Configuration._merged(),
+                          "stale in-flight merge must be refused")
+        # a merge recorded AFTER the invalidation publishes fine
+        generation = Configuration._cache_generation
+        fresh = {"fresh": True}
+        Configuration._publish_cache(fresh, generation)
+        self.assertIs(Configuration._merged(), fresh)
 
 
 if __name__ == "__main__":
