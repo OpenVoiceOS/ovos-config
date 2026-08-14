@@ -28,7 +28,24 @@ from ovos_utils.log import LOG
 
 
 
-class Configuration(dict):
+class _ConfigurationMeta(type):
+    """Invalidate the merged-config memo when a layer is swapped.
+
+    Tests and embedders replace config layers by direct class-attribute
+    assignment (``Configuration.default = LocalConf(...)``,
+    ``Configuration.xdg_configs = [...]``) -- a mutation the method-level
+    hooks cannot observe. Any class attribute assignment except the memo
+    itself drops the memo; spurious invalidations (e.g. assigning ``bus``)
+    just cost one rebuild on the next read.
+    """
+
+    def __setattr__(cls, name, value):
+        super().__setattr__(name, value)
+        if name != "_merged_cache":
+            super().__setattr__("_merged_cache", None)
+
+
+class Configuration(dict, metaclass=_ConfigurationMeta):
     """Namespace for operations on the configuration singleton."""
     __patch = LocalConf(None)  # Patch config that skills can update to override config
     bus = None
@@ -42,13 +59,30 @@ class Configuration(dict):
     xdg_configs = [LocalConf(p) for p in get_xdg_config_locations()]
     _watchdog = None
     _callbacks = []
+    # Memoized result of load_all_configs() under default constraints.
+    # Every mutation path (patch/setitem/update, reload, watchdog file
+    # change, remote reload, bus updates) funnels through methods of this
+    # class, each of which calls _invalidate_cache() -- so a clean cache is
+    # always current. Rebuilding the merge on EVERY key access costs ~75us
+    # (dozens of merge_dict calls); constructing one ovos-bus-client Session
+    # reads ~13 keys, i.e. ~1 ms of pure re-merging per session, on every
+    # utterance, in every OVOS process. The config contract is read-only
+    # outside the patch mechanisms (see pop()), which is what makes the
+    # shared cached dict safe.
+    _merged_cache = None
 
     def __init__(self):
         super().__init__(**self.load_all_configs())
 
+    @staticmethod
+    def _invalidate_cache():
+        """Drop the memoized merge; the next access rebuilds it."""
+        Configuration._merged_cache = None
+
     # dict methods
     def __setitem__(self, key, value):
         Configuration.__patch[key] = value
+        Configuration._invalidate_cache()
         super().__setitem__(key, value)
         # sync with other processes connected to bus
         if Configuration.bus:
@@ -82,6 +116,7 @@ class Configuration(dict):
 
     def update(self, *args, **kwargs):
         Configuration.__patch.update(*args, **kwargs)
+        Configuration._invalidate_cache()
         super().update(*args, **kwargs)
 
     def pop(self, key):
@@ -130,6 +165,7 @@ class Configuration(dict):
         Remove any configuration patches and reload configuration
         """
         Configuration.__patch = {}
+        Configuration._invalidate_cache()
         Configuration.reload()
 
     @staticmethod
@@ -143,6 +179,7 @@ class Configuration(dict):
         Configuration.remote.reload()
         for cfg in Configuration.xdg_configs:
             cfg.reload()
+        Configuration._invalidate_cache()
 
     @staticmethod
     def get_system_constraints() -> dict:
@@ -165,6 +202,12 @@ class Configuration(dict):
         @param system_constraints: constraints to limit user/remote config usage
         @return: merged dict of all configuration files
         """
+        # Custom constraints bypass the cache entirely (both read and
+        # write): the memo is only valid for the default-constraints stack.
+        custom_constraints = system_constraints is not None
+        if not custom_constraints and Configuration._merged_cache is not None:
+            return Configuration._merged_cache
+
         # system administrators can define different constraints in how
         # configurations are loaded
         system_constraints = system_constraints or \
@@ -182,7 +225,12 @@ class Configuration(dict):
         configs.append(Configuration.__patch)
 
         # Merge all configs into one
-        return Configuration.filter_and_merge(configs)
+        merged = Configuration.filter_and_merge(configs)
+        if not custom_constraints:
+            # Benign race: two threads may rebuild concurrently; both results
+            # are correct and the last assignment wins.
+            Configuration._merged_cache = merged
+        return merged
 
     @staticmethod
     def filter_and_merge(configs) -> dict:
@@ -301,6 +349,7 @@ class Configuration(dict):
             LOG.debug(f"Ignoring non-config file change: {path}")
             return
 
+        Configuration._invalidate_cache()
         LOG.info(f'{path} changed on disk')
         LOG.debug(f"Calling {len(Configuration._callbacks)} callbacks")
         for handler in Configuration._callbacks:
@@ -335,6 +384,7 @@ class Configuration(dict):
         Triggers an update of remote config.
         """
         Configuration.remote.reload()
+        Configuration._invalidate_cache()
 
     @staticmethod
     def updated(message):
@@ -355,6 +405,7 @@ class Configuration(dict):
         config = message.data.get("config", {})
         for k, v in config.items():
             Configuration.__patch[k] = v
+        Configuration._invalidate_cache()
 
     @staticmethod
     def patch_clear(message):
@@ -365,11 +416,13 @@ class Configuration(dict):
                      in the data payload.
         """
         Configuration.__patch = {}
+        Configuration._invalidate_cache()
 
     # Backwards compat methods
     @staticmethod
     def clear_cache(message=None):
-        """DEPRECATED - there is no cache anymore """
+        """Drop the memoized merged config and reload from disk."""
+        Configuration._invalidate_cache()
         Configuration.updated(message)
 
 
