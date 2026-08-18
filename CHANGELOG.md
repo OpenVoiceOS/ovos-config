@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.9a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.9a2) (2026-08-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.9a1...2.3.9a2)
+
+**Merged pull requests:**
+
+- perf: memoize the merged config stack [\#288](https://github.com/OpenVoiceOS/ovos-config/pull/288) ([goldyfruit](https://github.com/goldyfruit))
+
 ## [2.3.9a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.9a1) (2026-08-14)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.8a2...2.3.9a1)
