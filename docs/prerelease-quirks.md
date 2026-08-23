@@ -4,6 +4,25 @@ Behavior changes since the last stable release, newest first. This file is
 reset at each stable release; entries that remove or deprecate behavior
 become the deprecation ledger for the next semver cycle.
 
+## 2.3.9a2
+
+- `Configuration` memoizes the merged config stack instead of re-merging
+  the layers on every read (key reads went from ~75µs to ~0.44µs). Every
+  mutation path invalidates the memo: `patch`/`__setitem__`/`update`,
+  `reload`, the filewatcher on config-file change, `handle_remote_update`,
+  bus `configuration.patch*` messages, and direct layer swaps through the
+  metaclass (`Configuration.default = ...`, `Configuration.xdg_configs =
+  ...`). `Configuration.clear_cache()` is no longer a deprecated no-op:
+  it drops the memoized merge and reloads. `load_all_configs()` now
+  returns a shallow copy of the memo, so a caller mutating the returned
+  top-level dict no longer corrupts the cache for subsequent reads.
+  Known nit: memo validity is checked with `is not None`, so a memoized
+  empty merge (`{}`) would be served indefinitely instead of triggering a
+  rebuild. Unreachable in practice — the baked-in default layer is never
+  empty, so `filter_and_merge` cannot produce `{}` — but the sentinel
+  should be a private marker rather than `None` if that invariant ever
+  weakens.
+
 ## 2.3.8a3
 
 - The default `intents.pipeline` list now includes
