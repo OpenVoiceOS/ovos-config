@@ -294,6 +294,36 @@ class TestConfiguration(TestCase):
         callback.assert_called_once()
         self.assertFalse(config['testing'])
 
+    def test_config_created_after_boot_is_watched(self):
+        """A config file that does not exist yet must still be watched.
+
+        A device that has never been configured has no user config. If the
+        watcher only ever looks at files that already exist, the very first
+        write to it is invisible and every running service keeps the old
+        values until it restarts -- which is the one write a new device is
+        guaranteed to make.
+        """
+        test_file = join(self.test_dir, "mycroft", "mycroft.conf")
+        if isfile(test_file):
+            os.remove(test_file)  # a device that has never been configured
+
+        import ovos_config
+        importlib.reload(ovos_config.config)
+        from ovos_config.config import Configuration
+        config = Configuration()
+        self.assertIn(test_file, [c.path for c in config.xdg_configs])
+
+        called = Event()
+        callback = Mock(side_effect=lambda: called.set())
+        config.set_config_watcher(callback)
+
+        with open(test_file, 'w') as f:
+            json.dump({"testing": True}, f)
+
+        self.assertTrue(called.wait(5),
+                        "creating the config did not reach the watcher")
+        self.assertTrue(config['testing'])
+
     def test_on_file_changes_not_called(self):
         import ovos_config
         importlib.reload(ovos_config.config)

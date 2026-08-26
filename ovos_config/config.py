@@ -13,7 +13,6 @@
 # limitations under the License.
 #
 import json
-from os.path import isfile
 from typing import Optional
 
 from ovos_config.models import LocalConf, MycroftDefaultConfig, \
@@ -360,9 +359,13 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         if callback and callback not in Configuration._callbacks:
             Configuration._callbacks.append(callback)
         if not Configuration._watchdog:
+            # Watch every configuration path, including the ones that do not
+            # exist yet: a device that has never been configured has no user
+            # config, and the first write to it is the one write it is certain
+            # to make. FileWatcher watches the parent directory and filters by
+            # name, and declines on its own when that directory is missing.
             Configuration._watchdog = FileWatcher(
-                [p for p in paths if isfile(p)],
-                Configuration._on_file_change
+                paths, Configuration._on_file_change
             )
 
     @staticmethod
