@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.11a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.11a2) (2026-08-31)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.11a1...2.3.11a2)
+
+**Merged pull requests:**
+
+- docs: add AGENTS.md with the conventions for coding agents [\#300](https://github.com/OpenVoiceOS/ovos-config/pull/300) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.11a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.11a1) (2026-08-26)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.10a2...2.3.11a1)
