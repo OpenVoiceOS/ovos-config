@@ -14,7 +14,6 @@
 #
 import json
 import warnings
-from os.path import isfile
 from typing import Optional
 
 from ovos_config.locations import get_xdg_config_locations
@@ -418,13 +417,8 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         # observing Configuration._callbacks see it without racing
         if callback and callback not in Configuration._callbacks:
             Configuration._callbacks.append(callback)
-        # ensure the runtime/assistant config exists so the watcher can track it
-        # (OVOS writes runtime changes here via update_assistant_config)
-        if not isfile(Configuration.assistant.path):
-            Configuration.assistant.store()
         paths = [Configuration.distribution.path, Configuration.system.path, Configuration.assistant.path] + \
                 [c.path for c in Configuration.xdg_configs]
-        watched = [p for p in paths if isfile(p)]
         if not Configuration._watchdog:
             # Watch every configuration path, including the ones that do not
             # exist yet: a device that has never been configured has no user
@@ -432,7 +426,7 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
             # to make. FileWatcher watches the parent directory and filters by
             # name, and declines on its own when that directory is missing.
             Configuration._watchdog = FileWatcher(
-                watched,
+                paths,
                 Configuration._on_file_change
             )
 
