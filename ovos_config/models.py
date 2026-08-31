@@ -13,6 +13,7 @@
 # limitations under the License.
 #
 import json
+import os
 import warnings
 from os.path import exists, isfile, getmtime
 from time import time
@@ -173,6 +174,31 @@ class SystemConfig(ReadOnlyConfig):
 class AssistantConfig(LocalConf):
     def __init__(self):
         super().__init__(ASSISTANT_CONFIG)
+        self._migrate_webcache()
+
+    def _migrate_webcache(self):
+        """One-time migration of the deprecated remote config cache
+        (``web_cache.json``, eg. location data written by plugins such as
+        ovos-phal-plugin-ipgeo) into this layer.
+
+        The remote config layer was dropped from the merge stack, so a
+        populated ``web_cache.json`` would otherwise silently stop being
+        read. Existing keys in this config always win. The cache file is
+        renamed away once merged so this only ever runs once; a stale
+        writer recreating it just re-triggers a harmless re-merge on the
+        next boot.
+        """
+        if not isfile(WEB_CONFIG_CACHE):
+            return
+        cache = load_commented_json(WEB_CONFIG_CACHE)
+        if cache:
+            merge_dict(self, cache, new_only=True)
+            self.store()
+            LOG.info(f"migrated {WEB_CONFIG_CACHE} into {self.path}")
+        try:
+            os.rename(WEB_CONFIG_CACHE, WEB_CONFIG_CACHE + ".migrated")
+        except OSError:
+            LOG.exception(f"failed to rename legacy config cache {WEB_CONFIG_CACHE}")
 
 
 class UserConfig(LocalConf):
