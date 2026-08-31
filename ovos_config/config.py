@@ -14,6 +14,7 @@
 #
 import json
 import warnings
+from copy import deepcopy
 from typing import Optional
 
 from ovos_config.locations import get_xdg_config_locations
@@ -373,19 +374,33 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         system_conf = Configuration.get_system_constraints()
         protected_keys = system_conf.get("protected_keys") or {}
         protected_user = protected_keys.get("user") or []
+        protected_assistant = protected_keys.get("assistant") or []
         skip_user = system_conf.get("disable_user_config", False)
 
         # Merge all configs into one
         base = {}
         for cfg in configs:
-            is_user = cfg.path is None or cfg.path not in [Configuration.default.path,
-                                                           Configuration.system.path]
+            # the assistant layer (runtime.conf) has its own protection list,
+            # separate from "user": protected_keys.user / disable_user_config
+            # no longer apply to it. everything else -- including the
+            # distribution config and the runtime patch layer -- keeps being
+            # classified as "user", as before.
+            is_assistant = cfg.path == Configuration.assistant.path
+            is_user = not is_assistant and (
+                cfg.path is None or cfg.path not in [Configuration.default.path,
+                                                     Configuration.system.path])
             if is_user and skip_user:
                 continue
-            elif is_user:
-                # delete protected keys from user config
-                for protection in protected_user:
-                    flattened_delete(cfg, protection)
+            protection = protected_assistant if is_assistant else \
+                protected_user if is_user else []
+            if protection:
+                # filter a COPY: hiding a protected key from the merged view
+                # must not mutate the layer object itself, or a later
+                # cfg.store() (eg. update_assistant_config) would persist the
+                # deletion to disk
+                cfg = deepcopy(dict(cfg))
+                for key in protection:
+                    flattened_delete(cfg, key)
             merge_dict(base, cfg)
         return base
 
@@ -522,9 +537,30 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
         Configuration.updated(message)
 
 
+def _has_flattened_key(d: dict, key: str, separator: str = ":") -> bool:
+    """Check whether the "a:b:c" style nested key path used by
+    flattened_delete is present in ``d``."""
+    node = d
+    for part in key.split(separator):
+        if not isinstance(node, dict) or part not in node:
+            return False
+        node = node[part]
+    return True
+
+
 def update_assistant_config(config, bus=None):
     """updates the assistant config file (ASSISTANT_CONFIG / runtime.conf)
     with the contents of the provided dict"""
+    protected = (Configuration.get_system_constraints()
+                .get("protected_keys") or {}).get("assistant") or []
+    if protected:
+        stripped = [key for key in protected if _has_flattened_key(config, key)]
+        if stripped:
+            config = deepcopy(config)
+            for key in stripped:
+                flattened_delete(config, key)
+            LOG.warning(f"refusing to let the assistant write protected "
+                       f"config keys: {stripped}")
     # build a fresh instance loaded straight from disk instead of merging
     # into the long-lived Configuration.assistant singleton: another
     # process may have written (or removed) keys since this process last
