@@ -525,9 +525,19 @@ class Configuration(dict, metaclass=_ConfigurationMeta):
 def update_assistant_config(config, bus=None):
     """updates the assistant config file (ASSISTANT_CONFIG / runtime.conf)
     with the contents of the provided dict"""
-    conf = Configuration.assistant
+    # build a fresh instance loaded straight from disk instead of merging
+    # into the long-lived Configuration.assistant singleton: another
+    # process may have written (or removed) keys since this process last
+    # touched the file, and merging into the stale in-memory copy would
+    # both lose those writes and resurrect keys the other process deleted.
+    conf = AssistantConfig()
     conf.merge(config)
     conf.store()
+    # keep the singleton coherent with what is now on disk
+    Configuration.assistant.clear()
+    Configuration.assistant.update(conf)
+    Configuration.assistant._last_loaded = conf._last_loaded
+    Configuration._invalidate_cache()
     if bus:  # inform all Configuration objects connected to the bus
         # imported from ovos_utils to allow FakeMessage if ovos-bus-client is missing
         from ovos_utils.fakebus import Message
