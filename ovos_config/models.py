@@ -190,7 +190,12 @@ class AssistantConfig(LocalConf):
         """
         if not isfile(WEB_CONFIG_CACHE):
             return
-        cache = load_commented_json(WEB_CONFIG_CACHE)
+        try:
+            cache = load_commented_json(WEB_CONFIG_CACHE)
+        except OSError:
+            # gone (or never really there) between the isfile check above
+            # and this read, eg. a concurrent process already migrated it
+            return
         if cache:
             merge_dict(self, cache, new_only=True)
             self.store()
