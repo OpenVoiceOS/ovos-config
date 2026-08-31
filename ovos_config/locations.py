@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
+import warnings
 from os.path import join, dirname, expanduser, exists, isfile
 from time import sleep
 import ovos_config.meta as _ovos_config
+from ovos_config._deprecation import NEXT_MAJOR_VERSION
 from ovos_utils.xdg_utils import xdg_config_dirs, xdg_config_home, xdg_data_dirs, xdg_data_home, xdg_cache_home
 
 
@@ -56,6 +58,7 @@ def find_user_config():
         return path
     old, path = get_config_locations(default=False, web_cache=False,
                                      distribution=False, system=False,
+                                     assistant=False,
                                      old_user=True, user=True)
     if isfile(path):
         return path
@@ -65,7 +68,7 @@ def find_user_config():
 
 
 def get_config_locations(default=True, web_cache=True, distribution=True,
-                         system=True, old_user=True, user=True):
+                         system=True, assistant=True, old_user=True, user=True):
     """return list of all possible config files paths sorted by priority taking into account ovos.conf"""
     locs = []
     ovos_cfg = _ovos_config.get_ovos_config()
@@ -79,6 +82,8 @@ def get_config_locations(default=True, web_cache=True, distribution=True,
         locs.append(get_webcache_location())
     if old_user:
         locs.append(f"~/.{ovos_cfg['base_folder']}/{ovos_cfg['config_filename']}")
+    if assistant:
+        locs.append(join(get_xdg_config_save_path(), "runtime.conf"))
     if user:
         locs.append(f"{get_xdg_config_save_path()}/{ovos_cfg['config_filename']}")
     return locs
@@ -86,6 +91,12 @@ def get_config_locations(default=True, web_cache=True, distribution=True,
 
 def get_webcache_location():
     """ return remote config cache full file path taking into account ovos.conf """
+    warnings.warn(
+        f"get_webcache_location is deprecated without replacement, OVOS no "
+        f"longer supports remote config. will be removed in version {NEXT_MAJOR_VERSION}",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return join(get_xdg_config_save_path(), 'web_cache.json')
 
 
@@ -105,6 +116,13 @@ def get_xdg_config_locations():
 
 def find_default_config():
     """return the bundled file in ovos_config package"""
+    warnings.warn(
+        f"find_default_config is deprecated, use "
+        f"'from ovos_config.locations import USER_CONFIG'. "
+        f"will be removed in version {NEXT_MAJOR_VERSION}",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return join(dirname(__file__), "mycroft.conf")
 
 
@@ -115,16 +133,19 @@ DISTRIBUTION_CONFIG = os.environ.get('OVOS_DISTRIBUTION_CONFIG',
 SYSTEM_CONFIG = os.environ.get('MYCROFT_SYSTEM_CONFIG',
                                f'/etc/{_ovos_config.get_xdg_base()}/'
                                f'{_ovos_config.get_config_filename()}')
-# TODO: remove in 22.02
-# Make sure we support the old location still
-# Deprecated and will be removed eventually
+USER_CONFIG = join(get_xdg_config_save_path(), _ovos_config.get_config_filename())
+ASSISTANT_CONFIG = join(get_xdg_config_save_path(), "runtime.conf") # for plugins/skills to store changes
+# kept for backwards compat with the deprecated RemoteConf, computed inline to
+# avoid emitting the get_webcache_location deprecation warning on import
+WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE') or \
+                   join(get_xdg_config_save_path(), 'web_cache.json')
+# kept for backwards compat only; still returned by get_config_locations()
+# (default old_user=True) but no longer part of the merge stack in
+# load_all_configs()
 OLD_USER_CONFIG = join(expanduser('~'), '.' + _ovos_config.get_xdg_base(),
                        _ovos_config.get_config_filename())
-USER_CONFIG = join(get_xdg_config_save_path(),
-                   _ovos_config.get_config_filename())
+# kept for backwards compat only, remote config support has been removed
 REMOTE_CONFIG = "mycroft.ai"
-WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE') or \
-                   get_webcache_location()
 
 
 def __ensure_folder_exists(path):
@@ -145,6 +166,4 @@ def __ensure_folder_exists(path):
                 except Exception as e:
                     pass
 
-
-__ensure_folder_exists(WEB_CONFIG_CACHE)
 __ensure_folder_exists(USER_CONFIG)

@@ -93,12 +93,13 @@ class TestLocations(TestCase):
         webcache_loc.return_value = "webcache"
         from ovos_config.locations import get_config_locations
         self.assertEqual(get_config_locations(False, False, False,
-                                              False, False, False
+                                              False, False, False, False
                                               ), list())
         self.assertEqual(get_config_locations(),
                          ['/test/default.yml', '/usr/share/test/test.yaml',
                           '/etc/test/test.yaml', 'webcache',
-                          '~/.test/test.yaml', 'config/test.yaml'])
+                          '~/.test/test.yaml', 'config/runtime.conf',
+                          'config/test.yaml'])
 
 
     @mock.patch("ovos_config.meta.get_config_filename")
@@ -126,16 +127,14 @@ class TestLocations(TestCase):
 
         # Test all config paths respect environment overrides/configured values
         from ovos_config.locations import DEFAULT_CONFIG, DISTRIBUTION_CONFIG, \
-            SYSTEM_CONFIG, OLD_USER_CONFIG, USER_CONFIG, REMOTE_CONFIG, \
-            WEB_CONFIG_CACHE
+            SYSTEM_CONFIG, ASSISTANT_CONFIG, USER_CONFIG, WEB_CONFIG_CACHE
 
         self.assertEqual(DISTRIBUTION_CONFIG, "mycroft/distribution/config")
         self.assertEqual(SYSTEM_CONFIG, "mycroft/system/config")
-        self.assertEqual(OLD_USER_CONFIG,
-                         expanduser("~/.test/test.yaml"))
         self.assertEqual(USER_CONFIG, join(dirname(__file__), "test_config",
                                            "test/test.yaml"))
-        self.assertEqual(REMOTE_CONFIG, "mycroft.ai")
+        self.assertEqual(ASSISTANT_CONFIG,  join(dirname(__file__), "test_config",
+                                           "test/runtime.conf"))
         self.assertEqual(WEB_CONFIG_CACHE, "mycroft/web/config")
 
 

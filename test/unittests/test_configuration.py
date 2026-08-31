@@ -1,14 +1,14 @@
 import importlib
 import logging
 import shutil
-from time import sleep
+import time
 
 import yaml
 import os
 import json
 
-from unittest.mock import MagicMock, patch, Mock
-from unittest import TestCase, skip
+from unittest.mock import patch, Mock
+from unittest import TestCase
 from threading import Event, Thread
 from os.path import dirname, isfile, join
 from typing import OrderedDict
@@ -36,23 +36,23 @@ class TestConfiguration(TestCase):
 
     def tearDown(self):
         from ovos_config.config import Configuration
-        Configuration.load_config_stack([{}], True)
+        Configuration.load_config_stack([{}])
+        # Give file watcher time to initialize
+        time.sleep(0.1)
         Configuration._callbacks = []
-
-    @patch('mycroft.api.DeviceApi')
-    @skip("requires backend to be enabled, TODO refactor test!")
-    def test_remote(self, mock_api):
-        from ovos_config.models import RemoteConf
-        remote_conf = {'TestConfig': True, 'uuid': 1234}
-        remote_location = {'city': {'name': 'Stockholm'}}
-        dev_api = MagicMock()
-        dev_api.get_settings.return_value = remote_conf
-        dev_api.get_location.return_value = remote_location
-        mock_api.return_value = dev_api
-
-        rc = RemoteConf()
-        self.assertTrue(rc['test_config'])
-        self.assertEqual(rc['location']['city']['name'], 'Stockholm')
+        # Some tests (eg. test_config_patches_filewatch,
+        # test_on_file_change) start a FileWatcher/Observer that is never
+        # otherwise stopped. Because ``importlib.reload(ovos_config.config)``
+        # re-executes the module in place, any leaked watcher's
+        # ``_on_file_change`` staticmethod resolves the module-global name
+        # ``Configuration`` at call time -- meaning a stale watcher from a
+        # previous test ends up dispatching against the *current* (possibly
+        # reloaded) ``Configuration`` state, double-firing callbacks
+        # registered by later tests. Shut the watchdog down and clear it so
+        # it can't outlive this test.
+        if Configuration._watchdog:
+            Configuration._watchdog.shutdown()
+            Configuration._watchdog = None
 
     @patch('json.dump')
     @patch('ovos_config.models.exists')
@@ -148,11 +148,9 @@ class TestConfiguration(TestCase):
         test_dir = join(dirname(__file__), "config_stack")
         default_config = LocalConf(join(test_dir, "default.yaml"))
         system_config = LocalConf(join(test_dir, "system.yaml"))
-        remote_config = LocalConf(join(test_dir, "remote.yaml"))
         user_config = LocalConf(join(test_dir, "user.yaml"))
         Configuration.default = default_config
         Configuration.system = system_config
-        Configuration.remote = remote_config
         Configuration.xdg_configs = [user_config]
         Configuration.__patch = LocalConf(None)
         Configuration._old_user = LocalConf(None)
@@ -166,18 +164,17 @@ class TestConfiguration(TestCase):
                                                  "from_usr": False})
         # Test default constraints (overridden)
         self.assertEqual(config["default_spec"], {"from_sys": True,
-                                                  "from_rem": True,
+                                                  "from_rem": False,
                                                   "from_usr": True})
         # Test nested constraints
         self.assertEqual(config["test"], {"default": True,
                                           "system": True,
                                           "user": True,
-                                          "remote": True})
+                                          "remote": False})
         # Test non-overridden default config
         self.assertEqual(config["default_only"], "default")
         # Test protected key is undefined
         self.assertFalse("user_only" in config)
-        self.assertEqual(config["remote_only"], "remote")
 
     def test_config_patches_filewatch(self):
         event = Event()
@@ -370,3 +367,300 @@ class TestConfiguration(TestCase):
         self.assertEqual(len(config._callbacks), 1)
         config.set_config_watcher(callback)
         self.assertEqual(len(config._callbacks), 1)
+
+
+class TestMycroftConfigUpdateRegression(TestCase):
+    """
+    Regression tests for the update_mycroft_config / update_assistant_config
+    layering bug: update_mycroft_config must keep writing to USER_CONFIG (or
+    an explicit path), NEVER to the assistant/runtime layer, since USER
+    outranks ASSISTANT in the merge order and a silent redirect makes every
+    existing caller a no-op whenever the key is already set by the user.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._orig_environ = dict(os.environ)
+        cls.tmp_dir = join(dirname(__file__), "test_config", "mycroft_update_regression")
+        os.makedirs(cls.tmp_dir, exist_ok=True)
+        for var in ("XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
+            os.environ[var] = cls.tmp_dir
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        os.environ.clear()
+        os.environ.update(cls._orig_environ)
+        shutil.rmtree(cls.tmp_dir, ignore_errors=True)
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    def test_update_mycroft_config_writes_user_not_runtime(self):
+        from ovos_config.config import Configuration, update_mycroft_config
+        from ovos_config.locations import USER_CONFIG, ASSISTANT_CONFIG
+
+        # tests in this class run in alphabetical order (unittest/pytest
+        # default), so runtime.conf may already exist from another test;
+        # what matters is that THIS call does not add/modify a "lang" key
+        # in the assistant layer
+        runtime_before = {}
+        if isfile(ASSISTANT_CONFIG):
+            with open(ASSISTANT_CONFIG) as f:
+                runtime_before = json.load(f) or {}
+        self.assertNotIn("lang", runtime_before)
+
+        with self.assertWarns(DeprecationWarning):
+            update_mycroft_config({"lang": "de-de"})
+
+        self.assertTrue(isfile(USER_CONFIG))
+        if isfile(ASSISTANT_CONFIG):
+            with open(ASSISTANT_CONFIG) as f:
+                runtime_after = json.load(f) or {}
+            self.assertNotIn("lang", runtime_after,
+                             "update_mycroft_config must not write to runtime.conf")
+
+        with open(USER_CONFIG) as f:
+            self.assertEqual(json.load(f).get("lang"), "de-de")
+
+        # merged Configuration() must reflect the change once the (in-memory)
+        # user config layer is reloaded from disk -- this is what the real
+        # FileWatcher does when USER_CONFIG changes on disk
+        Configuration.reload()
+        self.assertEqual(Configuration()["lang"], "de-de")
+
+    def test_update_mycroft_config_with_explicit_path(self):
+        from ovos_config.config import update_mycroft_config
+        from ovos_config.locations import USER_CONFIG
+
+        explicit_path = join(self.tmp_dir, "explicit.conf")
+        with self.assertWarns(DeprecationWarning):
+            conf = update_mycroft_config({"foo": "bar"}, path=explicit_path)
+
+        self.assertEqual(conf.path, explicit_path)
+        self.assertTrue(isfile(explicit_path))
+        with open(explicit_path) as f:
+            self.assertEqual(json.load(f).get("foo"), "bar")
+        # must not have touched the user config for this call
+        if isfile(USER_CONFIG):
+            with open(USER_CONFIG) as f:
+                self.assertNotIn("foo", json.load(f))
+
+    def test_update_assistant_config_writes_runtime_not_user(self):
+        from ovos_config.config import Configuration, update_assistant_config
+        from ovos_config.locations import USER_CONFIG, ASSISTANT_CONFIG
+
+        update_assistant_config({"secondary_lang": "pt-pt"})
+
+        self.assertTrue(isfile(ASSISTANT_CONFIG))
+        with open(ASSISTANT_CONFIG) as f:
+            self.assertEqual(json.load(f).get("secondary_lang"), "pt-pt")
+        if isfile(USER_CONFIG):
+            with open(USER_CONFIG) as f:
+                self.assertNotIn("secondary_lang", json.load(f))
+
+        # in-process read must reflect the change immediately, without
+        # needing a bus patch or the file watcher to intervene
+        self.assertEqual(Configuration.assistant.get("secondary_lang"), "pt-pt")
+        self.assertEqual(Configuration()["secondary_lang"], "pt-pt")
+
+    def test_get_config_locations_includes_assistant(self):
+        from ovos_config.locations import get_config_locations, ASSISTANT_CONFIG
+        locs = get_config_locations()
+        self.assertIn(ASSISTANT_CONFIG, locs)
+
+
+class TestPR194BackwardsCompat(TestCase):
+    """
+    Regression tests for PR #194 (feat/assistant_config). Per owner ruling,
+    remote config is dropped as a breaking change with no compat accessor:
+    ``Configuration.remote`` is simply gone. The renamed config classes
+    (MycroftDefaultConfig -> DefaultConfig, etc.) and the deprecated
+    ``load_config_stack``/``allow_overwrite`` call shapes still keep
+    working (with a DeprecationWarning) and are pinned here so a future
+    removal is caught by CI.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._orig_environ = dict(os.environ)
+        cls.tmp_dir = join(dirname(__file__), "test_config", "pr194_backcompat")
+        os.makedirs(cls.tmp_dir, exist_ok=True)
+        for var in ("XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
+            os.environ[var] = cls.tmp_dir
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        os.environ.clear()
+        os.environ.update(cls._orig_environ)
+        shutil.rmtree(cls.tmp_dir, ignore_errors=True)
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    def test_configuration_has_no_remote_attribute(self):
+        # per owner ruling on PR #194, remote config is a breaking change:
+        # no compat accessor is provided, accessing it is an AttributeError
+        from ovos_config.config import Configuration
+
+        with self.assertRaises(AttributeError):
+            Configuration.remote
+        with self.assertRaises(AttributeError):
+            Configuration().remote
+
+    def test_configuration_has_no_handle_remote_update(self):
+        from ovos_config.config import Configuration
+
+        self.assertFalse(hasattr(Configuration, "handle_remote_update"))
+
+    def test_load_config_stack_accepts_cache_and_remote_kwargs(self):
+        from ovos_config.config import Configuration
+
+        # must not raise TypeError for callers still passing the old kwargs
+        result = Configuration.load_config_stack(cache=True, remote=False)
+        self.assertIsInstance(result, dict)
+
+        # defaulted (not explicitly passed) call must still work too
+        result = Configuration.load_config_stack()
+        self.assertIsInstance(result, dict)
+
+    def test_mycroft_system_config_forwards_allow_overwrite(self):
+        from ovos_config.models import MycroftSystemConfig
+
+        with self.assertWarns(DeprecationWarning):
+            cfg = MycroftSystemConfig(allow_overwrite=True)
+        self.assertTrue(cfg.allow_overwrite)
+
+    def test_ovos_distribution_config_forwards_allow_overwrite(self):
+        from ovos_config.models import OvosDistributionConfig
+
+        with self.assertWarns(DeprecationWarning):
+            cfg = OvosDistributionConfig(allow_overwrite=True)
+        self.assertTrue(cfg.allow_overwrite)
+
+
+class TestDeprecationRemovalVersion(TestCase):
+    """
+    Every deprecated code path must state the version in which it will be
+    REMOVED, computed dynamically from ovos_config.version.VERSION_MAJOR
+    (never hardcoded), so the message can't drift out of sync with a real
+    version bump.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._orig_environ = dict(os.environ)
+        cls.tmp_dir = join(dirname(__file__), "test_config", "deprecation_version")
+        os.makedirs(cls.tmp_dir, exist_ok=True)
+        for var in ("XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
+            os.environ[var] = cls.tmp_dir
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        os.environ.clear()
+        os.environ.update(cls._orig_environ)
+        shutil.rmtree(cls.tmp_dir, ignore_errors=True)
+        import ovos_config
+        import ovos_config.locations
+        import ovos_config.models
+        import ovos_config.config
+        importlib.reload(ovos_config.locations)
+        importlib.reload(ovos_config.models)
+        importlib.reload(ovos_config.config)
+
+    def _expected_version(self):
+        from ovos_config.version import VERSION_MAJOR
+        from ovos_config._deprecation import NEXT_MAJOR_VERSION
+        self.assertEqual(NEXT_MAJOR_VERSION, f"{VERSION_MAJOR + 1}.0.0")
+        return NEXT_MAJOR_VERSION
+
+    def _assert_message_has_version(self, warning_ctx):
+        expected = self._expected_version()
+        messages = [str(w.message) for w in warning_ctx.warnings]
+        self.assertTrue(any(expected in m for m in messages),
+                        f"expected '{expected}' in one of {messages}")
+
+    def test_remote_conf_states_removal_version(self):
+        from ovos_config.models import RemoteConf
+        with self.assertWarns(DeprecationWarning) as ctx:
+            RemoteConf()
+        self._assert_message_has_version(ctx)
+
+    def test_renamed_config_classes_state_removal_version(self):
+        from ovos_config.models import (MycroftDefaultConfig,
+                                        OvosDistributionConfig,
+                                        MycroftSystemConfig,
+                                        MycroftUserConfig,
+                                        MycroftXDGConfig)
+        for cls in (MycroftDefaultConfig, MycroftUserConfig, MycroftXDGConfig):
+            with self.assertWarns(DeprecationWarning) as ctx:
+                cls()
+            self._assert_message_has_version(ctx)
+        for cls in (OvosDistributionConfig, MycroftSystemConfig):
+            with self.assertWarns(DeprecationWarning) as ctx:
+                cls()
+            self._assert_message_has_version(ctx)
+
+    def test_load_config_stack_states_removal_version(self):
+        from ovos_config.config import Configuration
+        with self.assertWarns(DeprecationWarning) as ctx:
+            Configuration.load_config_stack()
+        self._assert_message_has_version(ctx)
+
+    def test_load_config_stack_kwargs_state_removal_version(self):
+        from ovos_config.config import Configuration
+        with self.assertWarns(DeprecationWarning) as ctx:
+            Configuration.load_config_stack(cache=True, remote=False)
+        self._assert_message_has_version(ctx)
+
+    def test_read_mycroft_config_states_removal_version(self):
+        from ovos_config.config import read_mycroft_config
+        with self.assertWarns(DeprecationWarning) as ctx:
+            read_mycroft_config()
+        self._assert_message_has_version(ctx)
+
+    def test_update_mycroft_config_states_removal_version(self):
+        from ovos_config.config import update_mycroft_config
+        with self.assertWarns(DeprecationWarning) as ctx:
+            update_mycroft_config({"foo": "bar"})
+        self._assert_message_has_version(ctx)
+
+    def test_get_webcache_location_states_removal_version(self):
+        from ovos_config.locations import get_webcache_location
+        with self.assertWarns(DeprecationWarning) as ctx:
+            get_webcache_location()
+        self._assert_message_has_version(ctx)
+
+    def test_find_default_config_states_removal_version(self):
+        from ovos_config.locations import find_default_config
+        with self.assertWarns(DeprecationWarning) as ctx:
+            find_default_config()
+        self._assert_message_has_version(ctx)
