@@ -7,7 +7,32 @@
 
 # OVOS-config
 
-helper package to interact with mycroft config
+helper package to interact with the OVOS configuration
+
+## Configuration stack
+
+OVOS merges several configuration files into a single configuration. They are
+loaded in the following order, with later layers overriding earlier ones:
+
+| Layer | Path | Written by |
+|-------|------|------------|
+| `DefaultConfig` | bundled `mycroft.conf` | OVOS (read only) |
+| `DistributionConfig` | `/usr/share/mycroft/mycroft.conf` | distribution/image maintainers (read only) |
+| `SystemConfig` | `/etc/mycroft/mycroft.conf` | system administrators (read only) |
+| `AssistantConfig` | `~/.config/mycroft/runtime.conf` | OVOS itself, at runtime |
+| `UserConfig` | `~/.config/mycroft/mycroft.conf` | the user |
+
+So the effective priority is `user > assistant > system > distribution > default`.
+
+`AssistantConfig` (`runtime.conf`) is the place for OVOS components (skills and
+plugins, e.g. automatic location detection) to persist runtime changes. Keeping
+these writes out of the user config means OVOS can never accidentally corrupt or
+overwrite settings the user authored. Use `update_assistant_config(config, bus)`
+to write to it programmatically.
+
+> Remote configuration (the old Mycroft Home / `mycroft.ai` backend) has been
+> removed. `RemoteConf` and the `Mycroft*`-prefixed config classes remain as
+> deprecated aliases and will be dropped in a future release.
 
 ## Command Line usage
 
@@ -63,5 +88,5 @@ Given an entry of
 
 * `ovos-config show` 
 
-  * Get a full table of either the joined, user (`-u`), system (`-s`) or remote (`-r`) configuration.
+  * Get a full table of either the joined, user (`-u`), system (`-s`) or assistant (`-a`) configuration.
     This can be further refined by passing a `--section`, which can be listed with `ovos-config show -l`
