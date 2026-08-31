@@ -4,6 +4,32 @@ Behavior changes since the last stable release, newest first. This file is
 reset at each stable release; entries that remove or deprecate behavior
 become the deprecation ledger for the next semver cycle.
 
+## 3.0.0a2
+
+- `AssistantConfig` migrates a legacy `web_cache.json` (the deprecated
+  remote config cache, eg. location data written by
+  `ovos-phal-plugin-ipgeo`) into the assistant config layer
+  (`runtime.conf`) exactly once. Existing keys already present in
+  `runtime.conf` always win over the cached values. Once merged, the
+  cache file is renamed to `web_cache.json.migrated` so the merge never
+  runs again; a malformed or truncated cache file is left untouched (not
+  renamed) and the migration is skipped for that boot, so a later repair
+  of the file can still be picked up.
+- `update_assistant_config` builds a fresh `AssistantConfig` for every
+  call and refreshes the shared singleton wholesale from it afterwards,
+  instead of mutating whatever copy happened to be cached in memory.
+  Concurrent writers (eg. two plugins persisting settings around the same
+  time) no longer clobber each other's changes, and a key deleted by one
+  writer no longer resurrects on the next unrelated write.
+- `protected_keys.assistant` lets `system_constraints` lock specific keys
+  against the assistant layer. A protected key written to `runtime.conf`
+  by some other path is filtered out of the merged configuration view (so
+  the assistant layer cannot override it for consumers) without ever
+  being erased from the file on disk. `update_assistant_config` also
+  strips protected keys out of the update it is asked to persist, logging
+  one warning per call, so the assistant layer cannot write them in the
+  first place.
+
 ## 2.3.11a3
 
 - **BREAKING**: remote configuration is removed from the merge stack.
