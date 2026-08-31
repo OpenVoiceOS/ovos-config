@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.0.0a1) (2026-08-31)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.11a2...3.0.0a1)
+
+**Breaking changes:**
+
+- feat!: assistant config; drop remote config from the stack [\#194](https://github.com/OpenVoiceOS/ovos-config/pull/194) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [2.3.11a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.11a2) (2026-08-31)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.11a1...2.3.11a2)
