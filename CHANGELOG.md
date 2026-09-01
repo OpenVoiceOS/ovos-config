@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.1a1) (2026-09-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.0a1...3.1.1a1)
+
+**Merged pull requests:**
+
+- fix: CLI config targets swapped, set writes to assistant config [\#305](https://github.com/OpenVoiceOS/ovos-config/pull/305) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.0a1) (2026-09-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.0.1a1...3.1.0a1)
