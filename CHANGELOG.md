@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.1a3](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.1a3) (2026-09-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.1a2...3.1.1a3)
+
+**Merged pull requests:**
+
+- Update actions/checkout action to v7 [\#271](https://github.com/OpenVoiceOS/ovos-config/pull/271) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [3.1.1a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.1a2) (2026-09-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.1a1...3.1.1a2)
@@ -547,25 +555,13 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.0a1...1.0.0)
 
-**Merged pull requests:**
-
-- Release 1.0.0a1 [\#184](https://github.com/OpenVoiceOS/ovos-config/pull/184) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.0.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.0a1) (2024-11-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.6...1.0.0a1)
 
-**Breaking changes:**
-
-- deprecate:backend client [\#183](https://github.com/OpenVoiceOS/ovos-config/pull/183) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [0.4.6](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.6) (2024-11-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.5...0.4.6)
-
-**Merged pull requests:**
-
-- support querying and setting with partial paths as key identifiers [\#182](https://github.com/OpenVoiceOS/ovos-config/pull/182) ([da-raf](https://github.com/da-raf))
 
 ## [0.4.5](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.5) (2024-10-27)
 
