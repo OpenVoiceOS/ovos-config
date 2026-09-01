@@ -14,9 +14,10 @@ from ovos_config.locations import USER_CONFIG, ASSISTANT_CONFIG
 
 CONFIG = Configuration()
 CONFIGS = [("Joined", CONFIG),
-           ("Sytem", CONFIG.system),
+           ("System", CONFIG.system),
            ("Assistant", LocalConf(ASSISTANT_CONFIG)),
            ("User", LocalConf(USER_CONFIG))]
+CONFIGS_BY_NAME = {name.lower(): (name, config) for name, config in CONFIGS}
 SECTIONS = [k for k, v in CONFIG.items() if isinstance(v, dict)] + ["base"]
 
 
@@ -346,13 +347,13 @@ def show(user, system, assistant, section, list_sections):
     \b
     """
     if not any([user, system, assistant]):
-        name, config = CONFIGS[0]
+        name, config = CONFIGS_BY_NAME["joined"]
     elif system:
-        name, config = CONFIGS[1]
+        name, config = CONFIGS_BY_NAME["system"]
     elif user:
-        name, config = CONFIGS[2]
+        name, config = CONFIGS_BY_NAME["user"]
     elif assistant:
-        name, config = CONFIGS[3]
+        name, config = CONFIGS_BY_NAME["assistant"]
 
     # based on chosen configuration
     if name != "Joined":
@@ -477,7 +478,7 @@ def set(key, value):
                             f"(type: [red]{selected_type}[/red]) "))
         value = value.replace('"', '').replace("'", "").replace("`", "")
 
-    local_conf = CONFIGS[2][1]
+    local_conf = CONFIGS_BY_NAME["user"][1]
     _value = None
     # type checking/casting
     try:
