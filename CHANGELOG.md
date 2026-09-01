@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.1a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.1a2) (2026-09-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.1a1...3.1.1a2)
+
+**Merged pull requests:**
+
+- Update actions/setup-python action to v7 [\#277](https://github.com/OpenVoiceOS/ovos-config/pull/277) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [3.1.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.1a1) (2026-09-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.0a1...3.1.1a1)
@@ -554,10 +562,6 @@
 ## [0.4.6](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.6) (2024-11-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.5...0.4.6)
-
-**Fixed bugs:**
-
-- setting key-values using absolute key-path does not work [\#180](https://github.com/OpenVoiceOS/ovos-config/issues/180)
 
 **Merged pull requests:**
 
