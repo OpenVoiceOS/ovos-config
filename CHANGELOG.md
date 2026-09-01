@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.0a1) (2026-09-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.0.1a1...3.1.0a1)
+
+**Merged pull requests:**
+
+- feat: default m2v intent model per language [\#306](https://github.com/OpenVoiceOS/ovos-config/pull/306) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.0.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.0.1a1) (2026-08-31)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.0.0a1...3.0.1a1)
@@ -546,15 +554,10 @@
 **Merged pull requests:**
 
 - support querying and setting with partial paths as key identifiers [\#182](https://github.com/OpenVoiceOS/ovos-config/pull/182) ([da-raf](https://github.com/da-raf))
-- Danish added [\#178](https://github.com/OpenVoiceOS/ovos-config/pull/178) ([andlo](https://github.com/andlo))
 
 ## [0.4.5](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.5) (2024-10-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/0.4.5a1...0.4.5)
-
-**Merged pull requests:**
-
-- Release 0.4.5a1 [\#177](https://github.com/OpenVoiceOS/ovos-config/pull/177) ([github-actions[bot]](https://github.com/apps/github-actions))
 
 ## [0.4.5a1](https://github.com/OpenVoiceOS/ovos-config/tree/0.4.5a1) (2024-10-27)
 
