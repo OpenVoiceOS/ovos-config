@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.2.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.2.0a1) (2026-09-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.1a4...3.2.0a1)
+
+**Merged pull requests:**
+
+- feat: GPU STT tier on onnx-asr \(use\_cuda\) + best per-lang models [\#274](https://github.com/OpenVoiceOS/ovos-config/pull/274) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.1.1a4](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.1a4) (2026-09-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.1a3...3.1.1a4)
@@ -550,10 +558,6 @@
 ## [1.0.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.1a1) (2024-11-23)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.0...1.0.1a1)
-
-**Merged pull requests:**
-
-- fix: update STT server urls for pt and ca [\#186](https://github.com/OpenVoiceOS/ovos-config/pull/186) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.0.0](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.0) (2024-11-19)
 
