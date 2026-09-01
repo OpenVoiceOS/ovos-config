@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.1a4](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.1a4) (2026-09-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.1a3...3.1.1a4)
+
+**Merged pull requests:**
+
+- chore: raise dependency floors \(ovos-utils, PyYAML, rich-click\) [\#309](https://github.com/OpenVoiceOS/ovos-config/pull/309) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.1.1a3](https://github.com/OpenVoiceOS/ovos-config/tree/3.1.1a3) (2026-09-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.1.1a2...3.1.1a3)
@@ -525,10 +533,6 @@
 ## [1.0.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a1) (2025-01-25)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.1...1.0.2a1)
-
-**Closed issues:**
-
-- new STT catalan servers [\#185](https://github.com/OpenVoiceOS/ovos-config/issues/185)
 
 **Merged pull requests:**
 
