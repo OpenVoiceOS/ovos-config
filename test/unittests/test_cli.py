@@ -72,3 +72,46 @@ class TestCliConfigTargets(TestCase):
 
         self.assertEqual(user_data.get("marker"), "touched")
         self.assertEqual(assistant_data.get("marker"), "assistant")
+
+
+class TestAutoconfigureOfflineVoices(TestCase):
+    """Regression tests: grant-funded phoonnx voices exist for Asturian,
+    Aragonese, Occitan and Frisian, but `autoconfigure` had no
+    offline_male/offline_female recommendation file for them, so it printed
+    "not available" instead of setting up the voice.
+    """
+
+    def setUp(self):
+        self.test_dir = tempfile.mkdtemp(prefix="ovos-config-cli-test-")
+        self.addCleanup(shutil.rmtree, self.test_dir, ignore_errors=True)
+
+    def _run(self, *args):
+        env = dict(os.environ)
+        env["XDG_CONFIG_HOME"] = self.test_dir
+        return subprocess.run(
+            [sys.executable, "-c", _RUN_CLI, *args],
+            env=env, capture_output=True, text=True, timeout=30)
+
+    def test_ast_es_male_voice_recommended(self):
+        result = self._run("autoconfigure", "--lang", "ast-ES", "--offline", "--male")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("offline_male not available", result.stdout)
+        self.assertIn("OpenVoiceOS/phoonnx_ast_miro_unicode", result.stdout)
+
+    def test_an_es_female_voice_recommended(self):
+        result = self._run("autoconfigure", "--lang", "an-ES", "--offline", "--female")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("offline_female not available", result.stdout)
+        self.assertIn("OpenVoiceOS/phoonnx_an_dii_unicode", result.stdout)
+
+    def test_oc_fr_male_voice_recommended(self):
+        result = self._run("autoconfigure", "--lang", "oc-FR", "--offline", "--male")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("offline_male not available", result.stdout)
+        self.assertIn("OpenVoiceOS/phoonnx_oc_miro_unicode", result.stdout)
+
+    def test_fy_nl_female_voice_recommended(self):
+        result = self._run("autoconfigure", "--lang", "fy-NL", "--offline", "--female")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("offline_female not available", result.stdout)
+        self.assertIn("OpenVoiceOS/phoonnx_fy-NL_dii_unicode", result.stdout)
