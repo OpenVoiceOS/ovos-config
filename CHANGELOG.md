@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.4.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.4.0a1) (2026-09-04)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.3.0a1...3.4.0a1)
+
+**Merged pull requests:**
+
+- feat: offline voice recommendations for ast-ES, an-ES, oc-FR, fy-NL [\#317](https://github.com/OpenVoiceOS/ovos-config/pull/317) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.3.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.3.0a1) (2026-09-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.2.0a1...3.3.0a1)
@@ -67,10 +75,6 @@
 ## [3.0.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.0.0a1) (2026-08-31)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.3.11a2...3.0.0a1)
-
-**Breaking changes:**
-
-- feat!: assistant config; drop remote config from the stack [\#194](https://github.com/OpenVoiceOS/ovos-config/pull/194) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [2.3.11a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.3.11a2) (2026-08-31)
 
@@ -432,57 +436,29 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.7a1...1.0.7)
 
-**Merged pull requests:**
-
-- Release 1.0.7a1 [\#211](https://github.com/OpenVoiceOS/ovos-config/pull/211) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.0.7a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.7a1) (2025-03-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.6...1.0.7a1)
-
-**Merged pull requests:**
-
-- fix: update lang configs [\#210](https://github.com/OpenVoiceOS/ovos-config/pull/210) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.0.6](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.6) (2025-03-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.6a1...1.0.6)
 
-**Merged pull requests:**
-
-- Release 1.0.6a1 [\#209](https://github.com/OpenVoiceOS/ovos-config/pull/209) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.0.6a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.6a1) (2025-03-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.5...1.0.6a1)
-
-**Merged pull requests:**
-
-- Update lang configs [\#208](https://github.com/OpenVoiceOS/ovos-config/pull/208) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.0.5](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.5) (2025-03-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.5a1...1.0.5)
 
-**Merged pull requests:**
-
-- Release 1.0.5a1 [\#207](https://github.com/OpenVoiceOS/ovos-config/pull/207) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.0.5a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.5a1) (2025-03-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4...1.0.5a1)
 
-**Merged pull requests:**
-
-- fix: python version in automations [\#206](https://github.com/OpenVoiceOS/ovos-config/pull/206) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [1.0.4](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4) (2025-03-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a2...1.0.4)
-
-**Merged pull requests:**
-
-- Release 1.0.4a2 [\#205](https://github.com/OpenVoiceOS/ovos-config/pull/205) ([github-actions[bot]](https://github.com/apps/github-actions))
 
 ## [1.0.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a2) (2025-03-19)
 
@@ -492,68 +468,33 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a1...1.0.4a3)
 
-**Merged pull requests:**
-
-- Bump flake8 from 3.7.9 to 7.1.2 in /requirements [\#199](https://github.com/OpenVoiceOS/ovos-config/pull/199) ([dependabot[bot]](https://github.com/apps/dependabot))
-
 ## [1.0.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a1) (2025-03-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.3...1.0.4a1)
-
-**Merged pull requests:**
-
-- Update combo-lock requirement from ~=0.2 to ~=0.3 in /requirements [\#192](https://github.com/OpenVoiceOS/ovos-config/pull/192) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump pytest-cov from 2.8.1 to 6.0.0 in /requirements [\#189](https://github.com/OpenVoiceOS/ovos-config/pull/189) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [1.0.3](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.3) (2025-03-13)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.3a1...1.0.3)
 
-**Merged pull requests:**
-
-- Release 1.0.3a1 [\#203](https://github.com/OpenVoiceOS/ovos-config/pull/203) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.0.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.3a1) (2025-03-13)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2...1.0.3a1)
-
-**Merged pull requests:**
-
-- documentation: add opendata servers [\#202](https://github.com/OpenVoiceOS/ovos-config/pull/202) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.0.2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2) (2025-02-28)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2a3...1.0.2)
 
-**Merged pull requests:**
-
-- Release 1.0.2a3 [\#201](https://github.com/OpenVoiceOS/ovos-config/pull/201) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.0.2a3](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a3) (2025-02-28)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2a2...1.0.2a3)
-
-**Merged pull requests:**
-
-- fix: drop padatious\_medium [\#200](https://github.com/OpenVoiceOS/ovos-config/pull/200) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.0.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a2) (2025-01-25)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.2a1...1.0.2a2)
 
-**Merged pull requests:**
-
-- Release 1.0.2a2 [\#198](https://github.com/OpenVoiceOS/ovos-config/pull/198) ([github-actions[bot]](https://github.com/apps/github-actions))
-- more padatious config [\#197](https://github.com/OpenVoiceOS/ovos-config/pull/197) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [1.0.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.2a1) (2025-01-25)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.1...1.0.2a1)
-
-**Merged pull requests:**
-
-- Release 1.0.2a1 [\#196](https://github.com/OpenVoiceOS/ovos-config/pull/196) ([github-actions[bot]](https://github.com/apps/github-actions))
-- documentation: new padatious options [\#195](https://github.com/OpenVoiceOS/ovos-config/pull/195) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.0.1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.1) (2024-11-23)
 
