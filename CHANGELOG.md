@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.5.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.5.0a1) (2026-09-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.4.0a1...3.5.0a1)
+
+**Merged pull requests:**
+
+- feat: enable the reference typed-slots transformer by default [\#319](https://github.com/OpenVoiceOS/ovos-config/pull/319) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.4.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.4.0a1) (2026-09-04)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.3.0a1...3.4.0a1)
@@ -420,17 +428,9 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.8a1...1.0.8)
 
-**Merged pull requests:**
-
-- Release 1.0.8a1 [\#214](https://github.com/OpenVoiceOS/ovos-config/pull/214) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.0.8a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.8a1) (2025-03-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.7...1.0.8a1)
-
-**Merged pull requests:**
-
-- Update langs autoconfigure [\#213](https://github.com/OpenVoiceOS/ovos-config/pull/213) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.0.7](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.7) (2025-03-19)
 
