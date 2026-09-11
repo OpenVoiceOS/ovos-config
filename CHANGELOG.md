@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.5.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.5.1a1) (2026-09-11)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.5.0a1...3.5.1a1)
+
+**Merged pull requests:**
+
+- fix: correct cancel-plugin entry-point key in default config [\#322](https://github.com/OpenVoiceOS/ovos-config/pull/322) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [3.5.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.5.0a1) (2026-09-06)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.4.0a1...3.5.0a1)
@@ -412,17 +420,9 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.1.0a1...1.1.0)
 
-**Merged pull requests:**
-
-- Release 1.1.0a1 [\#216](https://github.com/OpenVoiceOS/ovos-config/pull/216) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.1.0a1) (2025-03-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.8...1.1.0a1)
-
-**Merged pull requests:**
-
-- feat:autoconfigure\_hybrid [\#215](https://github.com/OpenVoiceOS/ovos-config/pull/215) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.0.8](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.8) (2025-03-27)
 
