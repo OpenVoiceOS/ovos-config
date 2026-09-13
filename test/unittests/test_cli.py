@@ -91,7 +91,6 @@ class TestAutoconfigureOfflineVoices(TestCase):
         return subprocess.run(
             [sys.executable, "-c", _RUN_CLI, *args],
             env=env, capture_output=True, text=True, timeout=30)
-
     def test_ast_es_male_voice_recommended(self):
         result = self._run("autoconfigure", "--lang", "ast-ES", "--offline", "--male")
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -115,3 +114,47 @@ class TestAutoconfigureOfflineVoices(TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertNotIn("offline_female not available", result.stdout)
         self.assertIn("OpenVoiceOS/phoonnx_fy-NL_dii_unicode", result.stdout)
+
+
+class TestCliTelemetry(TestCase):
+    """The open-data telemetry endpoint moved from metrics.tigregotico.pt
+    (now dead) to metrics.openvoiceos.pt. `telemetry --enable` must append
+    the live endpoint and, as a one-time migration, drop the dead one from
+    any config that enabled it before the move."""
+
+    def setUp(self):
+        self.test_dir = tempfile.mkdtemp(prefix="ovos-config-cli-telemetry-")
+        self.addCleanup(shutil.rmtree, self.test_dir, ignore_errors=True)
+        os.makedirs(join(self.test_dir, "mycroft"), exist_ok=True)
+        self.user_conf = join(self.test_dir, "mycroft", "mycroft.conf")
+        with open(self.user_conf, "w") as f:
+            json.dump({}, f)
+    def _run(self, *args):
+        env = dict(os.environ)
+        env["XDG_CONFIG_HOME"] = self.test_dir
+        return subprocess.run(
+            [sys.executable, "-c", _RUN_CLI, *args],
+            env=env, capture_output=True, text=True, timeout=30)
+
+    def test_enable_adds_new_endpoint(self):
+        result = self._run("telemetry", "--enable")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        with open(self.user_conf) as f:
+            data = json.load(f)
+        urls = data["open_data"]["intent_urls"]
+        self.assertIn("https://metrics.openvoiceos.pt/intents", urls)
+        self.assertNotIn("https://metrics.tigregotico.pt/intents", urls)
+
+    def test_enable_migrates_dead_endpoint_away(self):
+        with open(self.user_conf, "w") as f:
+            json.dump({"open_data": {
+                "intent_urls": ["https://metrics.tigregotico.pt/intents"]}},
+                f)
+
+        result = self._run("telemetry", "--enable")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        with open(self.user_conf) as f:
+            data = json.load(f)
+        urls = data["open_data"]["intent_urls"]
+        self.assertNotIn("https://metrics.tigregotico.pt/intents", urls)
+        self.assertIn("https://metrics.openvoiceos.pt/intents", urls)
