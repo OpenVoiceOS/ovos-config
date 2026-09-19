@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.6.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.0a1) (2026-09-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.5.1a1...3.6.0a1)
+
+**Closed issues:**
+
+- The default mycroft.conf still carries the nested location shape that OVOS-SESSION-1 §3.5 retired [\#325](https://github.com/OpenVoiceOS/ovos-config/issues/325)
+
+**Merged pull requests:**
+
+- feat: ovos-m2v-pipeline is the default intent matcher, -high/-medium/-low [\#327](https://github.com/OpenVoiceOS/ovos-config/pull/327) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [3.5.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.5.1a1) (2026-09-11)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.5.0a1...3.5.1a1)
@@ -404,17 +416,9 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.0a1...1.2.0)
 
-**Merged pull requests:**
-
-- Release 1.2.0a1 [\#220](https://github.com/OpenVoiceOS/ovos-config/pull/220) ([github-actions[bot]](https://github.com/apps/github-actions))
-
 ## [1.2.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.0a1) (2025-04-11)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.1.0...1.2.0a1)
-
-**Merged pull requests:**
-
-- feat: ovos-config telemetry [\#219](https://github.com/OpenVoiceOS/ovos-config/pull/219) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [1.1.0](https://github.com/OpenVoiceOS/ovos-config/tree/1.1.0) (2025-03-27)
 
