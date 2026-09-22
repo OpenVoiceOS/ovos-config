@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.6.0a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.0a2) (2026-09-22)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.0a1...3.6.0a2)
+
+**Merged pull requests:**
+
+- revert: restore the padatious default intent pipeline \(\#327\) [\#329](https://github.com/OpenVoiceOS/ovos-config/pull/329) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [3.6.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.0a1) (2026-09-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.5.1a1...3.6.0a1)
@@ -409,8 +417,6 @@
 
 - Update nl-nl.conf [\#224](https://github.com/OpenVoiceOS/ovos-config/pull/224) ([timonvanhasselt](https://github.com/timonvanhasselt))
 - Update nl-nl.conf [\#223](https://github.com/OpenVoiceOS/ovos-config/pull/223) ([timonvanhasselt](https://github.com/timonvanhasselt))
-- Update nl-nl.conf [\#222](https://github.com/OpenVoiceOS/ovos-config/pull/222) ([timonvanhasselt](https://github.com/timonvanhasselt))
-- Update nl-nl.conf [\#221](https://github.com/OpenVoiceOS/ovos-config/pull/221) ([timonvanhasselt](https://github.com/timonvanhasselt))
 
 ## [1.2.0](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.0) (2025-04-11)
 
