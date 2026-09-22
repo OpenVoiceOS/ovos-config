@@ -4,6 +4,17 @@ Behavior changes since the last stable release, newest first. This file is
 reset at each stable release; entries that remove or deprecate behavior
 become the deprecation ledger for the next semver cycle.
 
+## 3.6.0a1
+
+- The default intent pipeline reverts to padatious. `mycroft.conf` lists
+  `ovos-padatious-pipeline-plugin-high` and `-medium` in the positions the
+  ovos-m2v-pipeline tiers held, and the `-low` tier is removed. The four
+  platform confs (`linux`, `mac`, `rpi4`, `rpi5`) again carry the
+  `ovos-m2v-pipeline` model block that points at
+  `Jarbas/ovos-model2vec-intents-LaBSE` with the `0.7`/`0.5`/`0.15` conf
+  thresholds. ovos-m2v-pipeline stays installable; a deployment lists its
+  stages to use it.
+
 ## 3.0.0a2
 
 - `AssistantConfig` migrates a legacy `web_cache.json` (the deprecated
