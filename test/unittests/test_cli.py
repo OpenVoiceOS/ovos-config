@@ -158,3 +158,28 @@ class TestCliTelemetry(TestCase):
         urls = data["open_data"]["intent_urls"]
         self.assertNotIn("https://metrics.tigregotico.pt/intents", urls)
         self.assertIn("https://metrics.openvoiceos.pt/intents", urls)
+
+    def test_enable_removes_all_dead_endpoint_occurrences(self):
+        """Regression test: remove(old_url) only drops the first occurrence.
+        If the old URL appears twice, both must be removed."""
+        with open(self.user_conf, "w") as f:
+            json.dump({"open_data": {
+                "intent_urls": [
+                    "https://metrics.tigregotico.pt/intents",
+                    "https://example.com/other",
+                    "https://metrics.tigregotico.pt/intents"
+                ]}},
+                f)
+
+        result = self._run("telemetry", "--enable")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        with open(self.user_conf) as f:
+            data = json.load(f)
+        urls = data["open_data"]["intent_urls"]
+        # Old URL should not appear at all
+        self.assertEqual(urls.count("https://metrics.tigregotico.pt/intents"), 0,
+                        "old_url should be completely removed, not just first occurrence")
+        # Other URLs should be preserved
+        self.assertIn("https://example.com/other", urls)
+        # New endpoint should be added
+        self.assertIn("https://metrics.openvoiceos.pt/intents", urls)

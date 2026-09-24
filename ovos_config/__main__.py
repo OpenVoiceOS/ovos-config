@@ -165,7 +165,10 @@ def telemetry(enable, disable):
     old_url = "https://metrics.tigregotico.pt/intents"
     if old_url in config["open_data"]["intent_urls"]:
         # migrate users who enabled telemetry before the endpoint moved
-        config["open_data"]["intent_urls"].remove(old_url)
+        # filter out all occurrences, not just the first
+        config["open_data"]["intent_urls"] = [
+            u for u in config["open_data"]["intent_urls"] if u != old_url
+        ]
         console.print(f"Removed dead intent telemetry endpoint: {old_url}")
     if enable:
         if url not in config["open_data"]["intent_urls"]:
