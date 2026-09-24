@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.6.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.1a1) (2026-09-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.0a2...3.6.1a1)
+
+**Merged pull requests:**
+
+- fix\(telemetry\): point open-data reporting at metrics.openvoiceos.pt [\#315](https://github.com/OpenVoiceOS/ovos-config/pull/315) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.6.0a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.0a2) (2026-09-22)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.0a1...3.6.0a2)
@@ -412,11 +420,6 @@
 ## [1.2.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.1a1) (2025-04-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.0...1.2.1a1)
-
-**Merged pull requests:**
-
-- Update nl-nl.conf [\#224](https://github.com/OpenVoiceOS/ovos-config/pull/224) ([timonvanhasselt](https://github.com/timonvanhasselt))
-- Update nl-nl.conf [\#223](https://github.com/OpenVoiceOS/ovos-config/pull/223) ([timonvanhasselt](https://github.com/timonvanhasselt))
 
 ## [1.2.0](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.0) (2025-04-11)
 
