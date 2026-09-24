@@ -153,7 +153,7 @@ def config():
 @click.option("--disable", "-d", is_flag=True, help="Disable intent telemetry upload :(")
 def telemetry(enable, disable):
     """Enable intent telemetry upload for the opendata initiative.
-    OpenData can be seen live at https://opendata.tigregotico.pt"""
+    OpenData can be seen live at https://metrics.openvoiceos.pt"""
     if enable and disable:
         raise click.UsageError("Pass either --enable or --disable, not both")
     config = LocalConf(USER_CONFIG)
@@ -161,7 +161,15 @@ def telemetry(enable, disable):
         config["open_data"] = {"intent_urls": []}
     if "intent_urls" not in config["open_data"]:
         config["open_data"]["intent_urls"] = []
-    url = "https://metrics.tigregotico.pt/intents"
+    url = "https://metrics.openvoiceos.pt/intents"
+    old_url = "https://metrics.tigregotico.pt/intents"
+    if old_url in config["open_data"]["intent_urls"]:
+        # migrate users who enabled telemetry before the endpoint moved
+        # filter out all occurrences, not just the first
+        config["open_data"]["intent_urls"] = [
+            u for u in config["open_data"]["intent_urls"] if u != old_url
+        ]
+        console.print(f"Removed dead intent telemetry endpoint: {old_url}")
     if enable:
         if url not in config["open_data"]["intent_urls"]:
             config["open_data"]["intent_urls"].append(url)
@@ -172,7 +180,7 @@ def telemetry(enable, disable):
         config["open_data"]["intent_urls"].remove(url)
         console.print(f"Removed intent telemetry endpoint: {url}")
     console.print(f"Telemetry urls: {config['open_data']['intent_urls']}")
-    config.store()       
+    config.store()
 
 
 @config.command()
