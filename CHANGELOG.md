@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.6.1a3](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.1a3) (2026-09-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.1a2...3.6.1a3)
+
+**Merged pull requests:**
+
+- docs: document the tts audio-ducking keys ocp\_cork and ocp\_duck [\#324](https://github.com/OpenVoiceOS/ovos-config/pull/324) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [3.6.1a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.1a2) (2026-09-26)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.1a1...3.6.1a2)
@@ -397,17 +405,9 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.2...2.0.0a1)
 
-**Breaking changes:**
-
-- Update mycroft.conf [\#228](https://github.com/OpenVoiceOS/ovos-config/pull/228) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [1.2.2](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.2) (2025-05-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.2a1...1.2.2)
-
-**Merged pull requests:**
-
-- Release 1.2.2a1 [\#227](https://github.com/OpenVoiceOS/ovos-config/pull/227) ([github-actions[bot]](https://github.com/apps/github-actions))
 
 ## [1.2.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.2a1) (2025-05-27)
 
@@ -471,15 +471,15 @@
 
 ## [1.0.4](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4) (2025-03-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a2...1.0.4)
-
-## [1.0.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a2) (2025-03-19)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a3...1.0.4a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a3...1.0.4)
 
 ## [1.0.4a3](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a3) (2025-03-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a1...1.0.4a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a2...1.0.4a3)
+
+## [1.0.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a2) (2025-03-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a1...1.0.4a2)
 
 ## [1.0.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a1) (2025-03-19)
 
