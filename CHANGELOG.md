@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.6.1a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.1a2) (2026-09-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.1a1...3.6.1a2)
+
+**Merged pull requests:**
+
+- chore\(ci\): drop the broken Dependabot config [\#326](https://github.com/OpenVoiceOS/ovos-config/pull/326) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [3.6.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.1a1) (2026-09-24)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.0a2...3.6.1a1)
@@ -405,17 +413,9 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.1...1.2.2a1)
 
-**Merged pull requests:**
-
-- document intent transformers [\#226](https://github.com/OpenVoiceOS/ovos-config/pull/226) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [1.2.1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.1) (2025-04-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.2.1a1...1.2.1)
-
-**Merged pull requests:**
-
-- Release 1.2.1a1 [\#225](https://github.com/OpenVoiceOS/ovos-config/pull/225) ([github-actions[bot]](https://github.com/apps/github-actions))
 
 ## [1.2.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.2.1a1) (2025-04-27)
 
