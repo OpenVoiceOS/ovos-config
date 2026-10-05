@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.6.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.2a1) (2026-10-05)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.1a3...3.6.2a1)
+
+**Merged pull requests:**
+
+- fix\(recommends\): name int8 for the offline Spanish model, and point gl at a Galician one [\#335](https://github.com/OpenVoiceOS/ovos-config/pull/335) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [3.6.1a3](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.1a3) (2026-09-26)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.1a2...3.6.1a3)
@@ -389,17 +397,9 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.0.0...2.1.0a1)
 
-**Merged pull requests:**
-
-- feat:update recommended configs [\#230](https://github.com/OpenVoiceOS/ovos-config/pull/230) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [2.0.0](https://github.com/OpenVoiceOS/ovos-config/tree/2.0.0) (2025-06-16)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.0.0a1...2.0.0)
-
-**Merged pull requests:**
-
-- Release 2.0.0a1 [\#229](https://github.com/OpenVoiceOS/ovos-config/pull/229) ([github-actions[bot]](https://github.com/apps/github-actions))
 
 ## [2.0.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.0.0a1) (2025-06-16)
 
