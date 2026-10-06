@@ -60,11 +60,11 @@ class TestRecommendsFileResolution(TestCase):
 
     def test_arabic_reaches_modern_standard_arabic(self):
         for lang in ("ar", "ar-SA", "ar-EG", "ar-MA", "arb"):
-            for folder in ("offline_female", "offline_male", "offline_stt"):
+            for folder in ("base", "offline_female", "offline_male", "offline_stt"):
                 self.assertEqual(resolve(lang, folder), "arb.conf", f"{lang} {folder}")
 
     def test_arabic_in_a_folder_without_msa_file_has_no_match(self):
-        self.assertIsNone(resolve("ar-SA"))
+        self.assertIsNone(resolve("ar-SA", "online_stt"))
         self.assertIsNone(resolve("ar-MA", "gpu"))
 
     def test_other_macrolanguage_members_do_not_fall_back(self):
