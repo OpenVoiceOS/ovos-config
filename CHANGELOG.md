@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.7.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.7.1a1) (2026-10-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.7.0a1...3.7.1a1)
+
+**Merged pull requests:**
+
+- fix: localise the wake\_up hotword instead of adding one per language [\#342](https://github.com/OpenVoiceOS/ovos-config/pull/342) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.7.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.7.0a1) (2026-10-06)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.2a2...3.7.0a1)
@@ -384,10 +392,6 @@
 ## [2.1.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a2) (2025-06-18)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a1...2.1.2a2)
-
-**Merged pull requests:**
-
-- finetune\_lang\_configs [\#236](https://github.com/OpenVoiceOS/ovos-config/pull/236) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [2.1.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a1) (2025-06-18)
 
