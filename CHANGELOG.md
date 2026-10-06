@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.6.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.2a2) (2026-10-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.2a1...3.6.2a2)
+
+**Merged pull requests:**
+
+- refactor: name recommends files by language tag, load them with ovos-spec-tools [\#338](https://github.com/OpenVoiceOS/ovos-config/pull/338) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.6.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.2a1) (2026-10-05)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.1a3...3.6.2a1)
@@ -389,10 +397,6 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.0a1...2.1.1a1)
 
-**Merged pull requests:**
-
-- fix: error handling [\#232](https://github.com/OpenVoiceOS/ovos-config/pull/232) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [2.1.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.0a1) (2025-06-18)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.0.0...2.1.0a1)
@@ -471,15 +475,15 @@
 
 ## [1.0.4](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4) (2025-03-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a3...1.0.4)
-
-## [1.0.4a3](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a3) (2025-03-19)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a2...1.0.4a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a2...1.0.4)
 
 ## [1.0.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a2) (2025-03-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a1...1.0.4a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a3...1.0.4a2)
+
+## [1.0.4a3](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a3) (2025-03-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a1...1.0.4a3)
 
 ## [1.0.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a1) (2025-03-19)
 
