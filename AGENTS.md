@@ -98,9 +98,10 @@ exists yet), newest entry first.
   finds `pt-PT.conf` and `an-ES` finds `arg.conf`.
 
 - A localised hotword keeps the key of the role it plays: every
-  `recommends/base` file redefines `wake_up` (and `wake_up_vosk` where vosk
-  has a model for the language) and sets `listener.stand_up_word` to
-  `wake_up`, instead of adding a hotword named after its own word.
+  `recommends/base` file redefines `wake_up` and the `stop_recording` stop
+  word (and `wake_up_vosk` and `stop_recording_vosk` where vosk has a model
+  for the language) and sets `listener.stand_up_word` to `wake_up`, instead
+  of adding a hotword named after its own word.
   `ovos-config autoconfigure` merges the recommends into the user
   configuration, so one key per role means switching language rewrites the
   same entries instead of leaving the previous language's behind. For the

@@ -81,7 +81,7 @@ Given an entry of
 
 * `ovos-config autoconfigure`
 
-  Merges the recommended settings for a language (and optionally a platform, offline or online engines, and a voice) into the user configuration. The base recommends for each language include its localised `wake_up` word, the word that ends sleep mode, under the same hotword key in every language.
+  Merges the recommended settings for a language (and optionally a platform, offline or online engines, and a voice) into the user configuration. The base recommends for each language include its localised `wake_up` word, which ends sleep mode, and its `stop_recording` word, which ends recording mode, each under the same hotword key in every language.
   
 ![image](https://github.com/user-attachments/assets/7a39707e-ac56-498c-a269-337f4de88442)
 
