@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.8.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.8.0a1) (2026-10-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.7.1a1...3.8.0a1)
+
+**Merged pull requests:**
+
+- feat: stop\_recording stop word for every locale [\#340](https://github.com/OpenVoiceOS/ovos-config/pull/340) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.7.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.7.1a1) (2026-10-06)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.7.0a1...3.7.1a1)
