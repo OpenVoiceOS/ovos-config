@@ -4,6 +4,7 @@ import os.path
 from typing import Any, Tuple
 
 import rich_click as click
+from ovos_spec_tools.language import standardize_lang
 from rich import print_json
 from rich.console import Console
 from rich.prompt import Prompt
@@ -11,6 +12,7 @@ from rich.table import Table
 
 from ovos_config import Configuration, LocalConf
 from ovos_config.locations import USER_CONFIG, ASSISTANT_CONFIG
+from ovos_config.utils import find_recommends_file
 
 CONFIG = Configuration()
 CONFIGS = [("Joined", CONFIG),
@@ -230,32 +232,24 @@ Notes:
     if male and female:
         raise click.UsageError("Pass either --male or --female, not both")
 
-    try:
-        from ovos_utils.lang import standardize_lang_tag
-        stdlang = standardize_lang_tag(lang, macro=True)
-        console.print(f"[blue]Standardized lang-code:[/blue] {stdlang}")
-    except ImportError:
-        stdlang = lang
-        console.print(f"[red]ERROR: Failed to standardize lang tag, please install latest 'ovos-utils' package[/red]")
+    if not lang.strip():
+        raise click.UsageError("--lang must not be empty")
+
+    stdlang = standardize_lang(lang)
+    console.print(f"[blue]Standardized lang-code:[/blue] {stdlang}")
 
     config = LocalConf(USER_CONFIG)
     config["tts"] = {"ovos-tts-plugin-server": {}}
     config["stt"] = {"ovos-stt-plugin-server": {}}
 
     def do_merge(folder, fname=""):
-        l2 = stdlang.split("-")[0]
         recs_path = f"{os.path.dirname(__file__)}/recommends"
         if fname:
             path = f"{recs_path}/{folder}/{fname}"
         else:
-            path = f"{recs_path}/{folder}/{lang.lower()}.conf"
-            if not os.path.isfile(path):
-                paths = [f"{recs_path}/{folder}/{f}"
-                         for f in os.listdir(f"{recs_path}/{folder}") if f.startswith(l2)]
-                if paths:
-                    path = paths[0]
+            path = find_recommends_file(f"{recs_path}/{folder}", lang)
 
-        if not os.path.isfile(path):
+        if not path or not os.path.isfile(path):
             console.print(f"[red]ERROR: {folder} not available for {stdlang}[/red]")
             return
 

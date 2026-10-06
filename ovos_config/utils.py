@@ -1,7 +1,9 @@
 import json
 import importlib
+import os
 
 from typing import Optional
+from ovos_spec_tools.language import closest_lang
 from ovos_utils.log import LOG, log_deprecation
 from os import makedirs
 from os.path import join, dirname
@@ -109,3 +111,17 @@ def init_module_config(module_name: str, module_override: str,
     importlib.reload(ovos_config.models)
     importlib.reload(ovos_config.config)
     importlib.reload(ovos_config)
+
+
+RECOMMENDS_MAX_LANG_DISTANCE = 5
+
+
+def find_recommends_file(folder: str, lang: str) -> Optional[str]:
+    """Path of the recommends file in `folder` closest to a language tag.
+
+    Files are named by language tag (`pt-PT.conf`, `arg.conf`); `None` when no
+    file is a usable match.
+    """
+    stems = [f[:-5] for f in sorted(os.listdir(folder)) if f.endswith(".conf")]
+    match = closest_lang(lang, stems, max_distance=RECOMMENDS_MAX_LANG_DISTANCE)
+    return join(folder, f"{match}.conf") if match else None
