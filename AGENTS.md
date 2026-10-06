@@ -81,7 +81,7 @@ exists yet), newest entry first.
   swap.
 
 - `ovos_config/recommends/` holds per-platform and per-locale overlay files
-  (for example `recommends/base/en-us.conf` and `recommends/platform/*.conf`).
+  (for example `recommends/base/en-US.conf` and `recommends/platform/*.conf`).
   `ovos-config` applies them with a recursive, key-by-key dictionary merge on
   top of the shipped defaults (`do_merge` in `ovos_config/__main__.py` →
   `LocalConf.merge` → `ovos_utils.json_helper.merge_dict`), so an overlay

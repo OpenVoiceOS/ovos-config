@@ -115,6 +115,24 @@ class TestAutoconfigureOfflineVoices(TestCase):
         self.assertNotIn("offline_female not available", result.stdout)
         self.assertIn("OpenVoiceOS/phoonnx_fy-NL_dii_unicode", result.stdout)
 
+    def test_pt_pt_merges_the_portuguese_of_portugal_file(self):
+        result = self._run("autoconfigure", "--lang", "pt-pt", "--offline", "--male")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(join("base", "pt-PT.conf"), result.stdout)
+        self.assertNotIn("pt-BR.conf", result.stdout)
+
+    def test_eu_es_merges_the_basque_file(self):
+        result = self._run("autoconfigure", "--lang", "eu-ES", "--offline", "--male")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(join("base", "eus.conf"), result.stdout)
+
+    def test_empty_lang_is_refused_before_anything_is_written(self):
+        result = self._run("autoconfigure", "--lang", "", "--offline", "--male")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("--lang must not be empty", result.stderr + result.stdout)
+        self.assertNotIn('"lang"', result.stdout)
+        self.assertFalse(os.path.exists(join(self.test_dir, "mycroft", "mycroft.conf")))
+
 
 class TestCliTelemetry(TestCase):
     """The open-data telemetry endpoint moved from metrics.tigregotico.pt
