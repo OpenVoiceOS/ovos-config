@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.7.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.7.0a1) (2026-10-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.2a2...3.7.0a1)
+
+**Merged pull requests:**
+
+- feat: default wake words on wakeforge, zero-shot wake up words per locale [\#336](https://github.com/OpenVoiceOS/ovos-config/pull/336) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.6.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.6.2a2) (2026-10-06)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.6.2a1...3.6.2a2)
@@ -384,10 +392,6 @@
 ## [2.1.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a1) (2025-06-18)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.1...2.1.2a1)
-
-**Merged pull requests:**
-
-- fix:default\_pipeline\_recommendations [\#234](https://github.com/OpenVoiceOS/ovos-config/pull/234) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [2.1.1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.1) (2025-06-18)
 
