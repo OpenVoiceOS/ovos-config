@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.8.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.8.1a1) (2026-10-06)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.8.0a1...3.8.1a1)
+
+**Merged pull requests:**
+
+- fix: recommend Parakeet v3 int8 for European Portuguese on CPU [\#346](https://github.com/OpenVoiceOS/ovos-config/pull/346) ([goldyfruit](https://github.com/goldyfruit))
+- fix: Portuguese stop\_recording word in imperative and infinitive forms [\#345](https://github.com/OpenVoiceOS/ovos-config/pull/345) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.8.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.8.0a1) (2026-10-06)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.7.1a1...3.8.0a1)
@@ -377,10 +386,6 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a4...2.1.2a5)
 
-**Merged pull requests:**
-
-- update default voices [\#242](https://github.com/OpenVoiceOS/ovos-config/pull/242) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [2.1.2a4](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a4) (2025-09-08)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a3...2.1.2a4)
@@ -392,10 +397,6 @@
 ## [2.1.2a3](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a3) (2025-07-22)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a2...2.1.2a3)
-
-**Merged pull requests:**
-
-- Update pt-pt.conf [\#240](https://github.com/OpenVoiceOS/ovos-config/pull/240) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [2.1.2a2](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a2) (2025-06-18)
 
