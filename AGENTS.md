@@ -90,6 +90,28 @@ exists yet), newest entry first.
   Never copy a whole section from `mycroft.conf` into an overlay. That
   duplicates defaults that then drift.
 
+- Recommends files are named by language tag: language plus region
+  (`pt-PT.conf`, `zh-CN.conf`), or the bare ISO 639-3 code for Modern
+  Standard Arabic and minority languages (`arb.conf`, `arg.conf`, `eus.conf`).
+  `find_recommends_file` in `ovos_config/utils.py` matches a requested
+  language to a file with `ovos_spec_tools.language.closest_lang`, so `pt-pt`
+  finds `pt-PT.conf` and `an-ES` finds `arg.conf`.
+
+- A localised hotword keeps the key of the role it plays: every
+  `recommends/base` file redefines `wake_up` (and `wake_up_vosk` where vosk
+  has a model for the language) and sets `listener.stand_up_word` to
+  `wake_up`, instead of adding a hotword named after its own word.
+  `ovos-config autoconfigure` merges the recommends into the user
+  configuration, so one key per role means switching language rewrites the
+  same entries instead of leaving the previous language's behind. For the
+  same reason the English recommends restate these entries as
+  `mycroft.conf` defines them; this is the one place an overlay repeats a
+  default. A locale whose language has no vosk model sets
+  `"fallback_ww": null`, so it does not inherit the English vosk fallback.
+  Zero-shot entries (`ovos-ww-plugin-wakeforge-zeroshot`) carry IPA phones
+  and no `lang`; vosk entries keep `lang`, using the vosk plugin's own model
+  keys (`gr`, `vn`, `cn`).
+
 - `test/unittests` is the real test path, with further subdirectories
   (`test/unittests/mycroft`, `test/unittests/test_config`,
   `test/unittests/config_stack`). It is not a flat `test/` directory.
