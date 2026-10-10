@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.8.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.8.2a1) (2026-10-10)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.8.1a1...3.8.2a1)
+
+**Merged pull requests:**
+
+- fix: hey\_mycroft listens with precise-onnx first, wakeforge as its fallback [\#348](https://github.com/OpenVoiceOS/ovos-config/pull/348) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [3.8.1a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.8.1a1) (2026-10-06)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.8.0a1...3.8.1a1)
@@ -389,10 +397,6 @@
 ## [2.1.2a4](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a4) (2025-09-08)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a3...2.1.2a4)
-
-**Merged pull requests:**
-
-- Termux config [\#243](https://github.com/OpenVoiceOS/ovos-config/pull/243) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [2.1.2a3](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a3) (2025-07-22)
 
