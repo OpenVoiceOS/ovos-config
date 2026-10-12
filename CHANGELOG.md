@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.9.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.9.0a1) (2026-10-12)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.8.2a1...3.9.0a1)
+
+**Merged pull requests:**
+
+- feat: hey mycroft wakeforge entry runs the streaming model [\#351](https://github.com/OpenVoiceOS/ovos-config/pull/351) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [3.8.2a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.8.2a1) (2026-10-10)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.8.1a1...3.8.2a1)
