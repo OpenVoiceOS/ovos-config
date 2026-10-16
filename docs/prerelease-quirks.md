@@ -4,6 +4,20 @@ Behavior changes since the last stable release, newest first. This file is
 reset at each stable release; entries that remove or deprecate behavior
 become the deprecation ledger for the next semver cycle.
 
+## Unreleased
+
+- `ovos-config autoconfigure` sets `intents.ovos-m2v-pipeline.models.en` to
+  `OpenVoiceOS/ovos-m2v-intents-en` for `en-US`, `en-GB` and `en-AU`. For
+  Portuguese, Spanish, Catalan, Danish, German, Dutch, Swedish, Galician and
+  Basque it sets a `models` entry that loads that language's folder of
+  `OpenVoiceOS/ovos-m2v-intents-multilingual`, an int8 copy with the
+  vocabulary cut to the language (2.4 to 13 MB). That entry form needs
+  ovos-m2v-pipeline 0.36.0a2 or later. The `linux`, `mac`, `rpi4` and `rpi5`
+  platform files no longer set a `model`; other languages get the plugin
+  default. A `model` from `Jarbas/ovos-model2vec-intents-*` that an earlier
+  run wrote into the user config is removed, since a set `model` overrides
+  `models`.
+
 ## 3.6.0a1
 
 - The default intent pipeline reverts to padatious. `mycroft.conf` lists
