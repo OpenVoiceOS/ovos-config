@@ -39,7 +39,7 @@ than a fully declarative `pyproject.toml`.
 
 - Pin floors only, and always allow prereleases: `>=X.Y.Za1`. The runtime
   list in `pyproject.toml` still carries `~=` compatible-release pins
-  (`combo_lock~=0.3`, `python-dateutil~=2.9`, `rich-click~=1.6`) and a plain
+  (`python-dateutil~=2.9`, `rich-click~=1.6`) and a plain
   floor on `ovos-utils`. When you touch one of those lines, move it to an
   explicit `>=X.Y.Za1` floor rather than leaving a `~=` pin that blocks
   prereleases.

@@ -15,16 +15,38 @@
 import json
 import os
 import warnings
+from base64 import urlsafe_b64encode
 from os.path import exists, isfile, getmtime
+from pathlib import Path
+from tempfile import gettempdir
 from time import time
 
 import yaml
-from combo_lock import NamedLock
+from filelock import FileLock
 from ovos_config._deprecation import NEXT_MAJOR_VERSION
 from ovos_config.locations import USER_CONFIG, DISTRIBUTION_CONFIG, SYSTEM_CONFIG, WEB_CONFIG_CACHE, DEFAULT_CONFIG, ASSISTANT_CONFIG
 
 from ovos_utils.json_helper import load_commented_json, merge_dict
 from ovos_utils.log import LOG
+
+
+def _named_lock(name: str) -> FileLock:
+    """Return a lock shared by every process and thread that uses ``name``.
+
+    The lock file path is the one combo-lock uses when the temp directory is
+    in RAM, so a process that still runs combo-lock waits on the same lock.
+    The directory and the file are writable by all users, because services
+    that share a lock can run as different users.
+    """
+    lock_dir = Path(gettempdir(), "combo_locks")
+    try:
+        lock_dir.mkdir()
+    except FileExistsError:
+        pass
+    else:
+        lock_dir.chmod(0o777)
+    filename = urlsafe_b64encode(name.encode()).decode() + ".lock"
+    return FileLock(lock_dir / filename, mode=0o666)
 
 
 class LocalConf(dict):
@@ -34,7 +56,7 @@ class LocalConf(dict):
     # regardless of what file is being edited only one file should change at a time
     # this ensures orderly behaviour in anything monitoring changes,
     #   eg FileWatcher util, configuration.patch bus handlers
-    __lock = NamedLock("ovos_config")
+    __lock = _named_lock("ovos_config")
 
     def __init__(self, path):
         super().__init__(self)

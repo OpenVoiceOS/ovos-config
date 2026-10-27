@@ -12,7 +12,7 @@ authors = [{name = "jarbasAI", email = "jarbas@openvoiceos.com"}]
 requires-python = ">=3.9"
 dependencies = [
     "PyYAML>=6.0.3,<7.0.0",
-    "combo_lock~=0.3",
+    "filelock>=3.12",
     "python-dateutil~=2.9",
     "ovos-utils>=0.8.5,<1.0.0",
     "ovos-spec-tools[langcodes]>=1.14.0a8",
