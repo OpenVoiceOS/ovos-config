@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.9.0a2](https://github.com/OpenVoiceOS/ovos-config/tree/3.9.0a2) (2026-11-03)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.9.0a1...3.9.0a2)
+
+**Merged pull requests:**
+
+- test: accept the default region of bare en from ovos-spec-tools [\#358](https://github.com/OpenVoiceOS/ovos-config/pull/358) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [3.9.0a1](https://github.com/OpenVoiceOS/ovos-config/tree/3.9.0a1) (2026-10-12)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/3.8.2a1...3.9.0a1)
@@ -386,17 +394,9 @@
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.3a1...2.1.4a1)
 
-**Merged pull requests:**
-
-- fix: prefer precise onnx [\#249](https://github.com/OpenVoiceOS/ovos-config/pull/249) ([JarbasAl](https://github.com/JarbasAl))
-
 ## [2.1.3a1](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.3a1) (2025-10-09)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/2.1.2a5...2.1.3a1)
-
-**Merged pull requests:**
-
-- fix: en-us female voice [\#247](https://github.com/OpenVoiceOS/ovos-config/pull/247) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [2.1.2a5](https://github.com/OpenVoiceOS/ovos-config/tree/2.1.2a5) (2025-10-09)
 
@@ -504,15 +504,15 @@
 
 ## [1.0.4](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4) (2025-03-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a2...1.0.4)
-
-## [1.0.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a2) (2025-03-19)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a3...1.0.4a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a3...1.0.4)
 
 ## [1.0.4a3](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a3) (2025-03-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a1...1.0.4a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a2...1.0.4a3)
+
+## [1.0.4a2](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a2) (2025-03-19)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-config/compare/1.0.4a1...1.0.4a2)
 
 ## [1.0.4a1](https://github.com/OpenVoiceOS/ovos-config/tree/1.0.4a1) (2025-03-19)
 
