@@ -2,6 +2,12 @@ import os
 from os.path import basename, dirname, join
 from unittest import TestCase
 
+from ovos_spec_tools import language
+
+# Bare "en" resolves to en-GB from the ovos-spec-tools release that adds
+# default regions, and to langcodes' likely region en-US before it.
+BARE_EN = "en-GB" if hasattr(language, "default_region") else "en-US"
+
 RECS = join(dirname(dirname(dirname(__file__))), "ovos_config", "recommends")
 
 
@@ -48,7 +54,7 @@ class TestRecommendsFileResolution(TestCase):
         self.assertEqual(resolve("pt-AO"), "pt-PT.conf")
         self.assertEqual(resolve("de-AT"), "de-DE.conf")
         self.assertEqual(resolve("pt"), "pt-PT.conf")
-        self.assertEqual(resolve("en"), "en-US.conf")
+        self.assertEqual(resolve("en"), f"{BARE_EN}.conf")
         self.assertEqual(resolve("es-419", "online_female"), "es-MX.conf")
         self.assertEqual(resolve("es-419"), "es-ES.conf")
 
