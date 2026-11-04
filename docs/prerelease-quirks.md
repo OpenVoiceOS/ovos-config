@@ -4,6 +4,13 @@ Behavior changes since the last stable release, newest first. This file is
 reset at each stable release; entries that remove or deprecate behavior
 become the deprecation ledger for the next semver cycle.
 
+## 3.10.0a1
+
+- `mycroft.conf` ships an empty `listener.end_of_turn` block. The listener
+  reads it to load a plugin of the `opm.end_of_turn` type that ends a voice
+  command when the user finished speaking. The block is empty by default, so
+  the `silence_end` timer still ends commands and no behavior changes.
+
 ## 3.6.0a1
 
 - The default intent pipeline reverts to padatious. `mycroft.conf` lists
