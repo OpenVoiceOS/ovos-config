@@ -14,6 +14,9 @@ from ovos_config import Configuration, LocalConf
 from ovos_config.locations import USER_CONFIG, ASSISTANT_CONFIG
 from ovos_config.utils import find_recommends_file
 
+#: Model2Vec intent models earlier recommends files set; superseded by the plugin's defaults
+RETIRED_M2V_MODELS = ("Jarbas/ovos-model2vec-intents-",)
+
 CONFIG = Configuration()
 CONFIGS = [("Joined", CONFIG),
            ("System", CONFIG.system),
@@ -241,6 +244,11 @@ Notes:
     config = LocalConf(USER_CONFIG)
     config["tts"] = {"ovos-tts-plugin-server": {}}
     config["stt"] = {"ovos-stt-plugin-server": {}}
+
+    # a model an earlier autoconfigure wrote would win over the language's own "models" entry
+    m2v = config.get("intents", {}).get("ovos-m2v-pipeline", {})
+    if str(m2v.get("model", "")).startswith(RETIRED_M2V_MODELS):
+        console.print(f"[yellow]Dropping the retired intent model {m2v.pop('model')}[/yellow]")
 
     def do_merge(folder, fname=""):
         recs_path = f"{os.path.dirname(__file__)}/recommends"
